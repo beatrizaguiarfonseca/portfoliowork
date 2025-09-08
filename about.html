@@ -2,59 +2,120 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>About Beatriz Fonseca</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Beatriz Fonseca – About</title>
+  <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" />
+  <style>
+    body { font-family: 'Poppins', sans-serif; overflow-x: hidden; background-color: #FFFAF5; }
+    h1,h2,h3,h4,h5,h6 { font-family: 'Inter', sans-serif; }
+    .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+    .card-hover { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+    .card-hover:hover { transform: translateY(-10px); box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04); }
+    .pulse-animation { animation: pulse 2s infinite; }
+    @keyframes pulse { 0%{transform:scale(1);}50%{transform:scale(1.05);}100%{transform:scale(1);} }
+    #timelineSection { max-height: 0; overflow: hidden; transition: max-height 0.7s ease-in-out; }
+  </style>
 </head>
-<body class="bg-[#F9F7F3] font-['Poppins'] text-gray-700">
+<body>
 
-
-<!-- Nav -->
-<nav class="fixed top-0 w-full bg-white/90 backdrop-blur-sm z-50 border-b border-gray-100">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex justify-between h-16 items-center">
-      <a href="../index.html" class="flex items-center gap-2">
-        <img src="../images/Design sem nome (8).png" alt="Logo" class="h-8 w-8" />
-        <span class="text-xl font-bold text-primary">BEATRIZ AGUIAR FONSECA</span>
-      </a>
-      <div class="hidden md:flex space-x-8">
-        <a href="../index.html#projects" class="flex items-center gap-2 text-gray-900 hover:text-primary transition-colors">
-          <i class="ri-arrow-left-line"></i>
-          <span>Back</span>
-        </a>
+<!-- INTRO -->
+<section class="gradient-bg py-24 relative overflow-hidden text-center">
+  <div class="container mx-auto px-4">
+    <div class="flex flex-col items-center">
+      <img src="images/Foto perfil oficial.jpeg" alt="Profile" class="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover border-4 border-white shadow-lg mb-4" />
+      <h1 class="text-4xl font-bold text-[#FF7A00] mb-2">Beatriz Fonseca</h1>
+      <p class="text-orange-900 mb-6">Communication, Psychology & Data Science @ Northwestern</p>
+      <div class="flex flex-wrap justify-center gap-6">
+        <div class="card-hover bg-white rounded-lg shadow-md px-6 py-4 text-center">
+          <p class="text-2xl font-bold text-primary">4</p><p class="text-gray-600">Years Experience</p>
+        </div>
+        <div class="card-hover bg-white rounded-lg shadow-md px-6 py-4 text-center">
+          <p class="text-2xl font-bold text-primary">20+</p><p class="text-gray-600">Projects</p>
+        </div>
+        <div class="card-hover bg-white rounded-lg shadow-md px-6 py-4 text-center">
+          <p class="text-2xl font-bold text-primary">5</p><p class="text-gray-600">Awards</p>
+        </div>
       </div>
     </div>
   </div>
-</nav>
+</section>
 
-  <main class="max-w-4xl mx-auto px-6 py-20">
-    <div class="flex flex-col md:flex-row gap-12 items-start">
-      <div class="md:w-1/3">
-        <img src="images/Foto perfil oficial.jpeg" alt="Beatriz Fonseca" class="rounded-lg shadow-lg w-full"/>
-      </div>
-      <div class="md:w-2/3">
-        <h1 class="text-4xl font-bold mb-4">Hey! I'm Beatriz 👋</h1>
-        <p class="mb-4">I'm a curious, creative Brazilian student currently based in Evanston, IL, studying Communication, Psychology, and Data Science at Northwestern. I blend storytelling, design, and marketing to help brands speak with empathy and personality.</p>
-        <p class="mb-4">Over the years, I’ve worked on product development, social media campaigns, user interfaces, and strategy plans — from tech startups to international student associations. Whether it's designing a smart bracelet or running global marketing campaigns, I love projects that balance creativity and purpose.</p>
-        <p class="mb-4">I’ve worked for <strong>Amazon Music</strong>, <strong>Stone Co</strong>, <strong>Upkey</strong>, and <strong>The Garage</strong> — and I’m always looking for the next meaningful challenge.</p>
-        <p class="mb-4">I bring a global lens to everything I do, thanks to programs in San Francisco, Florence, and São Paulo. I'm fluent in Portuguese and English, and intermediary at Spanish.</p>
-
-        <h2 class="text-2xl font-bold mt-8 mb-4">Fun facts!</h2>
-        <ul class="list-disc ml-6 space-y-2">
-          <li>I will defend hot chocolate as the superior beverage! ☕️</li>
-          <li>I'm hoping to learn my fifth instrument very soon :D </li>
-          <li>I LOVE romcoms — “Notting Hill” supremacy 💌</li>
-          <li>I will design your brand *and* hype it up in its DMs.</li>
-        </ul>
-
-        <a href="mailto:beatrizfonseca2027@u.northwestern.edu" class="inline-block mt-8 bg-primary text-white px-6 py-3 rounded-button hover:bg-primary/90 transition">
-          Let's connect
-        </a>
+<!-- EDUCATION -->
+<section class="py-16 bg-white">
+  <div class="container mx-auto px-4">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="text-2xl font-bold text-gray-800 mb-6">Education</h2>
+      <div class="card-hover bg-[#FFFAF5] p-6 rounded-lg shadow-md mb-6 text-left">
+        <h3 class="text-lg font-semibold text-gray-800 mb-2">Northwestern University</h3>
+        <p class="text-[#FF7A00] font-medium mb-1">Evanston, IL</p>
+        <p class="text-gray-600 mb-2">2021 – 2025 | GPA: 3.89</p>
+        <p class="text-gray-700">B.S. Communication Studies & B.A. Psychology. IMC & Design Certificates. Programs in SF, Florence & São Paulo.</p>
       </div>
     </div>
-  </main>
+  </div>
+</section>
 
+<!-- EXPERIENCE HEADER -->
+<section class="py-8">
+  <div class="container mx-auto px-4 text-center">
+    <h2 class="text-2xl font-bold text-gray-800 mb-6">Experience</h2>
+    <button id="toggleTimeline" class="bg-[#FF7A00] text-white px-6 py-2 rounded shadow-md hover:bg-orange-600 transition-all">
+      Complete Full Timeline
+    </button>
+  </div>
+</section>
 
-</body>
-</html>
+<!-- TIMELINE SECTION -->
+<section id="timelineSection" class="pb-32">
+  <div class="container mx-auto px-4">
+    <div class="max-w-4xl mx-auto">
+      <div class="relative">
+        <div class="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-orange-200"></div>
+        <!-- Entries start -->
+        <!-- SelfActualize.AI / WingRep.AI -->
+        <div class="flex flex-col md:flex-row items-center md:items-start mb-12 fade-in">
+          <div class="md:w-1/2 md:pr-12 md:text-right mb-6 md:mb-0">
+            <div class="card-hover bg-white p-6 rounded-lg shadow-md inline-block">
+              <h3 class="text-lg font-semibold text-gray-800 mb-2">Marketing & Sales Intern</h3>
+              <p class="text-[#FF7A00] font-medium mb-2">SelfActualize.AI / WingRep.AI</p>
+              <p class="text-gray-600 mb-2">Jun 2025 – Present</p>
+              <p class="text-gray-700">Executed go-to-market strategy, brand voice, and sales enablement. Led rebrand sessions.</p>
+            </div>
+          </div>
+          <div class="w-10 h-10 flex items-center justify-center bg-[#FF7A00] rounded-full text-white z-10 mx-auto md:mx-0 pulse-animation"><i class="ri-briefcase-line"></i></div>
+          <div class="md:w-1/2 md:pl-12 hidden md:block"></div>
+        </div>
+        <!-- President, BRASA NU -->
+        <div class="flex flex-col md:flex-row items-center md:items-start mb-12 fade-in delay-100">
+          <div class="md:w-1/2 md:pr-12 hidden md:block"></div>
+          <div class="w-10 h-10 flex items-center justify-center bg-[#FF7A00] rounded-full text-white z-10 mx-auto md:mx-0 pulse-animation"><i class="ri-user-star-line"></i></div>
+          <div class="md:w-1/2 md:pl-12 mb-6 md:mb-0">
+            <div class="card-hover bg-white p-6 rounded-lg shadow-md inline-block">
+              <h3 class="text-lg font-semibold text-gray-800 mb-2">President</h3>
+              <p class="text-[#FF7A00] font-medium mb-2">BRASA Northwestern</p>
+              <p class="text-gray-600 mb-2">May 2025 – Present</p>
+              <p class="text-gray-700">Led Brazilian student community with events, partnerships, and mentorship.</p>
+            </div>
+          </div>
+        </div>
+        <!-- Amazon Music Extern -->
+        <div class="flex flex-col md:flex-row items-center md:items-start mb-12 fade-in delay-200">
+          <div class="md:w-1/2 md:pr-12 md:text-right mb-6 md:mb-0">
+            <div class="card-hover bg-white p-6 rounded-lg shadow-md inline-block">
+              <h3 class="text-lg font-semibold text-gray-800 mb-2">Product Marketing & Branding Extern</h3>
+              <p class="text-[#FF7A00] font-medium mb-2">Amazon Music</p>
+              <p class="text-gray-600 mb-2">Jan 2025 – Mar 2025</p>
+              <p class="text-gray-700">Led UX/UI rebranding and Gen Z campaigns. Created interactive assets.</p>
+            </div>
+          </div>
+          <div class="w-10 h-10 flex items-center justify-center bg-[#FF7A00] rounded-full text-white z-10 mx-auto md:mx-0 pulse-animation"><i class="ri-briefcase-line"></i></div>
+          <div class="md:w-1/2 md:pl-12 hidden md:block"></div>
+        </div>
+        <!-- Marketing Aide, The Garage -->
+        <div class="flex flex-col md:flex-row items-center md:items-start mb-12 fade-in delay-300">
+          <div class="md:w-1/2 md:pr-12 hidden md:block"></div>
+          <div class="w-10 h-10 flex items...
+   (truncated for brevity)
