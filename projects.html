@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" type="image/png" href="images/Design sem nome (8).png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Projects — Beatriz Fonseca</title>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#FF6B35',
+            secondary: '#04A777'
+          },
+          borderRadius: {
+            'none': '0px',
+            'sm': '4px',
+            DEFAULT: '8px',
+            'md': '12px',
+            'lg': '16px',
+            'xl': '20px',
+            '2xl': '24px',
+            '3xl': '32px',
+            'full': '9999px',
+            'button': '8px'
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Fonts + Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Fustat:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet"/>
+
+  <style>
+    .tilt-card {
+      transform-style: preserve-3d;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .tilt-card:hover {
+      transform: perspective(1000px) rotateX(2deg) rotateY(2deg) translateY(-6px);
+    }
+    .neon-glow { transition: box-shadow 0.2s ease; }
+    .neon-glow:hover {
+      box-shadow: 0 0 18px rgba(255, 107, 53, 0.25);
+    }
+  </style>
+</head>
+
+<body class="bg-[#F9F7F3] font-['Poppins']">
+  <!-- Navbar -->
+  <nav class="fixed top-0 w-full bg-white/90 backdrop-blur-sm z-50 border-b border-gray-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between h-16 items-center">
+        <a href="index.html" class="flex items-center gap-2">
+          <img src="images/Design sem nome (8).png" alt="Beatriz Logo" class="h-8 w-8 object-contain">
+          <span class="text-xl font-bold font-['Fustat'] text-primary tracking-wide uppercase">BEATRIZ AGUIAR FONSECA</span>
+        </a>
+        <div class="hidden md:flex space-x-8">
+          <a href="index.html" class="text-gray-900 hover:text-primary transition-colors">Home</a>
+          <a href="about.html" class="text-gray-900 hover:text-primary transition-colors">About</a>
+          <a href="projects.html" class="text-gray-900 hover:text-primary transition-colors">Projects</a>
+        </div>
+        <button class="md:hidden w-10 h-10 flex items-center justify-center" aria-label="Open menu">
+          <i class="ri-menu-line text-xl"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="pt-16">
+    <!-- Projects -->
+    <section id="projects" class="py-20 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-4xl font-bold mb-12 text-center font-['Fustat']">Projects</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Project Card Template -->
+
+          <a href="projects/wingrep.html"
+            class="tilt-card neon-glow bg-white rounded-lg overflow-hidden shadow-lg transition-transform hover:scale-[1.02]">
+            <img src="images/wingrep mockup.png" class="h-48 w-full object-cover" alt="WingRep mockup"/>
+            <div class="p-6">
+              <h3 class="text-xl font-bold mb-2 font-['Fustat']">WingRep Startup Rebrand</h3>
+              <p class="text-gray-600 mb-4 text-sm">End-to-End Rebrand: Project Management, Branding, and Web Design for San Francisco Startup</p>
+              <div class="flex flex-wrap gap-2 text-sm">
+                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Web Development/Design</span>
+                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Marketing</span>
+              </div>
+            </div>
+          </a>
+
+          <a href="projects/amazon-music.html"
+            class="tilt-card neon-glow bg-white rounded-lg overflow-hidden shadow-lg transition-transform hover:scale-[1.02]">
+            <img src="images/WhatsApp Image 2025-03-26 at 04.46.12.jpeg" class="h-48 w-full object-cover" alt="Amazon Music prototype"/>
+            <div class="p-6">
+              <h3 class="text-xl font-bold mb-2 font-['Fustat']">Amazon Music Marketplace Integration</h3>
+              <p class="text-gray-600 mb-4 text-sm">Branding and UI/UX externship exploring an e-commerce/music fusion.</p>
+              <div class="flex flex-wrap gap-2 text-sm">
+                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">UX/UI</span>
+                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Branding</span>
+              </div>
+            </div>
+          </a>
+
+          <a href="projects/there4you.html" class="tilt-card neon-glow bg-white rounded-lg overflow-hidden shadow-lg">
+            <img src="images/t4y.jpeg" class="h-48 w-full object-cover" alt="THERE4YOU bracelet"/>
+            <div class="p-6">
+              <h3 class="text-xl font-bold mb-2 font-['Fustat']">THERE4YOU Smart Bracelet</h3>
+              <p class="text-gray-600 mb-4 text-sm">Interned at Upkey to develop wearable anti-harassment tech + brand.</p>
+              <div class="flex flex-wrap gap-2 text-sm">
+                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Product Design</span>
+                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Internship</span>
+              </div>
+            </div>
+          </a>
+
+          <a href="projects/dale-duro.html" class="tilt-card neon-glow bg-white rounded-lg overflow-hidden shadow-lg">
+            <img src="images/rfs2.png" class="h-48 w-full object-cover" alt="Dale Duro graphic"/>
+            <div class="p-6">
+              <h3 class="text-xl font-bold mb-2 font-['Fustat']">Dale Duro Latin Dance Co.</h3>
+              <p class="text-gray-600 mb-4 text-sm">Handled PR and marketing campaigns for Northwestern’s Latin dance group, breaking attendance records at the Spring Show 2025 with 1,000+ attendees.</p>
+              <div class="flex flex-wrap gap-2 text-sm">
+                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Social Media</span>
+                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Public Relations</span>
+              </div>
+            </div>
+          </a>
+
+          <a href="projects/c4-energy.html" class="tilt-card neon-glow bg-white rounded-lg overflow-hidden shadow-lg">
+            <img src="images/WhatsApp Image 2025-03-26 at 06.03.02.jpeg" class="h-48 w-full object-cover" alt="C4 Energy deck"/>
+            <div class="p-6">
+              <h3 class="text-xl font-bold mb-2 font-['Fustat']">C4 Smart Energy Strategy</h3>
+              <p class="text-gray-600 mb-4 text-sm">Audience research and brand identity for a performance drink brand.</p>
+              <div class="flex flex-wrap gap-2 text-sm">
+                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Branding</span>
+                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Research</span>
+              </div>
+            </div>
+          </a>
+
+          <a href="projects/brasa-summit.html" class="tilt-card neon-glow bg-white rounded-lg overflow-hidden shadow-lg">
+            <img src="images/summit 5.jpeg" class="h-48 w-full object-cover" alt="BRASA Summit 2024"/>
+            <div class="p-6">
+              <h3 class="text-xl font-bold mb-2 font-['Fustat']">BRASA Summit 2024 Campaign</h3>
+              <p class="text-gray-600 mb-4 text-sm">Marketing visuals and strategy for the biggest Brazilian student event.</p>
+              <div class="flex flex-wrap gap-2 text-sm">
+                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Social Media</span>
+                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Marketing</span>
+              </div>
+            </div>
+          </a>
+
+          <a href="projects/leaving-lightly.html" class="tilt-card neon-glow bg-white rounded-lg overflow-hidden shadow-lg">
+            <img src="images/journey.png" class="h-48 w-full object-cover" alt="Leaving Lightly UX"/>
+            <div class="p-6">
+              <h3 class="text-xl font-bold mb-2 font-['Fustat']">Leaving Lightly</h3>
+              <p class="text-gray-600 mb-4 text-sm">UX app that reduces campus waste by facilitating item exchanges.</p>
+              <div class="flex flex-wrap gap-2 text-sm">
+                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">UX/UI</span>
+                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Sustainability</span>
+              </div>
+            </div>
+          </a>
+
+          <a href="projects/sf-bakeries.html" class="tilt-card neon-glow bg-white rounded-lg overflow-hidden shadow-lg">
+            <img src="images/bakery 3.png" class="h-48 w-full object-cover" alt="SF bakeries project"/>
+            <div class="p-6">
+              <h3 class="text-xl font-bold mb-2 font-['Fustat']">Bakeries in San Francisco</h3>
+              <p class="text-gray-600 mb-4 text-sm">Visual storytelling project combining photography and web design.</p>
+              <div class="flex flex-wrap gap-2 text-sm">
+                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Photography</span>
+                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Website</span>
+              </div>
+            </div>
+          </a>
+
+          <a href="projects/brasa-global.html" class="tilt-card neon-glow bg-white rounded-lg overflow-hidden shadow-lg">
+            <img src="images/brasa 2.png" class="h-48 w-full object-cover" alt="BRASA Global board"/>
+            <div class="p-6">
+              <h3 class="text-xl font-bold mb-2 font-['Fustat']">BRASA Global Board</h3>
+              <p class="text-gray-600 mb-4 text-sm">Strategy + content creation for Brazilian student network worldwide.</p>
+              <div class="flex flex-wrap gap-2 text-sm">
+                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Social Media</span>
+                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Leadership</span>
+              </div>
+            </div>
+          </a>
+
+          <a href="projects/tether.html" class="tilt-card neon-glow bg-white rounded-lg overflow-hidden shadow-lg">
+            <img src="images/prot 8.jpeg" class="h-48 w-full object-cover" alt="Tether app and product"/>
+            <div class="p-6">
+              <h3 class="text-xl font-bold mb-2 font-['Fustat']">Tether: App + Product Design</h3>
+              <p class="text-gray-600 mb-4 text-sm">Built a connected app and physical product to support mental wellness.</p>
+              <div class="flex flex-wrap gap-2 text-sm">
+                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">UX/UI</span>
+                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Product Design</span>
+              </div>
+            </div>
+          </a>
+
+          <a href="projects/the-garage.html" class="tilt-card neon-glow bg-white rounded-lg overflow-hidden shadow-lg">
+            <img src="images/the garage.png" class="h-48 w-full object-cover" alt="The Garage project"/>
+            <div class="p-6">
+              <h3 class="text-xl font-bold mb-2 font-['Fustat']">Marketing Aide @ The Garage</h3>
+              <p class="text-gray-600 mb-4 text-sm">Creative strategy support for Northwestern's innovation incubator.</p>
+              <div class="flex flex-wrap gap-2 text-sm">
+                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Marketing</span>
+                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Strategy</span>
+              </div>
+            </div>
+          </a>
+
+          <a href="projects/brasa-nu.html" class="tilt-card neon-glow bg-white rounded-lg overflow-hidden shadow-lg">
+            <img src="images/1.png" class="h-48 w-full object-cover" alt="BRASA NU chapter"/>
+            <div class="p-6">
+              <h3 class="text-xl font-bold mb-2 font-['Fustat']">BRASA Northwestern Chapter</h3>
+              <p class="text-gray-600 mb-4 text-sm">Managed social campaigns and events for Brazilian community at NU.</p>
+              <div class="flex flex-wrap gap-2 text-sm">
+                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Social Media</span>
+                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Community</span>
+              </div>
+            </div>
+          </a>
+
+          <a href="projects/isa.html" class="tilt-card neon-glow bg-white rounded-lg overflow-hidden shadow-lg">
+            <img src="images/18.png" class="h-48 w-full object-cover" alt="ISA program"/>
+            <div class="p-6">
+              <h3 class="text-xl font-bold mb-2 font-['Fustat']">International Study Ambassador Program</h3>
+              <p class="text-gray-600 mb-4 text-sm">Led social media and outreach for global student association.</p>
+              <div class="flex flex-wrap gap-2 text-sm">
+                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Social Media</span>
+                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Leadership</span>
+              </div>
+            </div>
+          </a>
+
+          <a href="projects/brnd.html" class="tilt-card neon-glow bg-white rounded-lg overflow-hidden shadow-lg">
+            <img src="images/Beatriz's Portfolio.pdf.png" class="h-48 w-full object-cover" alt="Brazilian Debate Association"/>
+            <div class="p-6">
+              <h3 class="text-xl font-bold mb-2 font-['Fustat']">Brazilian Debate Association</h3>
+              <p class="text-gray-600 mb-4 text-sm">Social media and communications lead for national debate league.</p>
+              <div class="flex flex-wrap gap-2 text-sm">
+                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Communications</span>
+                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Social Media</span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
