@@ -1,656 +1,744 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>About Me | Beatriz Fonseca</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="icon" type="image/png" href="../images/Design sem nome (8).png" />
-  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="images/Design sem nome (8).png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — Beatriz Fonseca</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+
   <style>
-    body { font-family: 'Poppins', sans-serif; overflow-x: hidden; background-color: #F9F7F3; }
-    h1,h2,h3,h4,h5,h6 { font-family: 'Poppins', sans-serif; }
-    .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
-    .fade-in.visible { opacity: 1; transform: translateY(0); }
-    .card-hover { transition: transform 0.3s ease, box-shadow 0.3s ease; }
-    .card-hover:hover { transform: translateY(-10px); box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04); }
-    .pulse-animation { animation: pulse 2s infinite; }
-    @keyframes pulse { 0%{transform:scale(1);}50%{transform:scale(1.05);}100%{transform:scale(1);} }
-
-    /* Expand/collapse sections */
-    #timelineSection { max-height: 0; overflow: hidden; transition: max-height 0.7s ease-in-out; }
-    #timelineSection.expanded { max-height: 10000px; }
-    #aboutMeText { max-height: 0; overflow: hidden; transition: max-height 0.7s ease-in-out, opacity 0.5s ease; opacity: 0; }
-    #aboutMeText.expanded { max-height: 1000px; opacity: 1; }
-
-    /* Hobbies */
-    .hobby-card { transition: all 0.3s ease; cursor: pointer; }
-    .hobby-card:hover { transform: scale(1.05); }
-    .hobby-card.active { background: linear-gradient(135deg, #FF7A00 0%, #FF9500 100%); color: white; transform: scale(1.1); }
-    .floating { animation: float 3s ease-in-out infinite; }
-    @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
-    .gradient-bg { background: linear-gradient(135deg, #FFF8E1 0%, #FFE082 100%); }
-
-    /* Intro animations */
-    .wave { animation: wave 2s ease-in-out infinite; }
-    @keyframes wave { 0%, 100% { transform: rotate(0deg); } 25% { transform: rotate(20deg); } 75% { transform: rotate(-10deg); } }
-    .typewriter { overflow: hidden; border-right: 3px solid #FF7A00; white-space: nowrap; animation: typing 3s steps(30) 1s 1 normal both, blinking 1s steps(2) infinite 4s; }
-    @keyframes typing { from { width: 0; } to { width: 100%; } }
-    @keyframes blinking { 0%, 100% { border-color: #FF7A00; } 50% { border-color: transparent; } }
-    .sparkle { animation: sparkle 2s ease-in-out infinite; }
-    @keyframes sparkle { 0%, 100% { opacity: 0.3; transform: scale(0.8); } 50% { opacity: 1; transform: scale(1.2); } }
-    .profile-clickable { cursor: pointer; transition: all 0.3s ease; }
-    .profile-clickable:hover { transform: scale(1.1) rotate(5deg); }
-
-    .hobby-detail-section { 
-      height: 600px;
-      opacity: 0; 
-      transform: translateX(-20px); 
-      transition: all 0.5s ease;
-      position: absolute;
-      width: 100%;
+    :root {
+      --orange: #FF6B35;
+      --orange-soft: #FFF2EC;
+      --orange-mid: #FFD9C7;
+      --black: #0C0C0C;
+      --gray: #717171;
+      --gray-light: #F7F7F7;
+      --white: #FFFFFF;
+      --serif: 'Instrument Serif', Georgia, serif;
+      --sans: 'Plus Jakarta Sans', sans-serif;
     }
-    .hobby-detail-section.active { opacity: 1; transform: translateX(0); }
-    .hobby-details-container { position: relative; min-height: 500px; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); background: var(--white); color: var(--black); overflow-x: hidden; }
 
-    /* Education */
-    .education-card { transition: all 0.4s ease; cursor: pointer; }
-    .education-card:hover { transform: scale(1.02) rotate(0.5deg); box-shadow: 0 20px 25px -5px rgba(255, 122, 0, 0.1); }
-    .education-detail { max-height: 0; overflow: hidden; transition: max-height 0.5s ease; }
-    .education-detail.expanded { max-height: 400px; }
-    .rotate-icon { transition: transform 0.3s ease; }
-    .rotate-icon.rotated { transform: rotate(180deg); }
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; width: 100%; z-index: 200;
+      background: rgba(255,255,255,0.92); backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+    .nav-inner {
+      max-width: 1280px; margin: 0 auto; padding: 0 2.5rem;
+      height: 58px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo {
+      font-family: var(--sans); font-weight: 800; font-size: 0.78rem;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--black); text-decoration: none;
+      display: flex; align-items: center; gap: 9px;
+    }
+    .nav-logo img { height: 26px; width: 26px; object-fit: contain; border-radius: 4px; }
+    .nav-logo .ndot { width: 6px; height: 6px; border-radius: 50%; background: var(--orange); flex-shrink: 0; }
+    .nav-links { display: flex; gap: 2.5rem; align-items: center; }
+    .nav-links a { font-size: 0.82rem; font-weight: 600; letter-spacing: 0.04em; color: var(--gray); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--black); }
+    .nav-cta { background: var(--black); color: var(--white) !important; padding: 7px 18px; border-radius: 999px; font-size: 0.78rem !important; transition: background 0.2s !important; }
+    .nav-cta:hover { background: var(--orange) !important; }
+
+    /* ─── BUTTONS ─── */
+    .btn-fill { background: var(--black); color: var(--white); padding: 0.8rem 2rem; border-radius: 999px; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.02em; text-decoration: none; display: inline-flex; align-items: center; gap: 7px; transition: all 0.22s; font-family: var(--sans); }
+    .btn-fill:hover { background: var(--orange); transform: translateY(-2px); }
+    .btn-outline { background: transparent; color: var(--black); border: 1.5px solid rgba(0,0,0,0.18); padding: 0.8rem 2rem; border-radius: 999px; font-size: 0.85rem; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 7px; transition: all 0.22s; font-family: var(--sans); }
+    .btn-outline:hover { border-color: var(--orange); color: var(--orange); transform: translateY(-2px); }
+
+    .odivider { width: 36px; height: 2.5px; background: var(--orange); border-radius: 2px; margin-bottom: 1.5rem; }
+    .tag { font-size: 0.63rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; background: var(--orange-soft); color: var(--orange); padding: 3px 10px; border-radius: 999px; }
+    .chip { background: var(--orange-soft); color: var(--orange); padding: 5px 13px; border-radius: 999px; font-size: 0.72rem; font-weight: 700; }
+
+    @keyframes fUp { to { opacity: 1; transform: translateY(0); } }
+    @keyframes bPulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+    /* ═══════════════════════════════════
+       HERO
+    ═══════════════════════════════════ */
+    #hero {
+      padding-top: 58px;
+      min-height: 92vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding-left: 2.5rem;
+      padding-right: 2.5rem;
+      gap: 5rem;
+    }
+    .hero-left { padding: 4rem 0; }
+
+    .page-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--orange); background: var(--orange-soft); border: 1px solid var(--orange-mid);
+      padding: 5px 14px; border-radius: 999px; margin-bottom: 2rem;
+      opacity: 0; transform: translateY(10px); animation: fUp 0.5s ease 0.1s forwards;
+    }
+    .page-tag .pulse { width: 6px; height: 6px; border-radius: 50%; background: var(--orange); animation: bPulse 2s ease-in-out infinite; }
+
+    .hero-h1 {
+      font-family: var(--serif);
+      font-size: clamp(2.8rem, 5vw, 5rem);
+      line-height: 1.04; letter-spacing: -0.01em; color: var(--black);
+      opacity: 0; transform: translateY(16px); animation: fUp 0.7s ease 0.2s forwards;
+    }
+    .hero-h1 em { font-style: italic; color: var(--orange); }
+
+    .hero-body {
+      font-size: 1rem; font-weight: 400; line-height: 1.75; color: var(--gray);
+      max-width: 480px; margin: 2rem 0 2.5rem;
+      opacity: 0; transform: translateY(10px); animation: fUp 0.5s ease 0.4s forwards;
+    }
+    .hero-body em { font-style: italic; color: var(--black); font-weight: 600; }
+
+    .hero-stats {
+      display: flex; gap: 2rem; flex-wrap: wrap; margin-bottom: 2.5rem;
+      opacity: 0; transform: translateY(10px); animation: fUp 0.5s ease 0.5s forwards;
+    }
+    .stat-item { }
+    .stat-num { font-family: var(--serif); font-size: 2.4rem; color: var(--orange); line-height: 1; }
+    .stat-lbl { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; color: var(--gray); margin-top: 2px; text-transform: uppercase; }
+
+    .hero-btns { display: flex; gap: 0.875rem; flex-wrap: wrap; opacity: 0; transform: translateY(10px); animation: fUp 0.5s ease 0.6s forwards; }
+
+    /* Hero right: photo collage */
+    .hero-right {
+      padding: 4rem 0;
+      opacity: 0; transform: translateY(20px); animation: fUp 0.8s ease 0.35s forwards;
+    }
+    .photo-collage {
+      position: relative;
+      height: 560px;
+    }
+    .collage-main {
+      position: absolute; top: 0; left: 0;
+      width: 300px; height: 400px;
+      border-radius: 20px; overflow: hidden;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.14);
+    }
+    .collage-main img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+    .collage-card-1 {
+      position: absolute; top: 40px; right: 0;
+      width: 190px; height: 240px;
+      border-radius: 16px; overflow: hidden;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.12);
+    }
+    .collage-card-1 img { width: 100%; height: 100%; object-fit: cover; }
+    .collage-card-2 {
+      position: absolute; bottom: 0; left: 50px;
+      width: 240px; height: 180px;
+      border-radius: 16px; overflow: hidden;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.12);
+    }
+    .collage-card-2 img { width: 100%; height: 100%; object-fit: cover; }
+    .collage-badge {
+      position: absolute; top: 260px; right: 10px;
+      background: var(--orange); color: #fff;
+      border-radius: 12px; padding: 10px 14px;
+      font-size: 0.7rem; font-weight: 800;
+      letter-spacing: 0.04em; text-align: center;
+      box-shadow: 0 8px 20px rgba(255,107,53,0.35);
+      max-width: 130px;
+    }
+    .collage-badge .big { font-size: 1.5rem; display: block; font-family: var(--serif); font-style: italic; }
+    .collage-sticker {
+      position: absolute; bottom: 90px; right: 0;
+      background: #fff; border: 2px solid var(--orange-mid);
+      border-radius: 12px; padding: 8px 12px;
+      font-size: 0.72rem; font-weight: 700; color: var(--gray);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    }
+
+    /* ═══════════════════════════════════
+       EDUCATION
+    ═══════════════════════════════════ */
+    #education {
+      padding: 6rem 2.5rem;
+      background: var(--gray-light);
+    }
+    .edu-inner { max-width: 1100px; margin: 0 auto; }
+    .edu-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 2rem; margin-top: 2.5rem;
+    }
+    @media(max-width:768px){ .edu-grid { grid-template-columns: 1fr; } }
+
+    .edu-main-card {
+      background: #fff; border-radius: 20px;
+      border: 1px solid rgba(0,0,0,0.06);
+      padding: 2rem; grid-column: 1 / -1;
+    }
+    .edu-logo-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.25rem; }
+    .edu-logo-circle {
+      width: 48px; height: 48px; border-radius: 50%;
+      background: var(--black); display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; color: #fff; font-weight: 800; flex-shrink: 0;
+    }
+    .edu-school { font-family: var(--serif); font-size: 1.5rem; color: var(--black); }
+    .edu-degree { font-size: 0.88rem; color: var(--gray); margin-top: 2px; }
+    .edu-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .edu-meta-item { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.06em; color: var(--orange); text-transform: uppercase; }
+    .edu-pill-row { display: flex; gap: 8px; flex-wrap: wrap; }
+
+    .edu-sub-card {
+      background: #fff; border-radius: 16px;
+      border: 1px solid rgba(0,0,0,0.06);
+      padding: 1.5rem;
+    }
+    .edu-sub-label { font-size: 0.68rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--orange); margin-bottom: 0.875rem; }
+    .edu-sub-h { font-family: var(--serif); font-size: 1.1rem; margin-bottom: 0.75rem; }
+    .edu-list { list-style: none; }
+    .edu-list li { font-size: 0.85rem; color: var(--gray); padding: 4px 0; border-bottom: 1px solid rgba(0,0,0,0.04); display: flex; align-items: start; gap: 8px; }
+    .edu-list li::before { content: '—'; color: var(--orange); flex-shrink: 0; }
+
+    .immersion-row { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .immersion-item {
+      flex: 1; min-width: 120px;
+      background: var(--gray-light); border-radius: 12px;
+      padding: 1rem; text-align: center;
+    }
+    .immersion-flag { font-size: 1.8rem; margin-bottom: 6px; }
+    .immersion-city { font-size: 0.78rem; font-weight: 800; color: var(--black); }
+    .immersion-note { font-size: 0.68rem; color: var(--gray); margin-top: 2px; }
+
+    /* ═══════════════════════════════════
+       HOBBIES — editorial toggle layout
+    ═══════════════════════════════════ */
+    #hobbies {
+      padding: 6rem 2.5rem;
+      background: #fff;
+    }
+    .hobbies-inner { max-width: 1100px; margin: 0 auto; }
+
+    .hobbies-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 3rem;
+      margin-top: 3rem;
+      align-items: start;
+    }
+    @media(max-width:900px){
+      .hobbies-layout { grid-template-columns: 1fr; }
+    }
+
+    /* Left: tab list */
+    .hobby-tabs { display: flex; flex-direction: column; gap: 4px; position: sticky; top: 80px; }
+    .htab {
+      display: flex; align-items: center; gap: 14px;
+      padding: 1rem 1.25rem; border-radius: 12px;
+      cursor: pointer; transition: all 0.22s;
+      border: 1.5px solid transparent;
+      background: transparent;
+      text-align: left;
+    }
+    .htab:hover { background: var(--gray-light); }
+    .htab.active {
+      background: var(--black); border-color: var(--black);
+    }
+    .htab-icon {
+      width: 40px; height: 40px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.25rem; flex-shrink: 0;
+      background: var(--gray-light); transition: background 0.22s;
+    }
+    .htab.active .htab-icon { background: rgba(255,255,255,0.12); }
+    .htab-text { }
+    .htab-title { font-size: 0.92rem; font-weight: 800; color: var(--black); transition: color 0.22s; }
+    .htab.active .htab-title { color: #fff; }
+    .htab-sub { font-size: 0.72rem; color: var(--gray); margin-top: 1px; transition: color 0.22s; }
+    .htab.active .htab-sub { color: rgba(255,255,255,0.55); }
+
+    /* Right: hobby panels */
+    .hobby-panels { position: relative; min-height: 560px; }
+    .hpanel {
+      position: absolute; inset: 0;
+      opacity: 0; pointer-events: none;
+      transform: translateY(10px);
+      transition: opacity 0.45s ease, transform 0.45s ease;
+    }
+    .hpanel.active {
+      opacity: 1; pointer-events: auto; transform: translateY(0);
+      position: relative; /* take space when active */
+    }
+
+    .hp-header { margin-bottom: 2rem; }
+    .hp-kicker { font-size: 0.68rem; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: var(--orange); margin-bottom: 0.5rem; }
+    .hp-title { font-family: var(--serif); font-size: 2rem; line-height: 1.15; }
+    .hp-title em { font-style: italic; color: var(--orange); }
+    .hp-desc { font-size: 0.93rem; color: var(--gray); line-height: 1.8; margin-top: 0.875rem; }
+
+    /* Photo grid — different layouts per hobby */
+    .hp-photo-grid { display: grid; gap: 1rem; margin-bottom: 1.5rem; }
+    .hp-photo-grid.two-col { grid-template-columns: 1fr 1fr; }
+    .hp-photo-grid.three-col { grid-template-columns: 2fr 1fr 1fr; }
+    .hp-photo-grid.asymm { grid-template-columns: 1fr 1.2fr; }
+    .hp-photo { border-radius: 14px; overflow: hidden; background: var(--gray-light); }
+    .hp-photo.tall { aspect-ratio: 3/4; }
+    .hp-photo.wide { aspect-ratio: 16/9; }
+    .hp-photo.square { aspect-ratio: 1/1; }
+    .hp-photo img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease; }
+    .hp-photo:hover img { transform: scale(1.04); }
+
+    .hp-details { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .hp-detail-card {
+      flex: 1; min-width: 160px;
+      background: var(--gray-light); border-radius: 14px;
+      padding: 1.125rem 1.25rem;
+    }
+    .hp-detail-label { font-size: 0.65rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--orange); margin-bottom: 0.6rem; }
+    .hp-detail-items { list-style: none; }
+    .hp-detail-items li { font-size: 0.82rem; color: var(--gray); padding: 3px 0; display: flex; align-items: center; gap: 7px; }
+    .hp-detail-items li::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background: var(--orange); flex-shrink: 0; }
+
+    /* Countries grid for travel */
+    .countries-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+    .country-chip {
+      background: var(--gray-light); border-radius: 10px;
+      padding: 8px 10px; text-align: center;
+      font-size: 0.78rem; font-weight: 600; color: var(--black);
+    }
+    .country-chip .flag { font-size: 1.2rem; display: block; margin-bottom: 3px; }
+
+    /* ═══════════════════════════════════
+       CONTACT
+    ═══════════════════════════════════ */
+    #contact {
+      padding: 6rem 2.5rem;
+      background: var(--gray-light);
+      text-align: center;
+    }
+    .contact-wrap { max-width: 540px; margin: 0 auto; }
+    .contact-wrap h2 { font-family: var(--serif); font-size: 2.8rem; font-weight: 400; margin-bottom: 0.75rem; }
+    .contact-wrap h2 em { font-style: italic; color: var(--orange); }
+    .contact-wrap p { font-size: 1rem; color: var(--gray); margin-bottom: 2rem; line-height: 1.6; }
+    .contact-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+    footer { background: var(--black); color: #555; text-align: center; padding: 1.75rem; font-size: 0.78rem; letter-spacing: 0.04em; }
+    footer a { color: var(--orange); text-decoration: none; }
+    footer strong { color: #888; font-weight: 500; }
+
+    :where([class^="ri-"])::before { content: "\f3c2"; }
+
+    @media(max-width:900px){
+      #hero { grid-template-columns: 1fr; gap: 3rem; min-height: auto; padding-top: 76px; }
+      .hero-right { order: -1; }
+      .photo-collage { height: 320px; }
+      .collage-main { width: 200px; height: 280px; }
+      .collage-card-1 { width: 130px; height: 170px; }
+      .collage-card-2 { display: none; }
+      .collage-badge { top: 190px; }
+    }
   </style>
 </head>
-<body class="pt-16">
+<body>
 
-<!-- Navigation -->
-<nav class="fixed top-0 w-full bg-white/90 backdrop-blur-sm z-50 border-b border-gray-100">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex justify-between h-16 items-center">
-      <a href="index.html" class="flex items-center gap-2">
-        <img src="images/Design sem nome (8).png" alt="Logo" class="h-8 w-8" />
-        <span class="text-xl font-bold text-[#FF7A00]">BEATRIZ AGUIAR FONSECA</span>
-      </a>
-      <div class="hidden md:flex space-x-8">
-        <a href="index.html" class="text-gray-900 hover:text-primary transition-colors">Home</a>
-        <a href="about.html" class="text-gray-900 hover:text-primary transition-colors">About Me</a>
-        <a href="projects.html" class="text-gray-900 hover:text-primary transition-colors">Projects</a>
-      </div>
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="images/Design sem nome (8).png" alt="Logo">
+      <span class="ndot"></span>
+      Beatriz Aguiar Fonseca
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="about.html" class="active" style="color:var(--black)">About</a>
+      <a href="projects.html">Projects</a>
+      <a href="mailto:beatrizfonseca2027@u.northwestern.edu" class="nav-cta">Say hello</a>
     </div>
   </div>
 </nav>
 
+<!-- ═══ HERO ═══ -->
+<section id="hero">
 
-<!-- INTRO -->
-<section class="gradient-bg py-24 relative overflow-hidden">
-  <div class="container mx-auto px-4">
-    <div class="flex flex-col md:flex-row items-center gap-12">
-      <!-- Left Column - Image + Emojis -->
-      <div class="md:w-1/3 flex flex-col items-center">
-        <div class="relative mb-6">
-          <img id="profileImage" src="images/yosemite me.jpeg" alt="Profile" class="profile-clickable w-40 h-40 md:w-48 md:h-48 rounded-full object-cover border-4 border-white shadow-lg" />
-          <div class="absolute -top-2 -right-2 text-2xl wave cursor-pointer" onclick="showFunFact()" aria-label="Show fun fact">👋</div>
-          <div class="absolute -bottom-1 -left-1 text-xl sparkle">✨</div>
-        </div>
-        <p class="text-sm text-orange-800 text-center italic mb-4">Click on my image to learn more about me! 📖</p>
-        <p class="text-sm text-orange-400 text-center italic mb-4"> (and on the wave emoji for a fun fact 😝)</p>
+  <div class="hero-left">
+    <div class="page-tag"><span class="pulse"></span> About Me</div>
 
+    <h1 class="hero-h1">
+      Strategist,<br>
+      storyteller,<br>
+      and <em>builder.</em>
+    </h1>
+
+    <p class="hero-body">
+      I'm Beatriz, a Brazilian creative from São Paulo now living between Chicago and San Francisco. I thrive at the intersection of <em>design, culture, and technology</em>, building brands and experiences that actually resonate.
+    </p>
+
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-num">3.9</div>
+        <div class="stat-lbl">GPA · Dean's List</div>
       </div>
-      
-      <!-- Right Column - Content -->
-      <div class="md:w-2/3">
-        <div class="mb-4">
-          <h1 class="text-3xl md:text-4xl text-gray-700 mb-2">
-            <span id="greeting" class="typewriter inline-block">Olá! I'm Bia :)</span>
-          </h1>
-        </div>
-        
-        <div class="mb-6">
-          <p class="text-orange-900 mb-4 text-lg">Communication, Psychology, Marketing & Design @ Northwestern</p>
-          
-          <!-- About Me Text (Expandable) -->
-          <div id="aboutMeText" class="bg-white/70 backdrop-blur-sm p-6 rounded-lg mb-4">
-            <p class="text-gray-700 leading-relaxed mb-3">
-              I'm Beatriz, a Brazilian storyteller and strategist who thrives at the intersection of design, communication, and psychology. 
-              Shaped by my international experience as a student and study-abroad enthusiast, I bring multicultural, data-driven, 
-              and inclusive solutions to design and marketing.
-            </p>
-            <p class="text-gray-700 leading-relaxed mb-3">
-              I consider myself open-minded, creative, and community-centered, always focused on building connections that matter. 
-              When I'm not designing or directing campaigns, I love spending time with my family and friends and exploring my hobbies.
-            </p>
-            <p class="text-gray-700 leading-relaxed">
-              Feel free to check them out at the end of the page!
-            </p>
-          </div>
-          
-          <div id="funFact" class="text-sm text-orange-800 italic opacity-0 transition-opacity duration-500">
-            Click the wave emoji for a fun fact! 👆
-          </div>
-        </div>
-        
-        <!-- Language Toggle -->
-        <div class="mb-6">
-          <button id="languageToggle" class="bg-white text-[#FF7A00] px-6 py-3 rounded-full shadow-md hover:shadow-lg transition-all border border-[#FF7A00]">
-            <i class="ri-global-line mr-2"></i>
-            <span>English</span> / <span>Português</span> / <span>Español</span>
-          </button>
-        </div>
-        
-        <!-- Resume Download Button -->
-        <div class="mb-8">
-          <a href="images/BeatrizAguiarFonseca Resume.docx.pdf" download class="bg-[#FF7A00] text-white px-8 py-4 rounded-lg shadow-lg hover:bg-orange-600 transition-all flex items-center gap-2 font-medium hover:scale-105 inline-flex">
-            <i class="ri-download-line"></i>
-            <span id="downloadText">Download Resume</span>
-          </a>
-        </div>
-        
-        <!-- Stats -->
-        <div class="flex flex-wrap gap-6">
-          <div class="card-hover bg-white rounded-lg shadow-md px-6 py-4 text-center">
-            <p class="text-2xl font-bold text-[#FF7A00]">7</p><p class="text-gray-600">Years Experience</p>
-          </div>
-          <div class="card-hover bg-white rounded-lg shadow-md px-6 py-4 text-center">
-            <p class="text-2xl font-bold text-[#FF7A00]">20+</p><p class="text-gray-600">Projects</p>
-          </div>
-          <div class="card-hover bg-white rounded-lg shadow-md px-6 py-4 text-center">
-            <p class="text-2xl font-bold text-[#FF7A00]">5+</p><p class="text-gray-600">Awards</p>
-          </div>
-        </div>
+      <div class="stat-item">
+        <div class="stat-num">14+</div>
+        <div class="stat-lbl">Projects shipped</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">3</div>
+        <div class="stat-lbl">Languages spoken</div>
       </div>
     </div>
+
+    <div class="hero-btns">
+      <a href="images/BeatrizAguiarFonseca Resume.docx.pdf" download class="btn-fill"><i class="ri-download-line"></i> Download Resume</a>
+      <a href="mailto:beatrizfonseca2027@u.northwestern.edu" class="btn-outline">Say hello</a>
+    </div>
   </div>
+
+  <div class="hero-right">
+    <div class="photo-collage">
+      <div class="collage-main">
+        <img src="images/yosemite me.jpeg" alt="Beatriz at Yosemite">
+      </div>
+      <div class="collage-card-1">
+        <img src="images/coliseu.jpeg" alt="Travels">
+      </div>
+      <div class="collage-card-2">
+        <img src="images/outside lands.jpeg" alt="Music festival"></div>
+      
+    
+    </div>
+  </div>
+
 </section>
 
-<!-- EDUCATION -->
-<section class="py-16 bg-[#F9F7F3]">
-  <div class="container mx-auto px-4">
-    <div class="max-w-4xl mx-auto text-center">
-      <h2 class="text-2xl font-bold text-gray-800 mb-6">Education</h2>
-      <div class="education-card bg-white p-6 rounded-lg shadow-md mb-6 text-left relative" onclick="toggleEducationDetails()">
-        <div class="flex justify-between items-center cursor-pointer">
+<!-- ═══ EDUCATION ═══ -->
+<section id="education">
+  <div class="edu-inner">
+    <div class="odivider"></div>
+    <span style="font-size:0.68rem;font-weight:800;letter-spacing:0.16em;text-transform:uppercase;color:var(--orange);display:block;margin-bottom:0.5rem;">Education</span>
+    <h2 style="font-family:var(--serif);font-size:2.2rem;font-weight:400;color:var(--black);">Where I've been <em style="font-style:italic;color:var(--orange);">learning</em></h2>
+
+    <div class="edu-grid">
+
+      <!-- Main card: full width -->
+      <div class="edu-main-card">
+        <div class="edu-logo-row">
+          <div class="edu-logo-circle">NU</div>
           <div>
-            <h3 class="text-lg font-semibold text-gray-800 mb-2">Northwestern University</h3>
-            <p class="text-[#FF7A00] font-medium mb-1">Evanston, IL | Expected Spring 2027</p>
-            <p class="text-gray-600 mb-2">B.S. in Communication Studies & B.A. in Psychology</p>
-            <p class="text-gray-700">Dean's List 2023, 2024 & 2025 | GPA: 3.9/4.00</p>
-          </div>
-          <div class="rotate-icon text-2xl text-[#FF7A00]" id="educationIcon">
-            <i class="ri-arrow-down-line"></i>
+            <div class="edu-school">Northwestern University</div>
+            <div class="edu-degree">B.S. Communication Studies · B.A. Psychology · Expected Spring 2027</div>
           </div>
         </div>
-        
-        <div class="education-detail mt-4" id="educationDetails">
-          <div class="border-t border-gray-200 pt-4">
-            <div class="grid md:grid-cols-2 gap-6">
-              <div class="bg-gradient-to-br from-orange-50 to-yellow-50 p-4 rounded-lg">
-                <h4 class="font-semibold text-gray-800 mb-2 text-[#FF7A00]">🎯 Certificates</h4>
-                <ul class="text-sm text-gray-700 space-y-1">
-                  <li>• Integrated Marketing Communications (Medill School For Journalism, Media & IMC)</li>
-                  <li>• Design (Segal Design Institute)</li>
-                  <li> <strong>Associations: </strong>Figma Campus Leader 2025, Brazilian Student Association, Buffett Institute for Global Affairs, Dale Duro Latin Dance Co, Effective Altruism Fellowship, The Women's Network.</li>
-                </ul>
-              </div>
-              <div class="bg-gradient-to-br from-purple-50 to-pink-50 p-4 rounded-lg">
-                <h4 class="font-semibold text-gray-800 mb-2 text-[#FF7A00]">📚 Key Courses</h4>
-                <ul class="text-sm text-gray-700 space-y-1">
-                  <li>• Digital Marketing & Communications</li>
-                  <li>• Visual Storytelling For The Web</li>
-                  <li>• Wireframing & Design Thinking</li>
-                  <li>• UX Design</li>
-                  <li>• How To Build a Buzzworthy Brand</li>
-
-
-                </ul>
-              </div>
-            </div>
-            <div class="mt-4 bg-gradient-to-r from-blue-50 to-green-50 p-4 rounded-lg">
-              <h4 class="font-semibold text-gray-800 mb-2 text-[#FF7A00]">🌍 Immersion Programs</h4>
-              <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-gray-700">
-                <div class="text-center">
-                  <span class="text-2xl">🇪🇸</span>
-                  <p class="font-medium">Marketing and Psychology in Madrid</p>
-                </div>
-                <div class="text-center">
-                  <span class="text-2xl">🇺🇸</span>
-                  <p class="font-medium">Design & Communications in San Francisco</p>
-                </div>
-                <div class="text-center">
-                  <span class="text-2xl">🇮🇹</span>
-                  <p class="font-medium">Organizational Leadership and Social Networks Analysis in Florence</p>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div class="edu-meta">
+          <span class="edu-meta-item">Evanston, IL</span>
+          <span class="edu-meta-item">GPA 3.9 / 4.0</span>
+          <span class="edu-meta-item">Dean's List 2023 · 2024 · 2025</span>
         </div>
-      </div>      
-    </div>
-  </div>
-</section>
-
-<!-- EXPERIENCE HEADER -->
-<section class="py-8 bg-white">
-  <div class="container mx-auto px-4 text-center">
-    <h2 class="text-2xl font-bold text-gray-800 mb-6">Experience</h2>
-    <button id="toggleTimeline" class="bg-[#FF7A00] text-white px-6 py-2 rounded shadow-md hover:bg-orange-600 transition-all">
-      <i class="ri-arrow-down-line mr-2" id="toggleIcon"></i>
-      <span id="toggleText">View Complete Timeline</span>
-    </button>
-  </div>
-</section>
-
-<!-- TIMELINE SECTION -->
-<section id="timelineSection" class="pb-16 bg-white">
-  <div class="container mx-auto px-4">
-    <div class="max-w-4xl mx-auto">
-      <div class="relative">
-        <div class="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-orange-200"></div>
-        
-
-
-        <!-- MSC -->
-        <div class="flex flex-col md:flex-row items-center md:items-start mb-12 fade-in">
-          <div class="md:w-1/2 md:pr-12 md:text-right mb-6 md:mb-0">
-            <div class="card-hover bg-[#F9F7F3] p-6 rounded-lg shadow-md inline-block">
-              <h3 class="text-lg font-semibold text-gray-800 mb-2">Media Strategist</h3>
-              <p class="text-[#FF7A00] font-medium mb-2">Masters of Science in Communications Department @ Northwestern</p>
-              <p class="text-gray-600 mb-1">Evanston, IL</p>
-              <p class="text-gray-500 text-sm">Aug 2025—Present</p>
-            </div>
-          </div>
-          <div class="w-10 h-10 flex items-center justify-center bg-[#FF7A00] rounded-full text-white z-10 mx-auto md:mx-0 pulse-animation"><i class="ri-music-line"></i></div>
-          <div class="md:w-1/2 md:pl-12 hidden md:block"></div>
+        <div class="edu-pill-row">
+          <span class="chip">IMC Certificate · Medill</span>
+          <span class="chip">Design Certificate · Segal</span>
+          <span class="chip">Figma Campus Leader 2025</span>
+          <span class="chip">BRASA President</span>
+          <span class="chip">Dale Duro Latin Dance Co.</span>
+          <span class="chip">The Women's Network</span>
+          <span class="chip">Effective Altruism Fellowship</span>
         </div>
-        
-        <!-- Figma -->
-        <div class="flex flex-col md:flex-row items-center md:items-start mb-12 fade-in">
-          <div class="md:w-1/2 md:pr-12 hidden md:block"></div>
-          <div class="w-10 h-10 flex items-center justify-center bg-[#FF7A00] rounded-full text-white z-10 mx-auto md:mx-0 pulse-animation"><i class="ri-briefcase-line"></i></div>
-          <div class="md:w-1/2 md:pl-12 mb-6 md:mb-0">
-            <div class="card-hover bg-[#F9F7F3] p-6 rounded-lg shadow-md inline-block">
-              <h3 class="text-lg font-semibold text-gray-800 mb-2">Campus Leader</h3>
-              <p class="text-[#FF7A00] font-medium mb-2">Figma</p>
-              <p class="text-gray-600 mb-1">San Francisco, CA (Remote)</p>
-              <p class="text-gray-500 text-sm">Aug 2025—Present</p>
-            </div>
-          </div>
-        </div>
-
-      
-
-        <!-- WingRep -->
-        <div class="flex flex-col md:flex-row items-center md:items-start mb-12 fade-in">
-          <div class="md:w-1/2 md:pr-12 md:text-right mb-6 md:mb-0">
-            <div class="card-hover bg-[#F9F7F3] p-6 rounded-lg shadow-md inline-block">
-              <h3 class="text-lg font-semibold text-gray-800 mb-2">Project Management, Marketing and Sales Intern</h3>
-              <p class="text-[#FF7A00] font-medium mb-2">WingRep (former SelfActualize.AI)</p>
-              <p class="text-gray-600 mb-1">San Francisco, CA</p>
-              <p class="text-gray-500 text-sm">Jun 2025—Aug 2025</p>
-            </div>
-          </div>
-          <div class="w-10 h-10 flex items-center justify-center bg-[#FF7A00] rounded-full text-white z-10 mx-auto md:mx-0 pulse-animation"><i class="ri-music-line"></i></div>
-          <div class="md:w-1/2 md:pl-12 hidden md:block"></div>
-        </div>
-        
-
-         <!-- Amazon Music -->
-         <div class="flex flex-col md:flex-row items-center md:items-start mb-12 fade-in">
-          <div class="md:w-1/2 md:pr-12 hidden md:block"></div>
-          <div class="w-10 h-10 flex items-center justify-center bg-[#FF7A00] rounded-full text-white z-10 mx-auto md:mx-0 pulse-animation"><i class="ri-briefcase-line"></i></div>
-          <div class="md:w-1/2 md:pl-12 mb-6 md:mb-0">
-            <div class="card-hover bg-[#F9F7F3] p-6 rounded-lg shadow-md inline-block">
-              <h3 class="text-lg font-semibold text-gray-800 mb-2">Product Marketing and Branding Externship</h3>
-              <p class="text-[#FF7A00] font-medium mb-2">Amazon Music</p>
-              <p class="text-gray-600 mb-1">San Francisco, CA</p>
-              <p class="text-gray-500 text-sm">Jan 2025—March 2025</p>
-            </div>
-          </div>
-        </div>
-
-
-        
-        <!-- BRASA President -->
-        <div class="flex flex-col md:flex-row items-center md:items-start mb-12 fade-in">
-          <div class="md:w-1/2 md:pr-12 md:text-right mb-6 md:mb-0">
-            <div class="card-hover bg-[#F9F7F3] p-6 rounded-lg shadow-md inline-block">
-              <h3 class="text-lg font-semibold text-gray-800 mb-2">President</h3>
-              <p class="text-[#FF7A00] font-medium mb-2">Brazilian Student Association (BRASA)</p>
-              <p class="text-gray-600 mb-1">Northwestern University</p>
-              <p class="text-gray-500 text-sm">Apr 2025—Present</p>
-            </div>
-          </div>
-          <div class="w-10 h-10 flex items-center justify-center bg-[#FF7A00] rounded-full text-white z-10 mx-auto md:mx-0 pulse-animation"><i class="ri-user-star-line"></i></div>
-          <div class="md:w-1/2 md:pl-12 hidden md:block"></div>
-        </div>
-        
-        <!-- The Garage -->
-        <div class="flex flex-col md:flex-row items-center md:items-start mb-12 fade-in">
-          <div class="md:w-1/2 md:pr-12 hidden md:block"></div>
-          <div class="w-10 h-10 flex items-center justify-center bg-[#FF7A00] rounded-full text-white z-10 mx-auto md:mx-0 pulse-animation"><i class="ri-rocket-line"></i></div>
-          <div class="md:w-1/2 md:pl-12 mb-6 md:mb-0">
-            <div class="card-hover bg-[#F9F7F3] p-6 rounded-lg shadow-md inline-block">
-              <h3 class="text-lg font-semibold text-gray-800 mb-2">Marketing Aide</h3>
-              <p class="text-[#FF7A00] font-medium mb-2">The Garage, Northwestern University</p>
-              <p class="text-gray-600 mb-1">Evanston, IL</p>
-              <p class="text-gray-500 text-sm">Sept 2024—Present</p>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Stone Co -->
-        <div class="flex flex-col md:flex-row items-center md:items-start mb-12 fade-in">
-          <div class="md:w-1/2 md:pr-12 md:text-right mb-6 md:mb-0">
-            <div class="card-hover bg-[#F9F7F3] p-6 rounded-lg shadow-md inline-block">
-              <h3 class="text-lg font-semibold text-gray-800 mb-2">Marketing and Human Resources Intern</h3>
-              <p class="text-[#FF7A00] font-medium mb-2">Stone Co</p>
-              <p class="text-gray-600 mb-1">São Paulo, Brazil (Remote)</p>
-              <p class="text-gray-500 text-sm">May 2024—July 2024</p>
-            </div>
-          </div>
-          <div class="w-10 h-10 flex items-center justify-center bg-[#FF7A00] rounded-full text-white z-10 mx-auto md:mx-0 pulse-animation"><i class="ri-building-line"></i></div>
-          <div class="md:w-1/2 md:pl-12 hidden md:block"></div>
-        </div>
-        
-        <!-- BRASA Marketing Campaigns Analyst -->
-        <div class="flex flex-col md:flex-row items-center md:items-start mb-12 fade-in">
-          <div class="md:w-1/2 md:pr-12 hidden md:block"></div>
-          <div class="w-10 h-10 flex items-center justify-center bg-[#FF7A00] rounded-full text-white z-10 mx-auto md:mx-0 pulse-animation"><i class="ri-bar-chart-line"></i></div>
-          <div class="md:w-1/2 md:pl-12 mb-6 md:mb-0">
-            <div class="card-hover bg-[#F9F7F3] p-6 rounded-lg shadow-md inline-block">
-              <h3 class="text-lg font-semibold text-gray-800 mb-2">Marketing Campaigns Analyst (Global Board Member)</h3>
-              <p class="text-[#FF7A00] font-medium mb-2">Brazilian Student Association (BRASA)</p>
-              <p class="text-gray-600 mb-1">Global</p>
-              <p class="text-gray-500 text-sm">Jan 2024—Feb 2025</p>
-            </div>
-          </div>
-        </div>
-        
-        <!-- BRASA Corporate Relations -->
-        <div class="flex flex-col md:flex-row items-center md:items-start mb-12 fade-in">
-          <div class="md:w-1/2 md:pr-12 md:text-right mb-6 md:mb-0">
-            <div class="card-hover bg-[#F9F7F3] p-6 rounded-lg shadow-md inline-block">
-              <h3 class="text-lg font-semibold text-gray-800 mb-2">Corporate Relations Key Account Manager & UX Analyst (Global Board Member)</h3>
-              <p class="text-[#FF7A00] font-medium mb-2">Brazilian Student Association (BRASA)</p>
-              <p class="text-gray-600 mb-1">Global</p>
-              <p class="text-gray-500 text-sm">Aug 2023—Jan 2024</p>
-            </div>
-          </div>
-          <div class="w-10 h-10 flex items-center justify-center bg-[#FF7A00] rounded-full text-white z-10 mx-auto md:mx-0 pulse-animation"><i class="ri-handshake-line"></i></div>
-          <div class="md:w-1/2 md:pl-12 hidden md:block"></div>
-        </div>
-        
       </div>
+
+      <!-- Courses -->
+      <div class="edu-sub-card">
+        <div class="edu-sub-label">Key Courses</div>
+        <h3 class="edu-sub-h" style="font-family:var(--serif)">What I've been studying</h3>
+        <ul class="edu-list">
+          <li>Digital Marketing & Communications</li>
+          <li>Visual Storytelling For The Web</li>
+          <li>Wireframing & Design Thinking</li>
+          <li>UX Design</li>
+          <li>How To Build a Buzzworthy Brand</li>
+          <li>Social Networks Analysis</li>
+          <li>Organizational Leadership</li>
+        </ul>
+      </div>
+
+      <!-- Immersion -->
+      <div class="edu-sub-card">
+        <div class="edu-sub-label">Global Immersion Programs</div>
+        <h3 class="edu-sub-h" style="font-family:var(--serif)">Studying marketing and cultures</h3>
+        <div class="immersion-row" style="margin-top:1rem;">
+          <div class="immersion-item">
+            <div class="immersion-flag">🇪🇸</div>
+            <div class="immersion-city">Madrid</div>
+            <div class="immersion-note">Marketing & Psychology</div>
+          </div>
+          <div class="immersion-item">
+            <div class="immersion-flag">🇺🇸</div>
+            <div class="immersion-city">San Francisco</div>
+            <div class="immersion-note">Design & Communications</div>
+          </div>
+          <div class="immersion-item">
+            <div class="immersion-flag">🇮🇹</div>
+            <div class="immersion-city">Florence</div>
+            <div class="immersion-note">Leadership & Networks</div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
 
-<!-- HOBBIES PLAYGROUND -->
-<section class="h-[900px] py-16 bg-gradient-to-br from-purple-100 to-pink-100">
-  <div class="container mx-auto px-4">
-    <div class="max-w-6xl mx-auto">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl font-bold text-gray-800 mb-4">My Playground!
-        </h2>
-        <p class="text-lg text-gray-600">Click on any hobby to discover what I love doing in my free time!</p>
-      </div>
-      
-      <div class="flex flex-col lg:flex-row gap-8">
-        
-        <!-- Detail Section (Left) -->
-        <div class="lg:w-2/3 order-2 lg:order-1">
-          <div class="hobby-details-container">
-            
-            <!-- Photography Detail -->
-            <div id="photography-detail" class="hobby-detail-section bg-white rounded-xl p-8 shadow-lg active">
-              <h2 class="text-2xl font-bold text-[#FF7A00] mb-4">📸 Photography Passion</h2>
-              <div class="grid md:grid-cols-2 gap-6">
-                <div>
-                  <img src="images/lumineers.jpeg" alt="Street Photography" class="rounded-lg shadow-md mb-4 w-full">
-                  <p class="text-gray-700 mb-4">I fell in love with photography during my travels. There's something magical about freezing a moment in time and telling a story through a single frame.</p>
-                </div>
-                <div>
-                  <img src="images/yosemite.jpeg" alt="Portrait Photography" class="rounded-lg shadow-md mb-4 w-full">
-                  <div class="bg-[#F9F7F3] p-4 rounded-lg">
-                    <h4 class="font-semibold text-gray-800 mb-2">Camera Setup:</h4>
-                    <ul class="text-sm text-gray-700">
-                      <li>• Canon Powershot Sx740Hs</li>
-                      <li>• iPhone 16 Pro for spontaneous moments</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <!-- Travel Detail (single, deduped) -->
-            <div id="travel-detail" class="hobby-detail-section bg-white rounded-xl p-8 shadow-lg">
-              <h2 class="text-2xl font-bold text-[#FF7A00] mb-4">✈️ Around the World</h2>
-              <div class="grid md:grid-cols-3 gap-4 mb-6">
-                <img src="images/coliseu.jpeg" alt="Madrid" class="rounded-lg shadow-md">
-                <img src="images/rio.jpeg" alt="Florence" class="rounded-lg shadow-md">
-                <img src="images/yosemite 2.jpeg" alt="San Francisco" class="rounded-lg shadow-md">
-              </div>
-              <p class="text-gray-700 mb-4">Having lived and studied across three continents shaped who I am. Each destination taught me something new about design, culture, and human connection.</p>
-              <div class="grid md:grid-cols-2 gap-6">
-                <div class="bg-[#F9F7F3] p-4 rounded-lg">
-                  <h4 class="font-semibold text-gray-800 mb-2">Some countries I've been to:</h4>
-                  <div class="text-sm text-gray-700 grid grid-cols-2 gap-1">
-                    <span>🇧🇷 Brazil</span>
-                    <span>🇺🇸 United States</span>
-                    <span>🇪🇸 Spain</span>
-                    <span>🇮🇹 Italy</span>
-                    <span>🇫🇷 France</span>
-                    <span>🇵🇹 Portugal</span>
-                    <span>🇬🇧 United Kingdom</span>
-                    <span>🇦🇷 Argentina</span>
-                  </div>
-                </div>
-                <div class="bg-[#F9F7F3] p-4 rounded-lg">
-                  <h4 class="font-semibold text-gray-800 mb-2">Really wanna go:</h4>
-                  <div class="text-sm text-gray-700">
-                    <p class="mb-1">🇵🇪 Peru</p>
-                    <p class="mb-1">🇬🇷 Greece</p>
-                    <p class="mb-1">🇪🇬 Egypt</p>
+<!-- ═══ HOBBIES ═══ -->
+<section id="hobbies">
+  <div class="hobbies-inner">
+    <div class="odivider"></div>
+    <span style="font-size:0.68rem;font-weight:800;letter-spacing:0.16em;text-transform:uppercase;color:var(--orange);display:block;margin-bottom:0.5rem;">Beyond the work</span>
+    <h2 style="font-family:var(--serif);font-size:2.2rem;font-weight:400;color:var(--black);">What I do when I'm <em style="font-style:italic;color:var(--orange);">not working</em></h2>
 
-                  </div>
-                </div>
-              </div>
-            </div>
-          
-            <!-- Dancing Detail -->
-            <div id="dancing-detail" class="hobby-detail-section bg-white rounded-xl p-8 shadow-lg">
-              <h2 class="text-2xl font-bold text-[#FF7A00] mb-4">💃 Dancing Through Life</h2>
-              <div class="grid md:grid-cols-2 gap-6">
-                <div>
-                  <img src="images/WhatsApp Image 2025-09-17 at 13.53.11.jpeg" alt="Dancing" class="rounded-lg shadow-md mb-4 w-full">
-                  <p class="text-gray-700 mb-4">Born and raised in Brazil, latin dance runs through my veins. Dancing has always been my way to connect with my roots and express emotions that words can't capture.</p>
-                  <p class="text-gray-700 mb-4">Living in different countries allowed me to learn various dance styles, and now I get to show that through Dale Duro, the Latin Dance Company at Northwestern </p>
-                </div>
-                <div>
-                  <img src="images/WhatsApp Image 2025-09-17 at 13.56.02.jpeg" alt="Samba" class="rounded-lg shadow-md mb-4 w-full">
-                  <div class="bg-[#F9F7F3] p-4 rounded-lg mb-4">
-                    <h4 class="font-semibold text-gray-800 mb-2">Dance Styles I Love:</h4>
-                    <ul class="text-sm text-gray-700">
-                      <li>• Samba: My heritage and heart</li>
-                      <li>• Reggaeton: Creates community and good energy through dance</li>
-                      <li>• Salsa: Expression and connection through movement</li>
-                      <li>• Bomba: Puerto Rican style dance</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          
-            <!-- Music Detail -->
-            <div id="music-detail" class="hobby-detail-section bg-white rounded-xl p-8 shadow-lg">
-              <h2 class="text-2xl font-bold text-[#FF7A00] mb-4">🎵 Music & Melodies</h2>
-              <div class="grid md:grid-cols-2 gap-6">
-                <div>
-                  <img src="images/outside lands.jpeg" alt="Guitar" class="rounded-lg shadow-md mb-4 w-full">
-                  <p class="text-gray-700 mb-4">Music is my constant companion. I sing and I learned how to play the ukulele, the piano, the drums, and the guitar by myself (all basic level don't expect much lol!) </p>
-                  <p class="text-gray-700 mb-4">There's nothing quite like creating melodies that express what words cannot.</p>
-                </div>
-                <div>
-                  <img src="images/finneas.jpeg" alt="Vinyl Records" class="rounded-lg shadow-md mb-4 w-full">
-                  <div class="bg-[#F9F7F3] p-4 rounded-lg mb-4">
-                    <h4 class="font-semibold text-gray-800 mb-2">Current Favorites:</h4>
-                    <ul class="text-sm text-gray-700">
-                      <li>• Brazilian MPB (Anavitória, Lagum, Tim Maia)</li>
-                      <li>• Indie Folk (Hozier, Gregory Alan Isakov)</li>
-                      <li>• Reggaeton (Bad Bunny)</li>                  
-                      <li>• Pop (Taylor Swift, Sabrina Carpenter, and Gracie Abrams)</li>
+    <div class="hobbies-layout">
 
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-
+      <!-- Left: tab list -->
+      <div class="hobby-tabs">
+        <div class="htab active" data-hobby="photography">
+          <div class="htab-icon">📸</div>
+          <div class="htab-text">
+            <div class="htab-title">Photography</div>
+            <div class="htab-sub">Freezing moments in time</div>
           </div>
         </div>
-        
-        <!-- Hobby Menu (Right) -->
-        <div class="lg:w-1/3 order-1 lg:order-2">
-          <div class="grid grid-cols-2 gap-4 sticky top-24">
-            <div class="hobby-card bg-white rounded-xl p-6 shadow-lg text-center active" data-hobby="photography">
-              <div class="text-4xl mb-4 floating">📸</div>
-              <h3 class="font-semibold text-gray-800 mb-2">Photography</h3>
+        <div class="htab" data-hobby="travel">
+          <div class="htab-icon">✈️</div>
+          <div class="htab-text">
+            <div class="htab-title">Travel</div>
+            <div class="htab-sub">3 continents and counting</div>
+          </div>
+        </div>
+        <div class="htab" data-hobby="dance">
+          <div class="htab-icon">💃</div>
+          <div class="htab-text">
+            <div class="htab-title">Dance</div>
+            <div class="htab-sub">Brazilian roots, global moves</div>
+          </div>
+        </div>
+        <div class="htab" data-hobby="music">
+          <div class="htab-icon">🎵</div>
+          <div class="htab-text">
+            <div class="htab-title">Music</div>
+            <div class="htab-sub">From MPB to indie folk</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: panels -->
+      <div class="hobby-panels">
+
+        <!-- Photography -->
+        <div class="hpanel active" id="hp-photography">
+          <div class="hp-header">
+            <div class="hp-kicker">Hobby № 01</div>
+            <h3 class="hp-title">Photography: <em>seeing the world differently.</em></h3>
+            <p class="hp-desc">I fell in love with photography during my travels. There's something about freezing a specific moment in time and telling a full story through a single frame. I shoot everything from street scenes to landscapes to candid portraits.</p>
+          </div>
+          <div class="hp-photo-grid asymm">
+            <div class="hp-photo tall">
+              <img src="images/yosemite.jpeg" alt="Yosemite">
             </div>
-            <div class="hobby-card bg-white rounded-xl p-6 shadow-lg text-center" data-hobby="travel">
-              <div class="text-4xl mb-4 floating" style="animation-delay: 0.5s;">✈️</div>
-              <h3 class="font-semibold text-gray-800 mb-2">Travel</h3>
+            <div class="hp-photo square">
+              <img src="images/lumineers.jpeg" alt="Lumineers">
             </div>
-            <div class="hobby-card bg-white rounded-xl p-6 shadow-lg text-center" data-hobby="dancing">
-              <div class="text-4xl mb-4 floating" style="animation-delay: 1s;">💃</div>
-              <h3 class="font-semibold text-gray-800 mb-2">Dancing</h3>
+          </div>
+          <div class="hp-details">
+            <div class="hp-detail-card">
+              <div class="hp-detail-label">Camera Setup</div>
+              <ul class="hp-detail-items">
+                <li>Canon Powershot SX740HS</li>
+                <li>iPhone 16 Pro for spontaneous shots</li>
+              </ul>
             </div>
-            <div class="hobby-card bg-white rounded-xl p-6 shadow-lg text-center" data-hobby="music">
-              <div class="text-4xl mb-4 floating" style="animation-delay: 1.5s;">🎵</div>
-              <h3 class="font-semibold text-gray-800 mb-2">Music</h3>
+            <div class="hp-detail-card">
+              <div class="hp-detail-label">What I shoot</div>
+              <ul class="hp-detail-items">
+                <li>Street & travel photography</li>
+                <li>Concerts & live events</li>
+                <li>Nature & landscapes</li>
+              </ul>
             </div>
           </div>
         </div>
-        
-      </div>
+
+        <!-- Travel -->
+        <div class="hpanel" id="hp-travel">
+          <div class="hp-header">
+            <div class="hp-kicker">Hobby № 02</div>
+            <h3 class="hp-title">Travel  <em>(home is everywhere.)</em></h3>
+            <p class="hp-desc">Having lived and studied around the world shaped who I am as a person and as a creative. Every destination taught me something new about design, culture, and human connection (and left me with a camera roll of 50,000+ photos.)</p>
+          </div>
+          <div class="hp-photo-grid three-col" style="margin-bottom:1.5rem;">
+            <div class="hp-photo wide" style="aspect-ratio:4/3;">
+              <img src="images/coliseu.jpeg" alt="Rome">
+            </div>
+            <div class="hp-photo square">
+              <img src="images/rio.jpeg" alt="Rio">
+            </div>
+            <div class="hp-photo square">
+              <img src="images/yosemite 2.jpeg" alt="Yosemite">
+            </div>
+          </div>
+          <div class="hp-details" style="margin-bottom:1.25rem;">
+            <div class="hp-detail-card" style="flex:2;">
+              <div class="hp-detail-label">Countries visited</div>
+              <div class="countries-grid">
+                <div class="country-chip"><span class="flag">🇧🇷</span>Brazil</div>
+                <div class="country-chip"><span class="flag">🇺🇸</span>USA</div>
+                <div class="country-chip"><span class="flag">🇪🇸</span>Spain</div>
+                <div class="country-chip"><span class="flag">🇮🇹</span>Italy</div>
+                <div class="country-chip"><span class="flag">🇫🇷</span>France</div>
+                <div class="country-chip"><span class="flag">🇵🇹</span>Portugal</div>
+                <div class="country-chip"><span class="flag">🇬🇧</span>UK</div>
+                <div class="country-chip"><span class="flag">🇦🇷</span>Argentina</div>
+              </div>
+            </div>
+            <div class="hp-detail-card">
+              <div class="hp-detail-label">Bucket list</div>
+              <ul class="hp-detail-items">
+                <li>🇵🇪 Peru — Machu Picchu</li>
+                <li>🇬🇷 Greece — islands</li>
+                <li>🇪🇬 Egypt — pyramids</li>
+                <li>🇯🇵 Japan — cherry blossoms</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dance -->
+        <div class="hpanel" id="hp-dance">
+          <div class="hp-header">
+            <div class="hp-kicker">Hobby № 03</div>
+            <h3 class="hp-title">Dance </h3>
+            <p class="hp-desc">Born and raised in Brazil, Latin dance has always been in my DNA. Living across different countries let me absorb new styles and now I get to bring all of that to Dale Duro, Northwestern's Latin Dance Company — as a performer, choreographer, and the PR lead behind our record-breaking Spring Show.</p>
+          </div>
+          <div class="hp-photo-grid two-col">
+            <div class="hp-photo tall">
+              <img src="images/WhatsApp Image 2025-09-17 at 13.53.11.jpeg" alt="Dancing">
+            </div>
+            <div class="hp-photo tall">
+              <img src="images/WhatsApp Image 2025-09-17 at 13.56.02.jpeg" alt="Samba">
+            </div>
+          </div>
+          <div class="hp-details" style="margin-top:1.25rem;">
+            <div class="hp-detail-card">
+              <div class="hp-detail-label">Styles I love</div>
+              <ul class="hp-detail-items">
+                <li>Samba: my heritage & heart</li>
+                <li>Reggaeton: energy & community</li>
+                <li>Salsa: expression & connection</li>
+              </ul>
+            </div>
+            <div class="hp-detail-card">
+              <div class="hp-detail-label">At Northwestern</div>
+              <ul class="hp-detail-items">
+                <li>Dale Duro Latin Dance Co.</li>
+                <li>Spring Show 2025 — 1,000+ attendees</li>
+                <li>PR Lead + Performer</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Music -->
+        <div class="hpanel" id="hp-music">
+          <div class="hp-header">
+            <div class="hp-kicker">Hobby № 04</div>
+            <h3 class="hp-title">Music, <em>my constant companion.</em></h3>
+            <p class="hp-desc">Music has been with me everywhere throughout all the stages of my life. I sing, and somewhere along the way I taught myself to play the ukulele, guitar, piano, and drums (all at a respectable beginner level). I'm always looking for concerts to attend and my Spotify Wrapped is always chaotic in the best way.</p>
+          </div>
+          <div class="hp-photo-grid two-col">
+            <div class="hp-photo wide" style="aspect-ratio:4/3;">
+              <img src="images/outside lands.jpeg" alt="Outside Lands">
+            </div>
+            <div class="hp-photo wide" style="aspect-ratio:4/3;">
+              <img src="images/finneas.jpeg" alt="Finneas concert">
+            </div>
+          </div>
+          <div class="hp-details" style="margin-top:1.25rem;">
+            <div class="hp-detail-card">
+              <div class="hp-detail-label">What I'm playing</div>
+              <ul class="hp-detail-items">
+                <li>Piano & guitar (self-taught)</li>
+                <li>Ukulele & drums (basics)</li>
+                <li>Vocals (I try)</li>
+              </ul>
+            </div>
+            <div class="hp-detail-card">
+              <div class="hp-detail-label">Current favorites</div>
+              <ul class="hp-detail-items">
+                <li>Brazilian MPB: Anavitória, Lagum</li>
+                <li>Indie Folk: Hozier, Gregory Alan Isakov</li>
+                <li>Pop: Taylor Swift, Gracie Abrams</li>
+                <li>Reggaeton: TINI, Bad Bunny</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /hobby-panels -->
+    </div><!-- /hobbies-layout -->
+  </div>
+</section>
+
+<!-- ═══ CONTACT ═══ -->
+<section id="contact">
+  <div class="contact-wrap">
+    <div class="odivider" style="margin:0 auto 1.5rem;"></div>
+    <h2>Let's work <em>together</em></h2>
+    <p>Always open to cool projects, internships, and good conversations. Let's connect.</p>
+    <div class="contact-btns">
+      <a href="mailto:beatrizfonseca2027@u.northwestern.edu" class="btn-fill"><i class="ri-mail-line"></i> Email me</a>
+      <a href="https://linkedin.com/in/beatrizaguiarfonseca" target="_blank" class="btn-outline"><i class="ri-linkedin-line"></i> LinkedIn</a>
     </div>
   </div>
 </section>
 
-
-<section id="contact" class="py-20">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="max-w-2xl mx-auto text-center mb-12">
-      <h2 class="text-4xl font-bold mb-4">Let's Work Together</h2>
-      <p class="text-gray-600">Let’s talk and get connected!! I’d love to hear from you!</p>
-    </div>
-    <div class="mt-8 flex justify-center space-x-6">
-      <a href="mailto:beatrizfonseca2027@u.northwestern.edu"
-        class="flex items-center gap-2 text-gray-600 hover:text-primary text-lg">
-        <i class="ri-mail-line text-2xl"></i>
-        <span>Email</span>
-      </a>
-      <a href="https://linkedin.com/in/beatrizaguiarfonseca" target="_blank"
-        class="flex items-center gap-2 text-gray-600 hover:text-primary text-lg">
-        <i class="ri-linkedin-line text-2xl"></i>
-        <span>LinkedIn</span>
-      </a>
-    </div>
-  </div>
-</section>
+<footer>
+  <p><strong>Beatriz Aguiar Fonseca</strong> · Built with ♥ in Evanston &amp; SF · <a href="mailto:beatrizfonseca2027@u.northwestern.edu">beatrizfonseca2027@u.northwestern.edu</a></p>
+</footer>
 
 <script>
-  // Fun facts
-  const funFacts = [
-    "I'm currently on my third study abroad! 🌍",
-    "My favorite cuisine (besides Brazilian hehe) is Italian! 🍜",
-    "My camera has over 50,000 photos from my travels! 📸",
-    "I once walked the entire border of a country in a few hours! 💃",
-    "I collect vintage postcards from every city I visit! 📮",
-    "I've seen my favorite artist (Hozier) live twice! 🎵"
-  ];
-  
-  let currentLanguage = 0;
-  const languages = ['English', 'Português', 'Español'];
-  const greetings = ['Hi! I\'m Bia', 'Oi! Eu sou a Bia', '¡Hola! Soy Bia'];
-  const downloadTexts = ['Download Resume', 'Baixar Currículo', 'Descargar CV'];
-  
-  // Show random fun fact
-  function showFunFact() {
-    const funFactElement = document.getElementById('funFact');
-    const randomFact = funFacts[Math.floor(Math.random() * funFacts.length)];
-    funFactElement.textContent = randomFact;
-    funFactElement.style.opacity = '1';
-    setTimeout(() => { funFactElement.style.opacity = '0'; }, 5000);
-  }
-  
-  // Language toggle
-  document.getElementById('languageToggle').addEventListener('click', function() {
-    currentLanguage = (currentLanguage + 1) % languages.length;
-    document.getElementById('greeting').textContent = greetings[currentLanguage];
-    document.getElementById('downloadText').textContent = downloadTexts[currentLanguage];
-  });
-  
-  // Profile image toggles About section (fixed id)
-  document.getElementById('profileImage').addEventListener('click', function() {
-    const about = document.getElementById('aboutMeText');
-    about.classList.toggle('expanded');
-  });
+// ─── HOBBY TABS ───
+const tabs = document.querySelectorAll('.htab');
+const panels = document.querySelectorAll('.hpanel');
 
-  // Education expand
-  function toggleEducationDetails() {
-    const detail = document.getElementById('educationDetails');
-    const icon = document.getElementById('educationIcon');
-    detail.classList.toggle('expanded');
-    icon.classList.toggle('rotated');
-  }
-  
-  // Timeline toggle
-  document.getElementById('toggleTimeline').addEventListener('click', function() {
-    const timeline = document.getElementById('timelineSection');
-    const icon = document.getElementById('toggleIcon');
-    const text = document.getElementById('toggleText');
-    timeline.classList.toggle('expanded');
-    if (timeline.classList.contains('expanded')) {
-      icon.className = 'ri-arrow-up-line mr-2';
-      text.textContent = 'Hide Timeline';
-      setTimeout(() => {
-        const items = timeline.querySelectorAll('.fade-in');
-        items.forEach((item, index) => {
-          setTimeout(() => { item.classList.add('visible'); }, index * 200);
-        });
-      }, 100);
-    } else {
-      icon.className = 'ri-arrow-down-line mr-2';
-      text.textContent = 'View Complete Timeline';
-    }
-  });
-  
-  // Hobby navigation
-  const hobbyCards = document.querySelectorAll('.hobby-card');
-  const hobbyDetails = document.querySelectorAll('.hobby-detail-section');
-  hobbyCards.forEach(card => {
-    card.addEventListener('click', function() {
-      const hobby = this.getAttribute('data-hobby');
-      hobbyCards.forEach(c => c.classList.remove('active'));
-      hobbyDetails.forEach(d => d.classList.remove('active'));
-      this.classList.add('active');
-      document.getElementById(hobby + '-detail').classList.add('active');
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    const hobby = tab.dataset.hobby;
+
+    // Deactivate all
+    tabs.forEach(t => t.classList.remove('active'));
+    panels.forEach(p => {
+      p.classList.remove('active');
+      // When not active, absolute-position so they don't take space
+      p.style.position = 'absolute';
     });
+
+    // Activate clicked
+    tab.classList.add('active');
+    const panel = document.getElementById('hp-' + hobby);
+    panel.classList.add('active');
+    panel.style.position = 'relative';
   });
-  
-  // Scroll animations
-  const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
-  const observer = new IntersectionObserver(function(entries) {
-    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
-  }, observerOptions);
-  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-  
-  // Initialize
-  document.addEventListener('DOMContentLoaded', function() {
-    setTimeout(() => { document.getElementById('greeting').classList.add('typewriter'); }, 500);
-  });
+});
+
+// Init: make first panel relative
+document.getElementById('hp-photography').style.position = 'relative';
+// Rest absolute
+['hp-travel','hp-dance','hp-music'].forEach(id => {
+  document.getElementById(id).style.position = 'absolute';
+});
 </script>
 
 </body>
-
+</html>

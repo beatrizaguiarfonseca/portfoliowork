@@ -1,1039 +1,711 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <link rel="icon" type="image/png" href="images/Design sem nome (8).png">
-
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Beatriz Fonseca - Portfolio</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    // Tailwind configuration
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            primary: '#FF6B35',
-            secondary: '#04A777'
-          },
-          borderRadius: {
-            'none': '0px',
-            'sm': '4px',
-            DEFAULT: '8px',
-            'md': '12px',
-            'lg': '16px',
-            'xl': '20px',
-            '2xl': '24px',
-            '3xl': '32px',
-            'full': '9999px',
-            'button': '8px'
-          }
-        }
-      }
-    }
-  </script>
+  <title>Beatriz Fonseca — Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Pacifico&family=Fustat:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
-
-  <!-- React and React DOM -->
-  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-
-  <!-- Framer Motion for animations -->
-  <script src="https://unpkg.com/framer-motion@11.0.3/dist/framer-motion.js"></script>
-
   <style>
-    :where([class^="ri-"])::before {
-      content: "\f3c2";
+    :root{--orange:#FF6B35;--orange-soft:#FFF2EC;--orange-mid:#FFD9C7;--black:#0C0C0C;--gray:#717171;--gray-light:#F7F7F7;--white:#FFFFFF;--serif:'Instrument Serif',Georgia,serif;--sans:'Plus Jakarta Sans',sans-serif;}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{font-family:var(--sans);background:var(--white);color:var(--black);overflow-x:hidden;}
+
+    /* ── NAV ── */
+    nav{position:fixed;top:0;left:0;width:100%;z-index:300;background:rgba(255,255,255,0.92);backdrop-filter:blur(14px);border-bottom:1px solid rgba(0,0,0,0.05);}
+    .nav-inner{max-width:1280px;margin:0 auto;padding:0 2.5rem;height:58px;display:flex;align-items:center;justify-content:space-between;}
+    .nav-logo{font-family:var(--sans);font-weight:800;font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--black);text-decoration:none;display:flex;align-items:center;gap:9px;}
+    .nav-logo img{height:26px;width:26px;object-fit:contain;border-radius:4px;}
+    .nav-logo .ndot{width:6px;height:6px;border-radius:50%;background:var(--orange);flex-shrink:0;}
+    .nav-links{display:flex;gap:2.5rem;align-items:center;}
+    .nav-links a{font-size:0.82rem;font-weight:600;letter-spacing:0.04em;color:var(--gray);text-decoration:none;transition:color 0.2s;}
+    .nav-links a:hover{color:var(--black);}
+    .nav-cta{background:var(--black);color:var(--white)!important;padding:7px 18px;border-radius:999px;font-size:0.78rem!important;transition:background 0.2s!important;}
+    .nav-cta:hover{background:var(--orange)!important;}
+    /* mobile nav */
+    .nav-hamburger{display:none;background:none;border:none;cursor:pointer;padding:6px;color:var(--black);}
+    .nav-mobile{display:none;position:fixed;top:58px;left:0;right:0;background:rgba(255,255,255,0.97);backdrop-filter:blur(14px);border-bottom:1px solid rgba(0,0,0,0.08);padding:1.25rem 2rem 1.5rem;z-index:299;flex-direction:column;gap:1rem;}
+    .nav-mobile.open{display:flex;}
+    .nav-mobile a{font-size:0.9rem;font-weight:700;color:var(--gray);text-decoration:none;padding:0.5rem 0;border-bottom:1px solid rgba(0,0,0,0.05);}
+    .nav-mobile a:last-child{border-bottom:none;}
+    @media(max-width:640px){.nav-links{display:none;}.nav-hamburger{display:flex;align-items:center;justify-content:center;}}
+
+    /* ── BUTTONS ── */
+    .btn-fill{background:var(--black);color:var(--white);padding:0.8rem 2rem;border-radius:999px;font-size:0.85rem;font-weight:700;letter-spacing:0.02em;text-decoration:none;display:inline-flex;align-items:center;gap:7px;transition:all 0.22s;font-family:var(--sans);}
+    .btn-fill:hover{background:var(--orange);transform:translateY(-2px);}
+    .btn-outline{background:transparent;color:var(--black);border:1.5px solid rgba(0,0,0,0.18);padding:0.8rem 2rem;border-radius:999px;font-size:0.85rem;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:7px;transition:all 0.22s;font-family:var(--sans);}
+    .btn-outline:hover{border-color:var(--orange);color:var(--orange);transform:translateY(-2px);}
+
+    @keyframes fUp{to{opacity:1;transform:translateY(0);}}
+    @keyframes bPulse{0%,100%{opacity:1}50%{opacity:0.3}}
+    @keyframes sBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
+
+    /* ═══════════════════════════════════
+       SCROLLYTELLING HERO
+    ═══════════════════════════════════ */
+    #hero-scroll{position:relative;height:500vh;background:#fff;}
+    #hero-sticky{
+      position:sticky;top:0;height:100vh;
+      display:flex;align-items:center;justify-content:center;
+      overflow:hidden;
     }
 
-    .tilt-card {
-      transform-style: preserve-3d;
-      transition: all 0.3s ease;
+    /* Centered stage — two columns, both pushed toward center */
+    .hero-stage{
+      width:100%;max-width:1160px;margin:0 auto;
+      padding:0 3rem;padding-top:58px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:5rem;
     }
 
-    .tilt-card:hover {
-      transform: perspective(1000px) rotateX(2deg) rotateY(2deg) translateY(-8px);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    /* ── TEXT COL: right-aligned text ── */
+    .hero-text-col{
+      flex:1;
+      position:relative;
+      min-height:480px;
+      display:flex;
+      align-items:center;
+      /* text aligns right toward the phone */
+      /* we keep left align for readability but push col to the right */
     }
-
-    .neon-glow {
-      transition: all 0.3s ease;
+    .txt-panel{
+      position:absolute;inset:0;
+      display:flex;flex-direction:column;justify-content:center;
+      opacity:0;transform:translateY(18px);
+      transition:opacity .65s cubic-bezier(.22,1,.36,1),transform .65s cubic-bezier(.22,1,.36,1);
+      pointer-events:none;
     }
+    .txt-panel.is-active{opacity:1;transform:translateY(0);pointer-events:auto;position:relative;}
+    .txt-panel.is-exit{opacity:0;transform:translateY(-14px);}
 
-    .neon-glow:hover {
-      box-shadow: 0 0 15px rgba(255, 107, 53, 0.5);
-    }
+    .hero-tag{display:inline-flex;align-items:center;gap:8px;font-size:0.68rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--orange);background:var(--orange-soft);border:1px solid var(--orange-mid);padding:5px 14px;border-radius:999px;margin-bottom:2rem;width:fit-content;}
+    .hero-tag .pulse{width:6px;height:6px;border-radius:50%;background:var(--orange);animation:bPulse 2s ease-in-out infinite;}
+    .hero-h1{font-family:var(--serif);font-size:clamp(2.8rem,4.5vw,4.8rem);line-height:1.02;letter-spacing:-0.01em;color:var(--black);margin-bottom:0.5rem;}
+    .hero-h1 em{font-style:italic;color:var(--orange);}
+    .hero-meta{margin:1.5rem 0 0.4rem;}
+    .hero-meta p{font-size:0.72rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#aaa;margin-bottom:4px;}
+    .hero-meta p strong{color:var(--black);}
+    .hero-tagline{font-size:1rem;font-weight:400;line-height:1.7;color:var(--gray);max-width:420px;margin:1.5rem 0 2.5rem;}
+    .hero-tagline em{font-style:italic;color:var(--black);font-weight:600;}
+    .hero-btns{display:flex;gap:0.875rem;flex-wrap:wrap;}
+    .txt-kicker{font-size:0.68rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:var(--orange);margin-bottom:1.25rem;display:flex;align-items:center;gap:10px;}
+    .txt-kicker::before{content:'';display:block;width:24px;height:2px;background:var(--orange);border-radius:1px;}
+    .txt-h{font-family:var(--serif);font-size:clamp(2.2rem,3.2vw,3.6rem);line-height:1.1;letter-spacing:-0.01em;color:var(--black);margin-bottom:1.5rem;}
+    .txt-h em{font-style:italic;color:var(--orange);}
+    .txt-body{font-size:0.97rem;color:var(--gray);line-height:1.75;max-width:420px;margin-bottom:2rem;}
+    .txt-body strong{color:var(--black);font-weight:700;}
+    .txt-pills{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:2rem;}
+    .txt-pill{font-size:0.72rem;font-weight:700;letter-spacing:0.04em;padding:5px 14px;border-radius:999px;background:var(--gray-light);color:var(--black);border:1.5px solid rgba(0,0,0,0.07);}
+    .txt-pill.orange{background:var(--orange-soft);color:var(--orange);border-color:var(--orange-mid);}
 
-    /* Notebook Component Styles */
-    .notebook-container {
-      perspective: 1000px;
-    }
+    /* ── PHONE COL ── */
+    .hero-phone-col{flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+    .sphone-outer{position:relative;width:265px;height:545px;background:#111;border:11px solid #111;border-radius:2.4rem;box-shadow:0 0 0 1px rgba(255,255,255,0.06),0 40px 80px rgba(0,0,0,0.22),0 8px 24px rgba(0,0,0,0.12);flex-shrink:0;}
+    .sphone-outer::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:110px;height:15px;background:#111;border-radius:0 0 10px 10px;z-index:30;}
+    .phone-glow{position:absolute;inset:-28px;background:radial-gradient(ellipse at center,rgba(255,107,53,0.12) 0%,transparent 70%);border-radius:3.5rem;pointer-events:none;z-index:-1;}
+    .pb{position:absolute;background:#1a1a1a;}
+    .pb-v1{left:-12px;top:64px;width:3px;height:26px;border-radius:3px 0 0 3px;}
+    .pb-v2{left:-12px;top:100px;width:3px;height:40px;border-radius:3px 0 0 3px;}
+    .pb-v3{left:-12px;top:148px;width:3px;height:40px;border-radius:3px 0 0 3px;}
+    .pb-pw{right:-12px;top:122px;width:3px;height:56px;border-radius:0 3px 3px 0;}
+    .sphone-screen{width:243px;height:523px;border-radius:2rem;overflow:hidden;position:relative;z-index:10;background:#000;}
+    .status-bar{position:absolute;top:0;left:0;right:0;z-index:30;display:flex;justify-content:space-between;align-items:center;padding:10px 17px 6px;font-size:10px;font-weight:700;color:#fff;transition:color 0.5s;}
+    .si{display:flex;align-items:center;gap:4px;}
+    .ps{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;transform:scale(1.04);filter:blur(8px);pointer-events:none;transition:opacity .75s cubic-bezier(.22,1,.36,1),transform .75s cubic-bezier(.22,1,.36,1),filter .75s cubic-bezier(.22,1,.36,1);}
+    .ps.is-active{opacity:1;transform:scale(1);filter:blur(0);pointer-events:auto;}
+    .ps.is-exit{opacity:0;transform:scale(0.96);filter:blur(8px);}
 
-    .notebook-wrapper {
-      position: relative;
-      width: 24rem;
-      height: 16rem;
-      margin: 0 auto;
-      cursor: pointer;
-      padding-bottom: 4rem;
-    }
+    /* TikTok */
+    #ss1{flex-direction:column;align-items:stretch;justify-content:flex-start;background:linear-gradient(175deg,#111,#1a1a1a);}
+    .tt-topbar{display:flex;align-items:center;justify-content:space-between;padding:28px 15px 6px;}
+    .tt-icon{color:#fff;font-size:17px;opacity:0.85;}
+    .tt-handle{font-family:var(--sans);font-size:11px;font-weight:700;color:#fff;}
+    .tt-prof{padding:4px 15px 8px;display:flex;flex-direction:column;align-items:center;}
+    .tt-av{width:68px;height:68px;border-radius:50%;border:2.5px solid var(--orange);overflow:hidden;margin-bottom:7px;box-shadow:0 0 20px rgba(255,107,53,0.4);flex-shrink:0;}
+    .tt-av img{width:100%;height:100%;object-fit:cover;object-position:top;}
+    .tt-name{font-family:var(--sans);font-size:13px;font-weight:800;color:#fff;margin-bottom:2px;}
+    .tt-uname{font-size:10px;font-weight:500;color:rgba(255,255,255,0.45);margin-bottom:7px;}
+    .tt-stats{display:flex;gap:18px;margin-bottom:7px;}
+    .tt-stat{text-align:center;}
+    .tt-snum{font-size:13px;font-weight:800;color:#fff;line-height:1;}
+    .tt-slbl{font-size:8px;font-weight:600;color:rgba(255,255,255,0.4);margin-top:2px;text-transform:uppercase;letter-spacing:0.05em;}
+    .tt-bio{font-size:9.5px;color:rgba(255,255,255,0.65);text-align:center;line-height:1.55;margin-bottom:8px;max-width:200px;}
+    .tt-bio b{color:var(--orange);}
+    .tt-fbtn{background:var(--orange);color:#fff;border:none;border-radius:5px;font-size:11px;font-weight:800;font-family:var(--sans);padding:6px 38px;cursor:pointer;}
+    .tt-tabs{display:flex;border-bottom:1px solid rgba(255,255,255,0.08);}
+    .tt-tab{flex:1;text-align:center;padding:7px 0;font-size:9px;font-weight:700;color:rgba(255,255,255,0.38);text-transform:uppercase;letter-spacing:0.06em;position:relative;}
+    .tt-tab.active{color:#fff;}
+    .tt-tab.active::after{content:'';position:absolute;bottom:-1px;left:25%;width:50%;height:2px;background:#fff;border-radius:1px;}
+    .tt-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5px;flex:1;overflow:hidden;}
+    .tt-thumb{aspect-ratio:9/14;overflow:hidden;position:relative;background:#222;}
+    .tt-thumb img{width:100%;height:100%;object-fit:cover;}
+    .tt-tov{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,0.7),transparent);padding:6px 4px 3px;}
+    .tt-views{font-size:7px;font-weight:700;color:#fff;}
+    /* Apple */
+    #ss2{background:#fff;padding:2rem;text-align:center;}
+    .a-logo{color:#000;margin-bottom:1.25rem;}
+    .s2-tag{display:block;font-size:9px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#6b7280;margin-bottom:0.75rem;}
+    .s2-title{font-size:16px;font-weight:800;line-height:1.3;color:#111;margin-bottom:0.75rem;font-family:var(--sans);}
+    .s2-city{font-size:12px;color:#6b7280;font-weight:600;}
+    .s2-date{font-size:10px;color:#9ca3af;margin-top:3px;}
+    .s2-btn{display:block;width:100%;margin-top:1.75rem;padding:.75rem 1.5rem;background:#0071e3;color:#fff;font-size:12px;font-weight:800;font-family:var(--sans);border:none;border-radius:9999px;cursor:pointer;transition:background .2s;}
+    .s2-btn:hover{background:#0077ed;}
+    /* Globe */
+    #ss3{background:#fff;justify-content:flex-start;align-items:stretch;padding:0;}
+    .g-header{position:relative;z-index:2;padding:3rem 1.5rem 0;text-align:center;}
+    .g-eye{display:flex;align-items:center;justify-content:center;gap:6px;color:#0071e3;margin-bottom:7px;}
+    .g-eye span{font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;}
+    .g-title{font-size:15px;font-weight:700;color:#111;line-height:1.4;}
+    .g-cities{display:flex;flex-wrap:wrap;justify-content:center;gap:2px 5px;font-size:9px;color:#6b7280;margin-top:6px;}
+    .g-sep{color:#d1d5db;}
+    .g-wrap{position:absolute;width:360px;height:360px;top:50%;left:50%;transform:translate(-50%,-12%);pointer-events:none;z-index:1;overflow:visible;}
+    #globeCanvas{display:block;width:360px;height:360px;border-radius:50%;mix-blend-mode:multiply;}
+    /* Skills */
+    #ss4{background:#fff;justify-content:flex-start;align-items:flex-start;padding:1.25rem;padding-top:3rem;overflow:hidden;}
+    .sk-eye{display:flex;align-items:center;justify-content:center;gap:6px;color:#0071e3;margin-bottom:0.875rem;width:100%;}
+    .sk-eye span{font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;}
+    .sk-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;width:100%;flex:1;overflow-y:auto;padding-bottom:1rem;scrollbar-width:none;}
+    .sk-grid::-webkit-scrollbar{display:none;}
+    .sk-card{position:relative;aspect-ratio:1/1;border-radius:11px;overflow:hidden;background:#e5e7eb;}
+    .sk-card img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease;display:block;}
+    .sk-card:hover img{transform:scale(1.06);}
+    .sk-lbl{position:absolute;bottom:0;left:0;right:0;padding:1.5rem .5rem .45rem;background:linear-gradient(to top,rgba(0,0,0,.65),transparent);color:#fff;font-size:9px;font-weight:600;line-height:1.3;}
 
-    .notebook-cover {
-      position: absolute;
-      inset: 0;
-      z-index: 20;
-      transform-style: preserve-3d;
-      transition: transform 0.8s ease-in-out;
-      transform-origin: left center;
-    }
+    /* Progress dots */
+    #pdots{position:fixed;right:1.5rem;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:12px;z-index:100;opacity:0;transition:opacity 0.3s;}
+    #pdots.visible{opacity:1;}
+    @media(max-width:768px){#pdots{display:none;}}
+    .pdot{width:6px;height:6px;border-radius:50%;background:#d1d5db;transition:background .3s,transform .3s;}
+    .pdot.is-active{background:var(--orange);transform:scale(1.7);}
 
-    .notebook-wrapper:hover .notebook-cover {
-      transform: rotateY(-130deg);
-    }
+    /* Scroll hint */
+    #scrollHint{position:absolute;bottom:1.75rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;color:#bbb;font-size:9px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;transition:opacity 0.5s;z-index:10;white-space:nowrap;}
+    #scrollHint svg{animation:sBounce 2s ease-in-out infinite;}
 
-    .notebook-cover-front {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to bottom right, #F97316, #199589, #9135E8);
-      border-radius: 0 0.5rem 0.5rem 0;
-      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-      border-left: 4px solid #4E6791;
-      backface-visibility: hidden;
-    }
+    /* ── ABOUT ── */
+    #about{background:var(--gray-light);padding:7rem 2.5rem;}
+    .about-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:start;}
+    .about-img-frame{border-radius:20px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,0.12);}
+    .about-img-frame img{width:100%;height:520px;object-fit:cover;object-position:top;display:block;}
+    .about-kicker{font-size:0.68rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:var(--orange);margin-bottom:1rem;display:block;}
+    .about-h{font-family:var(--serif);font-size:clamp(2rem,3.5vw,2.8rem);line-height:1.2;color:var(--black);margin-bottom:1.5rem;}
+    .about-h em{font-style:italic;color:var(--orange);}
+    .about-body{font-size:0.93rem;color:var(--gray);line-height:1.8;margin-bottom:1.5rem;}
+    .about-body strong{color:var(--black);font-weight:700;}
+    .chips{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:2rem;}
+    .chip{background:var(--orange-soft);color:var(--orange);padding:5px 13px;border-radius:999px;font-size:0.72rem;font-weight:700;}
+    .about-pills{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:2rem;}
+    .about-pill{font-size:0.75rem;font-weight:600;padding:5px 14px;border-radius:999px;border:1.5px solid rgba(0,0,0,0.1);color:var(--gray);}
+    .odivider{width:36px;height:2.5px;background:var(--orange);border-radius:2px;margin-bottom:1.5rem;}
 
-    .notebook-cover-texture {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to bottom right, transparent, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.1));
-      border-radius: 0 0.5rem 0.5rem 0;
-    }
+    /* ── SECTIONS ── */
+    .sec-inner{max-width:1100px;margin:0 auto;}
+    .sec-hdr{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:1rem;gap:1rem;flex-wrap:wrap;}
+    .sec-title{font-family:var(--serif);font-size:2.2rem;font-weight:400;color:var(--black);letter-spacing:-0.01em;}
+    .sec-title span{font-style:italic;color:var(--orange);}
+    .sec-sub{font-size:0.87rem;color:var(--gray);line-height:1.6;margin-bottom:2.5rem;max-width:600px;}
+    .sec-link{font-size:0.82rem;font-weight:700;letter-spacing:0.04em;color:var(--orange);text-decoration:none;display:flex;align-items:center;gap:5px;transition:gap 0.2s;flex-shrink:0;align-self:center;}
+    .sec-link:hover{gap:10px;}
+    .tag{font-size:0.63rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;background:var(--orange-soft);color:var(--orange);padding:3px 10px;border-radius:999px;}
 
-    .notebook-cover-content {
-      position: relative;
-      padding: 2rem;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
+    /* ── PROJECTS ── */
+    #selected-projects{padding:6rem 2.5rem;background:var(--gray-light);}
+    .p2x2{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;}
+    .pcard{display:block;text-decoration:none;color:inherit;background:#fff;border-radius:18px;border:1px solid rgba(0,0,0,0.05);overflow:hidden;transition:transform 0.25s ease,box-shadow 0.25s ease;}
+    .pcard:hover{transform:translateY(-5px);box-shadow:0 20px 50px rgba(0,0,0,0.1);}
+    .pcard-iw{overflow:hidden;}
+    .pcard-img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;transition:transform 0.5s ease;}
+    .pcard:hover .pcard-img{transform:scale(1.04);}
+    .pcard-body{padding:1.2rem 1.5rem 1.6rem;}
+    .pcard-tags{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:0.55rem;}
+    .pcard h3{font-family:var(--sans);font-size:1rem;font-weight:800;margin:0 0 0.4rem;color:var(--black);}
+    .pcard p{font-size:0.82rem;color:var(--gray);line-height:1.6;}
 
-    .notebook-title {
-      text-align: center;
-      color: white;
-      font-size: 1.25rem;
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-      letter-spacing: 0.05em;
-    }
+    /* ── CAROUSEL ── */
+    #archive{padding:6rem 2.5rem;background:#fff;}
+    .carousel-outer{position:relative;}
+    .carousel-track-wrap{overflow:hidden;}
+    .carousel-track{display:flex;gap:1.25rem;transition:transform 0.45s cubic-bezier(0.22,1,0.36,1);will-change:transform;}
+    .acard{background:#fff;border-radius:14px;overflow:hidden;text-decoration:none;color:inherit;border:1px solid rgba(0,0,0,0.07);flex:0 0 calc(33.333% - 0.84rem);min-width:0;transition:transform 0.25s ease,box-shadow 0.25s ease;display:block;}
+    .acard:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(0,0,0,0.09);}
+    .acard-iw{overflow:hidden;}
+    .acard-img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;transition:transform 0.5s ease;}
+    .acard:hover .acard-img{transform:scale(1.04);}
+    .acard-body{padding:0.9rem 1.2rem 1.2rem;}
+    .acard h3{font-family:var(--sans);font-size:0.88rem;font-weight:800;margin:0 0 0.3rem;color:var(--black);}
+    .acard p{font-size:0.77rem;color:var(--gray);line-height:1.5;margin:0;}
+    .acard-tags{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:0.45rem;}
+    .carousel-controls{display:flex;align-items:center;justify-content:center;gap:1.25rem;margin-top:2rem;}
+    .carousel-btn{width:33px;height:33px;border-radius:50%;border:1.5px solid rgba(0,0,0,0.14);background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;color:var(--black);}
+    .carousel-btn:hover{border-color:var(--orange);color:var(--orange);}
+    .carousel-btn:disabled{opacity:0.3;cursor:default;}
+    .carousel-dots{display:flex;gap:7px;}
+    .cdot{width:6px;height:6px;border-radius:50%;background:#d1d5db;cursor:pointer;transition:background 0.2s,transform 0.2s;}
+    .cdot.active{background:var(--orange);transform:scale(1.5);}
 
-    .notebook-year {
-      text-align: center;
-      color: #cbd5e1;
-      font-size: 1rem;
-      letter-spacing: 0.1em;
-    }
+    /* ── CONTACT ── */
+    #contact{padding:6rem 2.5rem;background:var(--gray-light);text-align:center;}
+    .contact-wrap{max-width:540px;margin:0 auto;}
+    .contact-wrap h2{font-family:var(--serif);font-size:2.8rem;font-weight:400;margin-bottom:0.75rem;}
+    .contact-wrap h2 em{font-style:italic;color:var(--orange);}
+    .contact-wrap p{font-size:1rem;color:var(--gray);margin-bottom:2rem;line-height:1.6;}
+    .contact-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;}
+    footer{background:var(--black);color:#555;text-align:center;padding:1.75rem;font-size:0.78rem;letter-spacing:0.04em;}
+    footer a{color:var(--orange);text-decoration:none;}
+    footer strong{color:#888;font-weight:500;}
+    :where([class^="ri-"])::before{content:"\f3c2";}
 
-    .notebook-decorative-line {
-      position: absolute;
-      width: 3rem;
-      height: 1px;
-      background-color: #94a3b8;
-      opacity: 0.3;
-    }
+    /* ═══════════════════════════════════
+       MOBILE — everything ≤ 768px
+    ═══════════════════════════════════ */
+    @media(max-width:768px){
+      /* Nav */
+      .nav-inner{padding:0 1.25rem;}
 
-    .notebook-decorative-line.top-left {
-      top: 1.5rem;
-      left: 1.5rem;
-    }
-
-    .notebook-decorative-line.top-right {
-      top: 1.5rem;
-      right: 1.5rem;
-    }
-
-    .notebook-decorative-line.bottom-left {
-      bottom: 1.5rem;
-      left: 1.5rem;
-    }
-
-    .notebook-decorative-line.bottom-right {
-      bottom: 1.5rem;
-      right: 1.5rem;
-    }
-
-    .notebook-center-element {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .notebook-center-circle {
-      width: 4rem;
-      height: 4rem;
-      border: 1px solid #94a3b8;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0.2;
-    }
-
-    .notebook-center-icon {
-      color: #cbd5e1;
-      font-size: 1.25rem;
-    }
-
-    .notebook-subtitle {
-      text-align: center;
-      color: #cbd5e1;
-      font-size: 0.75rem;
-      font-style: italic;
-      letter-spacing: 0.05em;
-      line-height: 1.625;
-      margin-bottom: 0.5rem;
-    }
-
-    .notebook-subtitle2 {
-      text-align: center;
-      color: #94a3b8;
-      font-size: 0.75rem;
-      letter-spacing: 0.05em;
-    }
-
-    .notebook-binding {
-      position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      width: 0.25rem;
-      background-color: #475569;
-    }
-
-    .notebook-binding-ring {
-      position: absolute;
-      width: 0.5rem;
-      height: 0.5rem;
-      background-color: #64748b;
-      border-radius: 50%;
-      left: -0.125rem;
-      border: 1px solid #475569;
-    }
-
-    .notebook-cover-back {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to bottom right, #f1f5f9, #e2e8f0);
-      border-radius: 0 0.5rem 0.5rem 0;
-      transform: rotateY(180deg);
-      backface-visibility: hidden;
-    }
-
-    .notebook-pages {
-      position: absolute;
-      inset: 0;
-      background-color: white;
-      border-radius: 0 0.5rem 0.5rem 0;
-      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-      border-left: 4px solid #d1d5db;
-    }
-
-    .notebook-pages-stack {
-      position: absolute;
-      right: -0.25rem;
-      top: 0.25rem;
-      bottom: 0.25rem;
-      width: 100%;
-      background-color: #f3f4f6;
-      border-radius: 0 0.5rem 0.5rem 0;
-      z-index: -10;
-    }
-
-    .notebook-pages-stack2 {
-      position: absolute;
-      right: -0.5rem;
-      top: 0.5rem;
-      bottom: 0.5rem;
-      width: 100%;
-      background-color: #e5e7eb;
-      border-radius: 0 0.5rem 0.5rem 0;
-      z-index: -20;
-    }
-
-    .notebook-pages-content {
-      position: absolute;
-      inset: 0;
-      margin-left: 0.25rem;
-      border-radius: 0 0.5rem 0.5rem 0;
-      overflow: visible;
-      background: linear-gradient(to bottom right, #fef3c7, #fef9c3, #fef3c7);
-      opacity: 0;
-      transition: opacity 0.5s ease;
-      width: 100%;
-      height: 100%;
-    }
-
-    .notebook-wrapper:hover .notebook-pages-content {
-      opacity: 1;
-      transition-delay: 0.3s;
-    }
-
-    .notebook-stamp {
-      position: absolute;
-      padding: 0.5rem;
-      background: linear-gradient(135deg, #fef3e2 0%, #fde8d0 100%);
-      border: 2px solid #d4a574;
-      border-radius: 0.25rem;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
-      transition: all 0.3s ease;
-      cursor: pointer;
-      opacity: 0;
-      animation: fadeInStamp 0.5s ease forwards;
-      width: 60px;
-      height: 60px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .notebook-stamp:hover {
-      transform: scale(1.08) rotate(3deg) !important;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
-    }
-
-    @keyframes fadeInStamp {
-      from {
-        opacity: 0;
-        transform: scale(0.8);
+      /* Hero: disable sticky scrollytelling on mobile — show as normal stacked sections */
+      #hero-scroll{height:auto !important;}
+      #hero-sticky{
+        position:relative !important;
+        height:auto !important;
+        flex-direction:column;
+        padding-top:58px;
+        overflow:visible;
       }
-
-      to {
-        opacity: 1;
-        transform: scale(1);
+      .hero-stage{
+        flex-direction:column;
+        gap:2rem;
+        padding:2rem 1.25rem 3rem;
+        align-items:center;
+        text-align:center;
       }
-    }
-
-    .notebook-stamp-emoji {
-      font-size: 1.5rem;
-      text-align: center;
-    }
-
-    .notebook-hover-hint {
-      position: absolute;
-      bottom: -3rem;
-      left: 50%;
-      transform: translateX(-50%);
-      text-align: center;
-      opacity: 0;
-      animation: fadeIn 1s ease 1s forwards;
-    }
-
-    @keyframes fadeIn {
-      to {
-        opacity: 1;
+      .hero-text-col{
+        width:100%;
+        min-height:auto;
+        order:2; /* text below phone on mobile */
       }
-    }
+      /* On mobile, only show the first text panel statically */
+      .txt-panel{position:relative !important;inset:auto !important;opacity:1 !important;transform:none !important;pointer-events:auto !important;}
+      /* Hide panels 2-4 on mobile */
+      #tp2,#tp3,#tp4{display:none;}
+      .hero-tag{margin:0 auto 1.5rem;}
+      .hero-h1{font-size:clamp(2.4rem,8vw,3.2rem);}
+      .hero-tagline{max-width:100%;margin-left:auto;margin-right:auto;}
+      .hero-btns{justify-content:center;}
 
-    .notebook-hover-text {
-      color: #6b7280;
-      font-size: 0.875rem;
-    }
-
-    .notebook-hover-arrow {
-      color: #6b7280;
-      font-size: 0.75rem;
-      margin-top: 0.25rem;
-      animation: bounce 2s ease-in-out infinite;
-    }
-
-    @keyframes bounce {
-      0%,
-      100% {
-        transform: translateY(0);
+      .hero-phone-col{
+        width:100%;
+        order:1; /* phone above text on mobile */
+        display:flex;
+        justify-content:center;
       }
-
-      50% {
-        transform: translateY(5px);
+      /* Smaller phone on mobile */
+      .sphone-outer{
+        width:200px;height:410px;
+        border-width:8px;border-radius:1.8rem;
       }
+      .sphone-outer::before{width:80px;height:12px;}
+      .sphone-screen{width:184px;height:394px;border-radius:1.5rem;}
+      /* Only show state 1 (TikTok) on mobile, hide others */
+      #ss2,#ss3,#ss4{display:none !important;}
+      #ss1{display:flex !important;opacity:1 !important;transform:none !important;filter:none !important;pointer-events:auto !important;}
+      /* Scroll hint hidden on mobile */
+      #scrollHint{display:none;}
+
+      /* About */
+      #about{padding:4rem 1.25rem;}
+      .about-inner{grid-template-columns:1fr;gap:2rem;}
+      .about-img-frame img{height:300px;}
+
+      /* Projects */
+      #selected-projects{padding:4rem 1.25rem;}
+      .p2x2{grid-template-columns:1fr;}
+
+      /* Archive */
+      #archive{padding:4rem 1.25rem;}
+      .acard{flex:0 0 100%;}
+
+      /* Contact */
+      #contact{padding:4rem 1.25rem;}
+      .contact-wrap h2{font-size:2.2rem;}
+      .sec-title{font-size:1.8rem;}
     }
 
-    .typing-text {
-      position: absolute;
-      top: -4rem;
-      left: 50%;
-      transform: translateX(-50%) scale(0.85);
-      z-index: 30;
-      background: linear-gradient(135deg, #fef9e7 0%, #fcf4d6 100%);
-      border: 2px solid #e6c584;
-      padding: 0.75rem 1.5rem;
-      border-radius: 1rem;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
-      font-weight: 500;
-      color: #8b6f37;
-      white-space: nowrap;
-      overflow: hidden;
-      text-align: center;
-      min-width: 200px;
-      max-width: 350px;
-      font-size: 0.9rem;
+    /* ═══════════════════════════════════
+       SMALL MOBILE ≤ 480px
+    ═══════════════════════════════════ */
+    @media(max-width:480px){
+      .hero-h1{font-size:2.2rem;}
+      .btn-fill,.btn-outline{padding:0.7rem 1.4rem;font-size:0.8rem;}
+      .sphone-outer{width:180px;height:370px;}
+      .sphone-screen{width:164px;height:354px;}
     }
 
-    .typing-cursor {
-      display: inline-block;
-      width: 1px;
-      height: 1.2em;
-      background-color: #8b6f37;
-      margin-left: 2px;
-      animation: blink 1s step-start infinite;
+    /* ═══════════════════════════════════
+       TABLET 769px – 1024px
+    ═══════════════════════════════════ */
+    @media(min-width:769px) and (max-width:1024px){
+      .hero-stage{gap:3rem;padding:0 2rem;padding-top:58px;}
+      .hero-h1{font-size:clamp(2.5rem,4vw,3.5rem);}
+      .txt-h{font-size:clamp(2rem,3vw,2.8rem);}
+      .sphone-outer{width:230px;height:472px;}
+      .sphone-outer::before{width:95px;}
+      .sphone-screen{width:208px;height:450px;}
+      .about-inner{gap:3rem;}
+      .about-img-frame img{height:400px;}
+      #selected-projects,#archive,#about,#contact{padding-left:1.5rem;padding-right:1.5rem;}
     }
 
-    @keyframes blink {
-      50% {
-        opacity: 0;
-      }
-    }
-
-    @keyframes fadeInChar {
-      to {
-        opacity: 1;
-      }
-    }
-
-    @keyframes typing {
-      from {
-        width: 0;
-      }
-
-      to {
-        width: 100%;
-      }
-    }
-
-    @keyframes gradient {
-      0% {
-        background-position: 0% 50%;
-      }
-
-      50% {
-        background-position: 100% 50%;
-      }
-
-      100% {
-        background-position: 0% 50%;
-      }
-    }
+    /* Carousel responsive */
+    @media(max-width:900px) and (min-width:769px){.acard{flex:0 0 calc(50% - 0.63rem);}}
   </style>
 </head>
+<body>
 
-<body class="bg-[#F9F7F3] font-['Poppins']">
-  <nav class="fixed top-0 w-full bg-white/90 backdrop-blur-sm z-50 border-b border-gray-100">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-between h-16 items-center">
-        <a href="index.html" class="flex items-center gap-2">
-          <img src="images/Design sem nome (8).png" alt="Beatriz Logo" class="h-8 w-8 object-contain">
-          <span class="text-xl font-bold font-['Fustat'] text-primary tracking-wide uppercase">BEATRIZ AGUIAR
-            FONSECA</span>
-        </a>
-        <div class="hidden md:flex space-x-8">
-          <a href="about.html" class="text-gray-900 hover:text-primary transition-colors">About Me</a>
-          <a href="projects.html" class="text-gray-900 hover:text-primary transition-colors">Projects</a>
-        </div>
-        <button class="md:hidden w-10 h-10 flex items-center justify-center">
-          <i class="ri-menu-line text-xl"></i>
-        </button>
-      </div>
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="images/Design sem nome (8).png" alt="Logo">
+      <span class="ndot"></span>
+      Beatriz Aguiar Fonseca
+    </a>
+    <div class="nav-links">
+      <a href="about.html">About</a>
+      <a href="projects.html">Projects</a>
+      <a href="mailto:beatrizfonseca2027@u.northwestern.edu" class="nav-cta">Say hello</a>
     </div>
-  </nav>
+    <!-- Mobile hamburger -->
+    <button class="nav-hamburger" id="navHamburger" aria-label="Menu">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+  <div class="nav-mobile" id="navMobile">
+    <a href="about.html">About</a>
+    <a href="projects.html">Projects</a>
+    <a href="mailto:beatrizfonseca2027@u.northwestern.edu" style="color:var(--orange);font-weight:800;">Say hello ↗</a>
+  </div>
+</nav>
 
-  <main class="pt-16">
-    <section id="hero-section"
-      class="relative min-h-[130vh] flex flex-col items-center justify-center overflow-hidden text-center">
-      <div
-        class="absolute inset-0 bg-gradient-to-br from-[#FFE5D9] via-[#D4F0E2] to-[#E9E2F5] bg-[length:400%_400%] animate-[gradient_15s_ease_infinite] transition-colors duration-600">
-      </div>
-      <div class="relative z-10">
-        <h1
-          class="text-4xl md:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-primary via-secondary to-purple-600 font-['Fustat']">
-          <br /> Designing with purpose.<br />Communicating with soul.
-        </h1>
-        <p class="text-xl md:text-2xl text-gray-700 max-w-2xl mx-auto font-light italic">
-          <br />From pixels to pitches, I turn ideas into impact. Here's how I do it.
-        </p>
-      </div>
+<!-- UNIFIED SCROLLYTELLING HERO -->
+<section id="hero-scroll">
+  <div id="hero-sticky">
+    <div class="hero-stage">
 
-      <!-- React Notebook Component Container -->
-      <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center mt-32 pb-24">
-        <div id="react-notebook-root" class="relative"></div>
-      </div>
-    </section>
-  </main>
+      <!-- LEFT: Text panels -->
+      <div class="hero-text-col">
 
-  <!-- Babel Standalone for JSX transformation -->
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-
-  <!-- React Component Implementation -->
-  <script type="text/babel">
-    const { useState, useEffect } = React;
-
-    // Typing Text Component
-    function TypingText({ text }) {
-      const [displayText, setDisplayText] = useState('');
-      const [currentIndex, setCurrentIndex] = useState(0);
-
-      useEffect(() => {
-        setDisplayText('');
-        setCurrentIndex(0);
-      }, [text]);
-
-      useEffect(() => {
-        if (currentIndex < text.length) {
-          const timeout = setTimeout(() => {
-            setDisplayText(prev => prev + text[currentIndex]);
-            setCurrentIndex(prev => prev + 1);
-          }, 50);
-          return () => clearTimeout(timeout);
-        }
-      }, [currentIndex, text]);
-
-      return (
-        <div className="typing-text">
-          {displayText}
-          <span className="typing-cursor"></span>
+        <div class="txt-panel is-active" id="tp1">
+          <div class="hero-tag"><span class="pulse"></span> Portfolio 2026</div>
+          <h1 class="hero-h1">Hello world!<br>I'm <em>Bea.</em></h1>
+          <div class="hero-meta">
+            <p>Junior @ Northwestern University</p>
+            <p>Incoming <strong>Social Strategist Intern @ Apple</strong></p>
+          </div>
+          <p class="hero-tagline">I make brands feel like people: <em>bold enough to be remembered,</em> strategic enough to actually work.</p>
+          <div class="hero-btns">
+            <a href="projects.html" class="btn-fill">See my work <i class="ri-arrow-right-line"></i></a>
+            <a href="about.html" class="btn-outline">About me</a>
+          </div>
         </div>
-      );
-    }
 
-    function NotebookComponent() {
-      const [isOpen, setIsOpen] = useState(false);
-      const [hoveredSkill, setHoveredSkill] = useState(null);
+        <div class="txt-panel" id="tp2">
+          <div class="txt-kicker">What's next</div>
+          <h2 class="txt-h">Joining <em>Apple</em><br>this summer.</h2>
+          <p class="txt-body">Incoming <strong>Social Media Strategist Intern</strong> at Apple Marcom, Sunnyvale CA - Summer 2026. Working at the intersection of brand strategy and social content for one of the world's most iconic brands.</p>
+          <div class="txt-pills">
+            <span class="txt-pill orange">Apple Marcom</span>
+            <span class="txt-pill orange">Social Strategy</span>
+            <span class="txt-pill">Sunnyvale, CA</span>
+            <span class="txt-pill">Summer 2026</span>
+          </div>
+          <a href="https://linkedin.com/in/beatrizaguiarfonseca" target="_blank" class="btn-fill" style="width:fit-content">View on LinkedIn <i class="ri-arrow-right-up-line"></i></a>
+        </div>
 
-      const skills = [
-        { skill: 'Digital Marketing & Brand Strategy', emoji: '🎯', left: '20%', top: '25%', rotation: -5 },
-        { skill: 'UX/UI & Product Design', emoji: '🎨', left: '45%', top: '20%', rotation: 3 },
-        { skill: 'Project & Event Management', emoji: '📋', left: '70%', top: '25%', rotation: -4 },
-        { skill: 'Sales & Go-to-Market Enablement', emoji: '💼', left: '20%', top: '60%', rotation: 4 },
-        { skill: 'Leadership & Community Building', emoji: '🤝', left: '45%', top: '65%', rotation: -3 },
-        { skill: 'Content Creation & Storytelling', emoji: '📝', left: '70%', top: '60%', rotation: 5 },
-      ];
+        <div class="txt-panel" id="tp3">
+          <div class="txt-kicker">Where I've been</div>
+          <h2 class="txt-h">Shaped by<br>living <em>everywhere.</em></h2>
+          <p class="txt-body">From <strong>São Paulo</strong> to Chicago, Florence, Madrid, and San Francisco, my multicultural background fuels how I think about people, brands, and creativity. I speak Portuguese, English, and Spanish.</p>
+          <div class="txt-pills">
+            <span class="txt-pill">🇧🇷 São Paulo</span>
+            <span class="txt-pill">🇺🇸 Chicago</span>
+            <span class="txt-pill">🇮🇹 Florence</span>
+            <span class="txt-pill">🇺🇸 San Francisco</span>
+            <span class="txt-pill">🇪🇸 Madrid</span>
+            <span class="txt-pill">🇺🇸 Sunnyvale</span>
+          </div>
+          <a href="about.html" class="btn-outline" style="width:fit-content">My story <i class="ri-arrow-right-line"></i></a>
+        </div>
 
-      return (
-        <div className="relative" style={{ transform: 'scale(1.35)', transformOrigin: 'top center' }}>
-          {/* Typing Text Display */}
-          {hoveredSkill && <TypingText text={hoveredSkill} />}
+        <div class="txt-panel" id="tp4">
+          <div class="txt-kicker">What I bring</div>
+          <h2 class="txt-h">Strategy meets<br><em>craft.</em></h2>
+          <p class="txt-body">My main goal is to create things that resonate and influence. I combine creative instincts with analytical thinking, from brand identity to social campaigns to full product experiences.</p>
+          <div class="txt-pills">
+            <span class="txt-pill orange">Brand Strategy</span>
+            <span class="txt-pill orange">UX/UI Design</span>
+            <span class="txt-pill orange">Social Media</span>
+            <span class="txt-pill orange">Project Mgmt</span>
+            <span class="txt-pill orange">Sales & GTM</span>
+            <span class="txt-pill orange">Leadership</span>
+          </div>
+          <div class="hero-btns">
+            <a href="projects.html" class="btn-fill">See my work <i class="ri-arrow-right-line"></i></a>
+            <a href="about.html" class="btn-outline">About me</a>
+          </div>
+        </div>
 
-          <div
-            className="notebook-container"
-            onMouseEnter={() => setIsOpen(true)}
-            onMouseLeave={() => {
-              setIsOpen(false);
-              setHoveredSkill(null);
-            }}
-          >
-            <div className="notebook-wrapper">
-              {/* Notebook Cover */}
-              <div
-                className="notebook-cover"
-                style={{
-                  transform: isOpen ? 'rotateY(-130deg)' : 'rotateY(0deg)'
-                }}
-              >
-                {/* Front Cover */}
-                <div 
-                  className="notebook-cover-front" 
-                  style={{ backgroundColor: '#F97316' }}
-                >
-                  <div className="notebook-cover-texture"></div>
-                  <div className="notebook-cover-content">
-                    <div>
-                      <div className="notebook-title">BEA'S PORTFOLIO</div>
-                      <div className="notebook-year">2025</div>
-                    </div>
+      </div>
 
-                    {/* Decorative elements */}
-                    <div className="notebook-decorative-line top-left"></div>
-                    <div className="notebook-decorative-line top-right"></div>
-                    <div className="notebook-decorative-line bottom-left"></div>
-                    <div className="notebook-decorative-line bottom-right"></div>
+      <!-- RIGHT: Phone -->
+      <div class="hero-phone-col">
+        <div style="position:relative;">
+          <div class="phone-glow"></div>
+          <div class="sphone-outer">
+            <div class="pb pb-v1"></div><div class="pb pb-v2"></div>
+            <div class="pb pb-v3"></div><div class="pb pb-pw"></div>
+            <div class="sphone-screen" id="sphoneScreen">
+              <div class="status-bar" id="statusBar">
+                <span>6:21</span>
+                <div class="si">
+                  <svg width="13" height="10" viewBox="0 0 15 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx=".5"/><rect x="4" y="5" width="3" height="6" rx=".5"/><rect x="8" y="2.5" width="3" height="8.5" rx=".5"/><rect x="12" y="0" width="3" height="11" rx=".5"/></svg>
+                  <svg width="13" height="10" viewBox="0 0 24 17" fill="currentColor"><path d="M12 14.5a1.5 1.5 0 110 3 1.5 1.5 0 010-3zm0-4.5c2.2 0 4.2.9 5.6 2.4l-1.8 1.8A5.5 5.5 0 0012 12a5.5 5.5 0 00-3.8 1.5l-1.8-1.8A7.5 7.5 0 0112 10zm0-4.5c3.4 0 6.5 1.4 8.7 3.7L19 10.9A9.5 9.5 0 0012 8a9.5 9.5 0 00-7 3L3.3 9.2A11.5 11.5 0 0112 5.5zm0-4.5c4.7 0 9 1.9 12.1 5L22.3 7.7A14.5 14.5 0 0012 3.5 14.5 14.5 0 001.7 7.7L0 6A16.5 16.5 0 0112 1z"/></svg>
+                  <svg width="19" height="10" viewBox="0 0 22 12" fill="currentColor"><rect x="0" y="1" width="19" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="1.2"/><rect x="1.5" y="2.5" width="12" height="7" rx="1"/><path d="M20 4v4a2 2 0 000-4z"/></svg>
+                </div>
+              </div>
 
-                    {/* Center element */}
-                    <div className="notebook-center-element">
-                      <div className="notebook-center-circle">
-                        <div className="notebook-center-icon">✦</div>
-                      </div>
-                    </div>
-
-                    <div>
-                      <div className="notebook-subtitle">
-                        Discover how I translate your brand's essence into meaningful customer connections.
-                      </div>
-                    </div>
+              <!-- STATE 1: TikTok -->
+              <div class="ps is-active" id="ss1">
+                <div class="tt-topbar"><i class="ri-arrow-left-line tt-icon"></i><span class="tt-handle"></span><i class="ri-more-line tt-icon"></i></div>
+                <div class="tt-prof">
+                  <div class="tt-av"><img src="images/yosemite me.jpeg" alt="Bea"></div>
+                  <div class="tt-name">Beatriz Aguiar Fonseca</div>
+                  <div class="tt-uname"></div>
+                  <div class="tt-stats">
+                    <div class="tt-stat"><div class="tt-snum">14</div><div class="tt-slbl">Projects</div></div>
+                    <div class="tt-stat"><div class="tt-snum">20M+</div><div class="tt-slbl">Impressions</div></div>
+                    <div class="tt-stat"><div class="tt-snum">∞</div><div class="tt-slbl">Dumb Jokes</div></div>
                   </div>
-
-                  {/* Binding rings */}
-                  <div className="notebook-binding" style={{ backgroundColor: '#374456' }}>
-                    {[...Array(8)].map((_, i) => (
-                      <div
-                        key={i}
-                        className="notebook-binding-ring"
-                        style={{ top: `${15 + i * 10}%`, backgroundColor: '#202B3D' }}
-                      />
-                    ))}
-                  </div>
+                  <button class="tt-fbtn">Follow</button>
                 </div>
-
-                {/* Back of cover */}
-                <div className="notebook-cover-back" style={{ backgroundColor: '#EA580C' }}></div>
-              </div>
-
-              {/* Notebook Pages */}
-              <div className="notebook-pages">
-                <div className="notebook-pages-stack" style={{ backgroundColor: '#FDBA74' }}></div>
-                <div className="notebook-pages-stack2" style={{ backgroundColor: '#FED7AA' }}></div>
-
-                {/* Binding */}
-                <div className="notebook-binding" style={{ backgroundColor: '#202B3D' }}>
-                  {[...Array(8)].map((_, i) => (
-                    <div
-                      key={i}
-                      className="notebook-binding-ring"
-                      style={{
-                        top: `${15 + i * 10}%`,
-                        backgroundColor: '#9A3412'
-                      }}
-                    />
-                  ))}
-                </div>
-
-                {/* Pages Content with Stamps */}
-                <div className="notebook-pages-content">
-                  {skills.map((stamp, index) => (
-                    <div
-                      key={stamp.skill}
-                      className="notebook-stamp"
-                      style={{
-                        left: stamp.left,
-                        top: stamp.top,
-                        transform: `rotate(${stamp.rotation}deg)`,
-                        animationDelay: `${0.3 + index * 0.15}s`
-                      }}
-                      onMouseEnter={() => setHoveredSkill(stamp.skill)}
-                      onMouseLeave={() => setHoveredSkill(null)}
-                    >
-                      <div className="notebook-stamp-emoji">{stamp.emoji}</div>
-                    </div>
-                  ))}
+                <div class="tt-tabs"><div class="tt-tab active">Work</div><div class="tt-tab">Liked</div><div class="tt-tab">Saved</div></div>
+                <div class="tt-grid">
+                  <div class="tt-thumb"><img src="images/wingrep mockup.png" alt="WingRep"><div class="tt-tov"><span class="tt-views">↑ $600K</span></div></div>
+                  <div class="tt-thumb"><img src="images/WhatsApp Image 2025-03-26 at 04.46.12.jpeg" alt="Amazon"><div class="tt-tov"><span class="tt-views">80M users</span></div></div>
+                  <div class="tt-thumb"><img src="images/summit 5.jpeg" alt="BRASA"><div class="tt-tov"><span class="tt-views">520% ↑</span></div></div>
+                  <div class="tt-thumb"><img src="images/t4y.jpeg" alt="T4Y"><div class="tt-tov"><span class="tt-views">Upkey</span></div></div>
+                  <div class="tt-thumb"><img src="images/rfs2.png" alt="Dale Duro"><div class="tt-tov"><span class="tt-views">1K+ att.</span></div></div>
+                  <div class="tt-thumb"><img src="images/bakery 3.png" alt="Bakeries"><div class="tt-tov"><span class="tt-views">SF</span></div></div>
                 </div>
               </div>
 
-              {/* Hover hint */}
-              {!isOpen && (
-                <div className="notebook-hover-hint">
-                  <div className="notebook-hover-text">Hover to open ↗</div>
-                  <div className="notebook-hover-arrow"> </div>
+              <!-- STATE 2: Apple -->
+              <div class="ps" id="ss2">
+                <svg class="a-logo" viewBox="0 0 24 24" fill="currentColor" width="28" height="28"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.55-1.48 3.34-1.28 3.34-1.28.27 1.71-1.69 3-3.34 2.83"/></svg>
+                <div style="text-align:center;padding:0 1rem;"><span class="s2-tag">Incoming · Summer 2026</span><h2 class="s2-title">Social Strategy Intern</h2><p class="s2-city">Sunnyvale, CA — Apple</p><p class="s2-date">Marcom</p></div>
+                <div style="padding:0 2rem;width:100%;"><button class="s2-btn" onclick="window.open('https://linkedin.com/in/beatrizaguiarfonseca','_blank')">Check my LinkedIn ↗</button></div>
+              </div>
+
+              <!-- STATE 3: Globe -->
+              <div class="ps" id="ss3" style="justify-content:flex-start;align-items:stretch;padding:0;">
+                <div class="g-header">
+                  <div class="g-eye"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2L16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg><span>Global Connection</span></div>
+                  <p class="g-title">Connecting cultures<br>across continents.</p>
+                  <div class="g-cities"><span>🇧🇷 São Paulo</span><span class="g-sep">•</span><span>🇺🇸 Chicago</span><span class="g-sep">•</span><span>🇮🇹 Florence</span><span class="g-sep">•</span><span>🇺🇸 San Francisco</span><span class="g-sep">•</span><span>🇪🇸 Madrid</span><span class="g-sep">•</span><span>🇺🇸 Sunnyvale</span></div>
                 </div>
-              )}
+                <div class="g-wrap"><canvas id="globeCanvas"></canvas></div>
+              </div>
+
+              <!-- STATE 4: Skills -->
+              <div class="ps" id="ss4" style="justify-content:flex-start;align-items:flex-start;padding:1.25rem;padding-top:3rem;overflow:hidden;">
+                <div class="sk-eye"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5z"/><path d="M19 1l.75 2.25L22 4l-2.25.75L19 7l-.75-2.25L16 4l2.25-.75z"/><path d="M5 17l.5 1.5L7 19l-1.5.5L5 21l-.5-1.5L3 19l1.5-.5z"/></svg><span>Marketing Expertise</span></div>
+                <div class="sk-grid">
+                  <div class="sk-card"><img src="https://images.unsplash.com/photo-1680986070892-1b64bfe03338?w=400&q=80" alt="Brand" loading="lazy"><div class="sk-lbl">Brand Strategy</div></div>
+                  <div class="sk-card"><img src="https://images.unsplash.com/photo-1760008486577-21baa8b560a5?w=400&q=80" alt="UX" loading="lazy"><div class="sk-lbl">UX/UI Design</div></div>
+                  <div class="sk-card"><img src="https://images.unsplash.com/photo-1663153205426-2b93a5a8dca9?w=400&q=80" alt="Social" loading="lazy"><div class="sk-lbl">Social Media</div></div>
+                  <div class="sk-card"><img src="https://images.unsplash.com/photo-1758876202468-5ffe0ee61f07?w=400&q=80" alt="PM" loading="lazy"><div class="sk-lbl">Project Mgmt</div></div>
+                  <div class="sk-card"><img src="https://images.unsplash.com/photo-1758691736097-7f735ac5f118?w=400&q=80" alt="GTM" loading="lazy"><div class="sk-lbl">Sales & GTM</div></div>
+                  <div class="sk-card"><img src="https://images.unsplash.com/photo-1630068846062-3ffe78aa5049?w=400&q=80" alt="Lead" loading="lazy"><div class="sk-lbl">Leadership</div></div>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
-      );
-    }
+      </div>
 
-    // Render the React component
-    const root = ReactDOM.createRoot(document.getElementById('react-notebook-root'));
-    root.render(<NotebookComponent />);
-  </script>
+    </div><!-- /hero-stage -->
+
+    <div id="scrollHint"><span>Keep scrolling</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+  </div>
+</section>
+
+<div id="pdots"><div class="pdot is-active"></div><div class="pdot"></div><div class="pdot"></div><div class="pdot"></div></div>
+
+<!-- SELECTED PROJECTS -->
+<section id="selected-projects">
+  <div class="sec-inner">
+    <div class="sec-hdr"><h2 class="sec-title">Selected <span>Projects</span></h2><a href="projects.html" class="sec-link">All projects <i class="ri-arrow-right-line"></i></a></div>
+    <p class="sec-sub">A handful of my favourite pieces of work, from startup rebrands to global campaign strategy. Each one taught me something new.</p>
+    <div class="p2x2">
+      <a href="projects/wingrep.html" class="pcard"><div class="pcard-iw"><img class="pcard-img" src="images/wingrep mockup.png" alt="WingRep"></div><div class="pcard-body"><div class="pcard-tags"><span class="tag">Web Dev / Design</span><span class="tag">Marketing</span></div><h3>WingRep Startup Rebrand</h3><p>End-to-end rebrand: PM, branding, and web design for a SF B2B SaaS startup — supporting $600K+ raised.</p></div></a>
+      <a href="projects/amazon-music.html" class="pcard"><div class="pcard-iw"><img class="pcard-img" src="images/WhatsApp Image 2025-03-26 at 04.46.12.jpeg" alt="Amazon Music"></div><div class="pcard-body"><div class="pcard-tags"><span class="tag">UX/UI</span><span class="tag">Branding</span></div><h3>Amazon Music Marketplace Integration</h3><p>Branding and UI/UX externship exploring an e-commerce/music fusion for Amazon Music's 80M+ user base.</p></div></a>
+      <a href="projects/brasa-summit.html" class="pcard"><div class="pcard-iw"><img class="pcard-img" src="images/summit 5.jpeg" alt="BRASA Summit"></div><div class="pcard-body"><div class="pcard-tags"><span class="tag">Social Media</span><span class="tag">Marketing</span></div><h3>BRASA Summit 2024 Campaign</h3><p>Led the marketing campaign achieving a 520% surge in registrations — the most successful BRASA event in 10 years.</p></div></a>
+      <a href="projects/there4you.html" class="pcard"><div class="pcard-iw"><img class="pcard-img" src="images/t4y.jpeg" alt="THERE4YOU"></div><div class="pcard-body"><div class="pcard-tags"><span class="tag">Product Design</span><span class="tag">Internship</span></div><h3>THERE4YOU Smart Bracelet</h3><p>Interned at Upkey to develop wearable anti-harassment tech — from product concept to brand identity.</p></div></a>
+    </div>
+  </div>
+</section>
+
+<!-- THE ARCHIVE -->
+<section id="archive">
+  <div class="sec-inner">
+    <div class="sec-hdr"><h2 class="sec-title">The <span>Archive</span></h2><a href="projects.html" class="sec-link">View all <i class="ri-arrow-right-line"></i></a></div>
+    <p class="sec-sub">Every project tells a story. These are other projects just as close to my heart — digital marketing, community work, graphic design, web development, and passion projects in between.</p>
+    <div class="carousel-outer"><div class="carousel-track-wrap"><div class="carousel-track" id="carouselTrack">
+      <a href="projects/dale-duro.html" class="acard"><div class="acard-iw"><img class="acard-img" src="images/rfs2.png" alt="Dale Duro" loading="lazy"></div><div class="acard-body"><div class="acard-tags"><span class="tag">Social Media</span><span class="tag">PR</span></div><h3>Dale Duro Latin Dance Co.</h3><p>PR campaigns breaking attendance records at Spring Show 2025 with 1,000+ attendees.</p></div></a>
+      <a href="projects/c4-energy.html" class="acard"><div class="acard-iw"><img class="acard-img" src="images/WhatsApp Image 2025-03-26 at 06.03.02.jpeg" alt="C4" loading="lazy"></div><div class="acard-body"><div class="acard-tags"><span class="tag">Branding</span><span class="tag">Research</span></div><h3>C4 Smart Energy Strategy</h3><p>Audience research and brand identity for a performance drink brand.</p></div></a>
+      <a href="projects/leaving-lightly.html" class="acard"><div class="acard-iw"><img class="acard-img" src="images/journey.png" alt="Leaving Lightly" loading="lazy"></div><div class="acard-body"><div class="acard-tags"><span class="tag">UX/UI</span><span class="tag">Sustainability</span></div><h3>Leaving Lightly</h3><p>UX app reducing campus waste through item exchanges.</p></div></a>
+      <a href="projects/sf-bakeries.html" class="acard"><div class="acard-iw"><img class="acard-img" src="images/bakery 3.png" alt="SF Bakeries" loading="lazy"></div><div class="acard-body"><div class="acard-tags"><span class="tag">Photography</span><span class="tag">Website</span></div><h3>Bakeries in San Francisco</h3><p>Visual storytelling combining photography and web design.</p></div></a>
+      <a href="projects/brasa-global.html" class="acard"><div class="acard-iw"><img class="acard-img" src="images/brasa 2.png" alt="BRASA Global" loading="lazy"></div><div class="acard-body"><div class="acard-tags"><span class="tag">Social Media</span><span class="tag">Leadership</span></div><h3>BRASA Global Board</h3><p>Strategy + content for Brazilian student network worldwide.</p></div></a>
+      <a href="projects/tether.html" class="acard"><div class="acard-iw"><img class="acard-img" src="images/prot 8.jpeg" alt="Tether" loading="lazy"></div><div class="acard-body"><div class="acard-tags"><span class="tag">UX/UI</span><span class="tag">Product Design</span></div><h3>Tether: App + Product Design</h3><p>Connected app and physical product for mental wellness.</p></div></a>
+      <a href="projects/the-garage.html" class="acard"><div class="acard-iw"><img class="acard-img" src="images/the garage.png" alt="The Garage" loading="lazy"></div><div class="acard-body"><div class="acard-tags"><span class="tag">Marketing</span><span class="tag">Strategy</span></div><h3>Marketing Aide @ The Garage</h3><p>Creative strategy for Northwestern's innovation incubator.</p></div></a>
+      <a href="projects/brasa-nu.html" class="acard"><div class="acard-iw"><img class="acard-img" src="images/1.png" alt="BRASA NU" loading="lazy"></div><div class="acard-body"><div class="acard-tags"><span class="tag">Social Media</span><span class="tag">Community</span></div><h3>BRASA Northwestern Chapter</h3><p>Social campaigns and events for the Brazilian community at NU.</p></div></a>
+      <a href="projects/isa.html" class="acard"><div class="acard-iw"><img class="acard-img" src="images/18.png" alt="ISA" loading="lazy"></div><div class="acard-body"><div class="acard-tags"><span class="tag">Social Media</span><span class="tag">Leadership</span></div><h3>International Study Ambassador Program</h3><p>Social media and outreach for global student association.</p></div></a>
+      <a href="projects/brnd.html" class="acard"><div class="acard-iw"><img class="acard-img" src="images/Beatriz's Portfolio.pdf.png" alt="BRND" loading="lazy"></div><div class="acard-body"><div class="acard-tags"><span class="tag">Communications</span><span class="tag">Social Media</span></div><h3>Brazilian Debate Association</h3><p>Social media and communications lead for national debate league.</p></div></a>
+    </div></div>
+    <div class="carousel-controls">
+      <button class="carousel-btn" id="carouselPrev"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+      <div class="carousel-dots" id="carouselDots"></div>
+      <button class="carousel-btn" id="carouselNext"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+    </div></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-inner">
+    <div><div class="about-img-frame"><img src="images/yosemite me.jpeg" alt="Beatriz Fonseca"></div></div>
+    <div>
+      <div class="odivider"></div>
+      <span class="about-kicker">Nice to meet you!</span>
+      <h2 class="about-h">I'm a creative and bold<br>strategist & <em>builder.</em></h2>
+      <p class="about-body">From <strong>São Paulo</strong>, now between Chicago and SF. I'm a multidisciplinary marketer studying <strong>Communication Studies & Psychology</strong> at Northwestern University, with certificates in Design and Integrated Marketing Communications.</p>
+      <div class="about-pills"><span class="about-pill">☕ hot-chocolate-fueled</span><span class="about-pill">🌎 trilingual</span><span class="about-pill">🎶 music-obsessed</span><span class="about-pill">🎨 design nerd</span><span class="about-pill">📊 data-driven</span></div>
+      <div style="display:flex;gap:1rem;flex-wrap:wrap;"><a href="about.html" class="btn-fill">About Me <i class="ri-arrow-right-line"></i></a><a href="mailto:beatrizfonseca2027@u.northwestern.edu" class="btn-outline">Say hello</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-wrap">
+    <div class="odivider" style="margin:0 auto 1.5rem;"></div>
+    <h2>Let's work <em>together</em></h2>
+    <p>Always open to cool projects, internships, and good conversations. Let's connect.</p>
+    <div class="contact-btns"><a href="mailto:beatrizfonseca2027@u.northwestern.edu" class="btn-fill"><i class="ri-mail-line"></i> Email me</a><a href="https://linkedin.com/in/beatrizaguiarfonseca" target="_blank" class="btn-outline"><i class="ri-linkedin-line"></i> LinkedIn</a></div>
+  </div>
+</section>
+
+<footer><p><strong>Beatriz Aguiar Fonseca</strong> · Built with ♥ in Evanston &amp; SF · <a href="mailto:beatrizfonseca2027@u.northwestern.edu">beatrizfonseca2027@u.northwestern.edu</a></p></footer>
+
+<script>
+// ── MOBILE NAV ──
+document.getElementById('navHamburger').addEventListener('click',function(){
+  document.getElementById('navMobile').classList.toggle('open');
+});
+document.addEventListener('click',function(e){
+  const nav=document.getElementById('navMobile');
+  if(!nav.contains(e.target)&&!document.getElementById('navHamburger').contains(e.target)){
+    nav.classList.remove('open');
+  }
+});
+
+// ── UNIFIED SCROLLYTELLING (desktop only) ──
+(function(){
+  // Disable on mobile
+  if(window.innerWidth<=768)return;
+
+  const section=document.getElementById('hero-scroll');
+  const phoneIds=['ss1','ss2','ss3','ss4'];
+  const textIds=['tp1','tp2','tp3','tp4'];
+  const dots=document.querySelectorAll('.pdot');
+  const pdotsEl=document.getElementById('pdots');
+  const hint=document.getElementById('scrollHint');
+  const statusBar=document.getElementById('statusBar');
+  let current=0;
+
+  function activate(idx){
+    if(idx===current)return;
+    phoneIds.forEach((id,i)=>{const el=document.getElementById(id);if(i===idx){el.classList.remove('is-exit');el.classList.add('is-active');}else if(i<idx){el.classList.remove('is-active');el.classList.add('is-exit');}else{el.classList.remove('is-active','is-exit');}});
+    textIds.forEach((id,i)=>{const el=document.getElementById(id);if(i===idx){el.classList.remove('is-exit');el.classList.add('is-active');}else if(i<idx){el.classList.remove('is-active');el.classList.add('is-exit');}else{el.classList.remove('is-active','is-exit');}});
+    dots.forEach((d,i)=>d.classList.toggle('is-active',i===idx));
+    statusBar.style.color=idx===0?'#fff':'#000';
+    if(hint)hint.style.opacity=idx<phoneIds.length-1?'1':'0';
+    current=idx;
+  }
+  function onScroll(){
+    const rect=section.getBoundingClientRect();
+    const totalScroll=section.offsetHeight-window.innerHeight;
+    const scrolled=-rect.top;
+    const progress=Math.max(0,Math.min(1,scrolled/totalScroll));
+    const idx=Math.min(phoneIds.length-1,Math.floor(progress*phoneIds.length));
+    const inZone=scrolled>-window.innerHeight*0.5&&scrolled<totalScroll+window.innerHeight*0.5;
+    pdotsEl.classList.toggle('visible',inZone);
+    activate(idx);
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});
+  pdotsEl.classList.add('visible');
+  activate(0);
+})();
+
+// ── GLOBE ──
+(function(){
+  const canvas=document.getElementById('globeCanvas');
+  if(!canvas)return;
+  const ctx=canvas.getContext('2d');
+  const W=360,H=360,R=160;
+  canvas.width=W;canvas.height=H;
+  const cities=[{lat:-23.5,lon:-46.6,label:'São Paulo'},{lat:41.8,lon:-87.6,label:'Chicago'},{lat:43.7,lon:11.2,label:'Florence'},{lat:37.7,lon:-122.4,label:'San Francisco'},{lat:40.4,lon:-3.7,label:'Madrid'},{lat:37.4,lon:-122.0,label:'Sunnyvale'}];
+  function project(lat,lon,rot){const phi=(90-lat)*Math.PI/180,theta=(lon+rot)*Math.PI/180;const x=R*Math.sin(phi)*Math.cos(theta),y=R*Math.cos(phi),z=R*Math.sin(phi)*Math.sin(theta);return{x:W/2+x,y:H/2-y,z};}
+  let rot=0;
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    const grd=ctx.createRadialGradient(W/2-30,H/2-30,6,W/2,H/2,R);
+    grd.addColorStop(0,'#fff9f6');grd.addColorStop(1,'#ffe8dc');
+    ctx.beginPath();ctx.arc(W/2,H/2,R,0,Math.PI*2);ctx.fillStyle=grd;ctx.fill();
+    ctx.strokeStyle='rgba(255,107,53,0.14)';ctx.lineWidth=0.7;
+    for(let lat=-60;lat<=60;lat+=30){ctx.beginPath();for(let lon=-180;lon<=180;lon+=5){const p=project(lat,lon,rot);if(p.z>=0){lon===-180?ctx.moveTo(p.x,p.y):ctx.lineTo(p.x,p.y);}}ctx.stroke();}
+    for(let lon=0;lon<360;lon+=30){ctx.beginPath();for(let lat=-90;lat<=90;lat+=5){const p=project(lat,lon,rot);if(p.z>=0){lat===-90?ctx.moveTo(p.x,p.y):ctx.lineTo(p.x,p.y);}}ctx.stroke();}
+    cities.forEach(c=>{const p=project(c.lat,c.lon,rot);if(p.z<0)return;ctx.beginPath();ctx.arc(p.x,p.y,4.5,0,Math.PI*2);ctx.fillStyle='#FF6B35';ctx.fill();ctx.strokeStyle='#fff';ctx.lineWidth=1.5;ctx.stroke();ctx.fillStyle='rgba(13,13,13,0.75)';ctx.font='bold 8px Plus Jakarta Sans, sans-serif';ctx.fillText(c.label,p.x+7,p.y+3);});
+    rot+=0.14;requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+// ── CAROUSEL ──
+(function(){
+  const track=document.getElementById('carouselTrack');
+  const dotsWrap=document.getElementById('carouselDots');
+  const prevBtn=document.getElementById('carouselPrev');
+  const nextBtn=document.getElementById('carouselNext');
+  if(!track)return;
+  const cards=track.querySelectorAll('.acard');
+  let perPage=3,page=0;
+  function calcPer(){const w=window.innerWidth;if(w<=768)return 1;if(w<900)return 2;return 3;}
+  function totalPages(){return Math.ceil(cards.length/perPage);}
+  function buildDots(){dotsWrap.innerHTML='';for(let i=0;i<totalPages();i++){const d=document.createElement('div');d.className='cdot'+(i===page?' active':'');d.addEventListener('click',()=>goTo(i));dotsWrap.appendChild(d);}}
+  function goTo(p){page=Math.max(0,Math.min(p,totalPages()-1));const gap=20,cw=cards[0].offsetWidth+gap;track.style.transform=`translateX(-${page*perPage*cw}px)`;buildDots();prevBtn.disabled=page===0;nextBtn.disabled=page>=totalPages()-1;}
+  function init(){perPage=calcPer();page=0;buildDots();goTo(0);}
+  prevBtn.addEventListener('click',()=>goTo(page-1));
+  nextBtn.addEventListener('click',()=>goTo(page+1));
+  window.addEventListener('resize',init);
+  init();
+})();
+</script>
 </body>
-</html>
-
-<section id="projects" class="py-20 bg-white">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <h2 class="text-4xl font-bold mb-12 text-center font-['Fustat']">Projects</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-
-          <!-- Project Card Template -->
-
-          <a href="projects/wingrep.html"
-            class="tilt-card neon-glow bg-white rounded-lg overflow-hidden shadow-lg transition-transform hover:scale-[1.02]">
-            <img src="images/wingrep mockup.png" class="h-48 w-full object-cover" />
-            <div class="p-6">
-              <h3 class="text-xl font-bold mb-2 font-['Fustat']">WingRep Startup Rebrand</h3>
-              <p class="text-gray-600 mb-4 text-sm"> End-to-End Rebrand: Project Management, Branding, and Web Design for San Francisco
-                Startup</p>
-              <div class="flex flex-wrap gap-2 text-sm">
-                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Web Development/Design</span>
-                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Marketing</span>
-              </div>
-            </div>
-          </a>
-
-
-          <a href="projects/amazon-music.html"
-            class="tilt-card neon-glow bg-white rounded-lg overflow-hidden shadow-lg transition-transform hover:scale-[1.02]">
-            <img src="images/WhatsApp Image 2025-03-26 at 04.46.12.jpeg" class="h-48 w-full object-cover" />
-            <div class="p-6">
-              <h3 class="text-xl font-bold mb-2 font-['Fustat']">Amazon Music Marketplace Integration</h3>
-              <p class="text-gray-600 mb-4 text-sm">Branding and UI/UX externship exploring an e-commerce/music fusion.
-              </p>
-              <div class="flex flex-wrap gap-2 text-sm">
-                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">UX/UI</span>
-                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Branding</span>
-              </div>
-            </div>
-          </a>
-
-
-          <a href="projects/there4you.html" class="tilt-card neon-glow bg-white rounded-lg overflow-hidden shadow-lg">
-            <img src="images/t4y.jpeg" class="h-48 w-full object-cover" />
-            <div class="p-6">
-
-              <h3 class="text-xl font-bold mb-2 font-['Fustat']">THERE4YOU Smart Bracelet</h3>
-              <p class="text-gray-600 mb-4 text-sm">Interned at Upkey to develop wearable anti-harassment tech + brand.
-              </p>
-              <div class="flex flex-wrap gap-2 text-sm">
-                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Product Design</span>
-                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Internship</span>
-              </div>
-            </div>
-          </a>
-
-          <a href="projects/dale-duro.html" class="tilt-card neon-glow bg-white rounded-lg overflow-hidden shadow-lg">
-            <img src="images/rfs2.png" class="h-48 w-full object-cover" />
-            <div class="p-6">
-
-              <h3 class="text-xl font-bold mb-2 font-['Fustat']">Dale Duro Latin Dance Co.</h3>
-              <p class="text-gray-600 mb-4 text-sm">Handled PR and marketing campaigns for Northwestern’s Latin dance group, breaking attendance records at the Spring Show 2025 with 1,000+ attendees.
-              </p>
-              <div class="flex flex-wrap gap-2 text-sm">
-                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Social Media</span>
-                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Public Relations</span>
-              </div>
-            </div>
-          </a>
-
-
-          <a href="projects/c4-energy.html" class="tilt-card neon-glow bg-white rounded-lg overflow-hidden shadow-lg">
-            <img src="images/WhatsApp Image 2025-03-26 at 06.03.02.jpeg" class="h-48 w-full object-cover" />
-            <div class="p-6">
-
-              <h3 class="text-xl font-bold mb-2 font-['Fustat']">C4 Smart Energy Strategy</h3>
-              <p class="text-gray-600 mb-4 text-sm">Audience research and brand identity for a performance drink brand.
-              </p>
-              <div class="flex flex-wrap gap-2 text-sm">
-                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Branding</span>
-                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Research</span>
-              </div>
-            </div>
-          </a>
-
-          <a href="projects/brasa-summit.html"
-          class="tilt-card neon-glow bg-white rounded-lg overflow-hidden shadow-lg">
-          <img src="images/summit 5.jpeg" class="h-48 w-full object-cover" />
-          <div class="p-6">
-
-            <h3 class="text-xl font-bold mb-2 font-['Fustat']">BRASA Summit 2024 Campaign</h3>
-            <p class="text-gray-600 mb-4 text-sm">Marketing visuals and strategy for the biggest Brazilian student
-              event.</p>
-            <div class="flex flex-wrap gap-2 text-sm">
-              <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Social Media</span>
-              <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Marketing</span>
-            </div>
-          </div>
-        </a>
-
-          <a href="projects/leaving-lightly.html"
-            class="tilt-card neon-glow bg-white rounded-lg overflow-hidden shadow-lg">
-            <img src="images/journey.png" class="h-48 w-full object-cover" />
-            <div class="p-6">
-
-              <h3 class="text-xl font-bold mb-2 font-['Fustat']">Leaving Lightly</h3>
-              <p class="text-gray-600 mb-4 text-sm">UX app that reduces campus waste by facilitating item exchanges.</p>
-              <div class="flex flex-wrap gap-2 text-sm">
-                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">UX/UI</span>
-                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Sustainability</span>
-              </div>
-            </div>
-          </a>
-
-
-
-          <a href="projects/sf-bakeries.html" class="tilt-card neon-glow bg-white rounded-lg overflow-hidden shadow-lg">
-            <img src="images/bakery 3.png" class="h-48 w-full object-cover" />
-            <div class="p-6">
-
-              <h3 class="text-xl font-bold mb-2 font-['Fustat']">Bakeries in San Francisco</h3>
-              <p class="text-gray-600 mb-4 text-sm">Visual storytelling project combining photography and web design.
-              </p>
-              <div class="flex flex-wrap gap-2 text-sm">
-                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Photography</span>
-                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Website</span>
-              </div>
-            </div>
-          </a>
-
-          <a href="projects/brasa-global.html"
-            class="tilt-card neon-glow bg-white rounded-lg overflow-hidden shadow-lg">
-            <img src="images/brasa 2.png" class="h-48 w-full object-cover" />
-            <div class="p-6">
-
-              <h3 class="text-xl font-bold mb-2 font-['Fustat']">BRASA Global Board</h3>
-              <p class="text-gray-600 mb-4 text-sm">Strategy + content creation for Brazilian student network worldwide.
-              </p>
-              <div class="flex flex-wrap gap-2 text-sm">
-                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Social Media</span>
-                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Leadership</span>
-              </div>
-            </div>
-          </a>
-
-          <a href="projects/tether.html" class="tilt-card neon-glow bg-white rounded-lg overflow-hidden shadow-lg">
-            <img src="images/prot 8.jpeg" class="h-48 w-full object-cover" />
-            <div class="p-6">
-
-              <h3 class="text-xl font-bold mb-2 font-['Fustat']">Tether: App + Product Design</h3>
-              <p class="text-gray-600 mb-4 text-sm">Built a connected app and physical product to support mental
-                wellness.
-              </p>
-              <div class="flex flex-wrap gap-2 text-sm">
-                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">UX/UI</span>
-                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Product Design</span>
-              </div>
-            </div>
-          </a>
-
-          <a href="projects/the-garage.html" class="tilt-card neon-glow bg-white rounded-lg overflow-hidden shadow-lg">
-            <img src="images/the garage.png" class="h-48 w-full object-cover" />
-            <div class="p-6">
-
-              <h3 class="text-xl font-bold mb-2 font-['Fustat']">Marketing Aide @ The Garage</h3>
-              <p class="text-gray-600 mb-4 text-sm">Creative strategy support for Northwestern's innovation incubator.
-              </p>
-              <div class="flex flex-wrap gap-2 text-sm">
-                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Marketing</span>
-                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Strategy</span>
-              </div>
-            </div>
-          </a>
-
-
-
-          <a href="projects/brasa-nu.html" class="tilt-card neon-glow bg-white rounded-lg overflow-hidden shadow-lg">
-            <img src="images/1.png" class="h-48 w-full object-cover" />
-            <div class="p-6">
-
-              <h3 class="text-xl font-bold mb-2 font-['Fustat']">BRASA Northwestern Chapter</h3>
-              <p class="text-gray-600 mb-4 text-sm">Managed social campaigns and events for Brazilian community at NU.
-              </p>
-              <div class="flex flex-wrap gap-2 text-sm">
-                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Social Media</span>
-                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Community</span>
-              </div>
-            </div>
-          </a>
-
-       
-
-          <a href="projects/isa.html" class="tilt-card neon-glow bg-white rounded-lg overflow-hidden shadow-lg">
-            <img src="images/18.png" class="h-48 w-full object-cover" />
-            <div class="p-6">
-
-              <h3 class="text-xl font-bold mb-2 font-['Fustat']">International Study Ambassador Program</h3>
-              <p class="text-gray-600 mb-4 text-sm">Led social media and outreach for global student association.</p>
-              <div class="flex flex-wrap gap-2 text-sm">
-                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Social Media</span>
-                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Leadership</span>
-              </div>
-            </div>
-          </a>
-
-          <a href="projects/brnd.html" class="tilt-card neon-glow bg-white rounded-lg overflow-hidden shadow-lg">
-            <img src="images/Beatriz's Portfolio.pdf.png" class="h-48 w-full object-cover" />
-            <div class="p-6">
-
-              <h3 class="text-xl font-bold mb-2 font-['Fustat']">Brazilian Debate Association</h3>
-              <p class="text-gray-600 mb-4 text-sm">Social media and communications lead for national debate league.</p>
-              <div class="flex flex-wrap gap-2 text-sm">
-                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Communications</span>
-                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Social Media</span>
-              </div>
-            </div>
-          </a>
-        </div>
-      </div>
-    </section>
-
- 
-    <section id="about" class="min-h-screen py-24 bg-white">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid md:grid-cols-2 gap-12 items-start">
-          
-          <!-- Left: Profile card -->
-          <div class="sticky top-24">
-            <div class="relative group rounded-2xl overflow-hidden shadow-xl">
-              <img src="images/yosemite me.jpeg" alt="Beatriz Fonseca profile photo" class="w-full h-auto transform transition duration-500 group-hover:scale-[1.02]">
-              <div class="pointer-events-none absolute inset-0 ring-1 ring-black/5"></div>
-            </div>
-          
-            <div class="mt-6 flex items-center gap-4">
-              <a href="mailto:beatrizfonseca2027@u.northwestern.edu" class="text-primary hover:text-primary/80" aria-label="Email">
-                <i class="ri-mail-line text-2xl"></i>
-              </a>
-              <a href="https://linkedin.com/in/beatrizaguiarfonseca" target="_blank" rel="noopener" class="text-primary hover:text-primary/80" aria-label="LinkedIn">
-                <i class="ri-linkedin-line text-2xl"></i>
-              </a>
-              
-            </div>
-          </div>
-    
-          <!-- Right: Interactive chips -->
-          <div class="space-y-12">
-            
-            <!-- Experience Highlights -->
-            <section>
-              <div class="mt-8">
-                <h2 class="text-4xl font-bold mb-3"> Hi! I'm Beatriz :)</h2>
-                <p class="text-gray-600">
-                  Multidisciplinary creative and strategist from Brazil studying Communication and Psychology at Northwestern with Design and Integrated Marketing Communications certificates.
-                </p>
-                <br></br>
-            </div>
-
-              <div class="flex items-center justify-between mb-4">
-                <h3 class="text-2xl font-bold">Experience Highlights</h3>
-                <a href="about.html#experience" class="text-sm text-primary hover:underline">See all</a>
-              </div>
-              <div class="flex flex-wrap gap-3">
-                <!-- Use chips only, no descriptions -->
-                <a href="about.html#experience" class="group px-4 py-2 rounded-full bg-primary/10 text-primary border border-primary/20 hover:border-primary/40 transition">
-                  The Garage
-                </a>
-                <a href="about.html#experience" class="group px-4 py-2 rounded-full bg-primary/10 text-primary border border-primary/20 hover:border-primary/40 transition">
-                  Amazon Music Externship
-                </a>
-                <a href="about.html#experience" class="group px-4 py-2 rounded-full bg-primary/10 text-primary border border-primary/20 hover:border-primary/40 transition">
-                  Upkey Internship
-                </a>
-                <a href="about.html#experience" class="group px-4 py-2 rounded-full bg-primary/10 text-primary border border-primary/20 hover:border-primary/40 transition">
-                  WingRep Internship
-                </a>
-                <a href="about.html#experience" class="group px-4 py-2 rounded-full bg-primary/10 text-primary border border-primary/20 hover:border-primary/40 transition">
-                  Figma Campus Leader
-                </a>
-              </div>
-            </section>
-    
-            <!-- Skills (compact with expand) -->
-            <section>
-              <div class="flex items-center justify-between mb-4">
-                <h3 class="text-2xl font-bold">Skills</h3>
-                <button id="toggleSkills" type="button" class="text-sm text-primary hover:underline">Show all</button>
-              </div>
-    
-              <div id="skillsList" class="flex flex-wrap gap-2 max-h-24 overflow-hidden transition-[max-height] duration-300">
-                <!-- Show a focused set by default -->
-                <!-- Show a focused set by default -->
-<span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">Figma</span>
-<span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">Adobe Creative Cloud</span>
-<span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">UX/UI Design</span>
-<span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">Digital Marketing</span>
-<span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">Product Management</span>
-<span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">Project Management</span>
-<span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">Content Creation</span>
-<span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">Social Media Management</span>
-<span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">Branding</span>
-<span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">Public Relations</span>
-<span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">Google Analytics</span>
-<span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">Google Ads</span>
-
-<!-- Hidden until expanded -->
-<span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">Asana</span>
-<span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">Salesforce</span>
-<span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">HubSpot</span>
-<span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">Generative AI Tools</span>
-<span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">LLMs</span>
-<span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">Canva</span>
-<span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">Trello</span>
-<span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">Slack</span>
-<span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">Zoom</span>
-<span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">Adobe Apps</span>
-<span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">Microsoft Office</span>
-<span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">Google Suite</span>
-<span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">Sony Vegas</span>
-<span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">R</span>
-<span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">Python</span>
-<span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">HTML</span>
-<span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">CSS</span>
-<span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">JavaScript</span>
-<span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">Webflow</span>
-<span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">Framer</span>
-<span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">WordPress</span>
-<span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">Digital Content Production</span>
-<span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">Digital Media Insights</span>
-<span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">Market Analysis</span>
-<span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">Persona Analysis</span>
-<span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">Audience Analysis</span>
-<span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">Technical Writing</span>
-<span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">Creative Writing</span>
-<span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">Event Planning</span>
-<span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">Video Editing</span>
-<span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">Sound Editing</span>
-
-              </div>
-    
-              <div class="mt-6">
-                <a href="about.html" class="group inline-flex items-center justify-center w-full sm:w-auto px-5 py-3 rounded-xl bg-primary text-white font-medium hover:opacity-90 transition">
-                  Learn about me, my experience, my hobbies here
-                  <span class="ml-2 transition-transform group-hover:translate-x-0.5" aria-hidden="true">→</span>
-                </a>
-              </div>
-            </section>
-          </div>
-        </div>
-      </div>
-    
-      <!-- Tiny JS for Skills expand -->
-      <script>
-        const skillsList = document.getElementById('skillsList');
-        const toggleBtn = document.getElementById('toggleSkills');
-        if (skillsList && toggleBtn) {
-          let expanded = false;
-          toggleBtn.addEventListener('click', () => {
-            expanded = !expanded;
-            skillsList.style.maxHeight = expanded ? skillsList.scrollHeight + 'px' : '6rem';
-            toggleBtn.textContent = expanded ? 'Show less' : 'Show all';
-          });
-        }
-      </script>
-    </section>
-    
-    <section id="contact" class="py-20">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="max-w-2xl mx-auto text-center mb-12">
-          <h2 class="text-4xl font-bold mb-4">Let's Work Together</h2>
-          <p class="text-gray-600">Let’s talk and get connected!! I’d love to hear from you!</p>
-        </div>
-        <div class="mt-8 flex justify-center space-x-6">
-          <a href="mailto:beatrizfonseca2027@u.northwestern.edu"
-            class="flex items-center gap-2 text-gray-600 hover:text-primary text-lg">
-            <i class="ri-mail-line text-2xl"></i>
-            <span>Email</span>
-          </a>
-          <a href="https://linkedin.com/in/beatrizaguiarfonseca" target="_blank"
-            class="flex items-center gap-2 text-gray-600 hover:text-primary text-lg">
-            <i class="ri-linkedin-line text-2xl"></i>
-            <span>LinkedIn</span>
-          </a>
-        </div>
-      </div>
-    </section>
-
-  </main>
-</body>
-
 </html>

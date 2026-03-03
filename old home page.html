@@ -1,0 +1,1560 @@
+<html lang="en"><head>
+    <link rel="icon" type="image/png" href="images/Design sem nome (8).png">
+  
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beatriz Fonseca - Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      // Tailwind configuration
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: '#FF6B35',
+              secondary: '#04A777'
+            },
+            borderRadius: {
+              'none': '0px',
+              'sm': '4px',
+              DEFAULT: '8px',
+              'md': '12px',
+              'lg': '16px',
+              'xl': '20px',
+              '2xl': '24px',
+              '3xl': '32px',
+              'full': '9999px',
+              'button': '8px'
+            }
+          }
+        }
+      }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&amp;family=Fustat:wght@400;500;600;700&amp;family=Poppins:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+  
+    <!-- React and React DOM -->
+    <script crossorigin="" src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin="" src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  
+    <!-- Framer Motion for animations -->
+    <script src="https://unpkg.com/framer-motion@11.0.3/dist/framer-motion.js"></script>
+  
+    <style>
+      :where([class^="ri-"])::before {
+        content: "\f3c2";
+      }
+  
+      .tilt-card {
+        transform-style: preserve-3d;
+        transition: all 0.3s ease;
+      }
+  
+      .tilt-card:hover {
+        transform: perspective(1000px) rotateX(2deg) rotateY(2deg) translateY(-8px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      }
+  
+      .neon-glow {
+        transition: all 0.3s ease;
+      }
+  
+      .neon-glow:hover {
+        box-shadow: 0 0 15px rgba(255, 107, 53, 0.5);
+      }
+  
+      /* Notebook Component Styles */
+      .notebook-container {
+        perspective: 1000px;
+      }
+  
+      .notebook-wrapper {
+        position: relative;
+        width: 24rem;
+        height: 16rem;
+        margin: 0 auto;
+        cursor: pointer;
+        padding-bottom: 4rem;
+      }
+  
+      .notebook-cover {
+        position: absolute;
+        inset: 0;
+        z-index: 20;
+        transform-style: preserve-3d;
+        transition: transform 0.8s ease-in-out;
+        transform-origin: left center;
+      }
+  
+      .notebook-wrapper:hover .notebook-cover {
+        transform: rotateY(-130deg);
+      }
+  
+      .notebook-cover-front {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to bottom right, #F97316, #199589, #9135E8);
+        border-radius: 0 0.5rem 0.5rem 0;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        border-left: 4px solid #4E6791;
+        backface-visibility: hidden;
+      }
+  
+      .notebook-cover-texture {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to bottom right, transparent, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.1));
+        border-radius: 0 0.5rem 0.5rem 0;
+      }
+  
+      .notebook-cover-content {
+        position: relative;
+        padding: 2rem;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+  
+      .notebook-title {
+        text-align: center;
+        color: white;
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        letter-spacing: 0.05em;
+      }
+  
+      .notebook-year {
+        text-align: center;
+        color: #cbd5e1;
+        font-size: 1rem;
+        letter-spacing: 0.1em;
+      }
+  
+      .notebook-decorative-line {
+        position: absolute;
+        width: 3rem;
+        height: 1px;
+        background-color: #94a3b8;
+        opacity: 0.3;
+      }
+  
+      .notebook-decorative-line.top-left {
+        top: 1.5rem;
+        left: 1.5rem;
+      }
+  
+      .notebook-decorative-line.top-right {
+        top: 1.5rem;
+        right: 1.5rem;
+      }
+  
+      .notebook-decorative-line.bottom-left {
+        bottom: 1.5rem;
+        left: 1.5rem;
+      }
+  
+      .notebook-decorative-line.bottom-right {
+        bottom: 1.5rem;
+        right: 1.5rem;
+      }
+  
+      .notebook-center-element {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+  
+      .notebook-center-circle {
+        width: 4rem;
+        height: 4rem;
+        border: 1px solid #94a3b8;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0.2;
+      }
+  
+      .notebook-center-icon {
+        color: #cbd5e1;
+        font-size: 1.25rem;
+      }
+  
+      .notebook-subtitle {
+        text-align: center;
+        color: #cbd5e1;
+        font-size: 0.75rem;
+        font-style: italic;
+        letter-spacing: 0.05em;
+        line-height: 1.625;
+        margin-bottom: 0.5rem;
+      }
+  
+      .notebook-subtitle2 {
+        text-align: center;
+        color: #94a3b8;
+        font-size: 0.75rem;
+        letter-spacing: 0.05em;
+      }
+  
+      .notebook-binding {
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 0.25rem;
+        background-color: #475569;
+      }
+  
+      .notebook-binding-ring {
+        position: absolute;
+        width: 0.5rem;
+        height: 0.5rem;
+        background-color: #64748b;
+        border-radius: 50%;
+        left: -0.125rem;
+        border: 1px solid #475569;
+      }
+  
+      .notebook-cover-back {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to bottom right, #f1f5f9, #e2e8f0);
+        border-radius: 0 0.5rem 0.5rem 0;
+        transform: rotateY(180deg);
+        backface-visibility: hidden;
+      }
+  
+      .notebook-pages {
+        position: absolute;
+        inset: 0;
+        background-color: white;
+        border-radius: 0 0.5rem 0.5rem 0;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        border-left: 4px solid #d1d5db;
+      }
+  
+      .notebook-pages-stack {
+        position: absolute;
+        right: -0.25rem;
+        top: 0.25rem;
+        bottom: 0.25rem;
+        width: 100%;
+        background-color: #f3f4f6;
+        border-radius: 0 0.5rem 0.5rem 0;
+        z-index: -10;
+      }
+  
+      .notebook-pages-stack2 {
+        position: absolute;
+        right: -0.5rem;
+        top: 0.5rem;
+        bottom: 0.5rem;
+        width: 100%;
+        background-color: #e5e7eb;
+        border-radius: 0 0.5rem 0.5rem 0;
+        z-index: -20;
+      }
+  
+      .notebook-pages-content {
+        position: absolute;
+        inset: 0;
+        margin-left: 0.25rem;
+        border-radius: 0 0.5rem 0.5rem 0;
+        overflow: visible;
+        background: linear-gradient(to bottom right, #fef3c7, #fef9c3, #fef3c7);
+        opacity: 0;
+        transition: opacity 0.5s ease;
+        width: 100%;
+        height: 100%;
+      }
+  
+      .notebook-wrapper:hover .notebook-pages-content {
+        opacity: 1;
+        transition-delay: 0.3s;
+      }
+  
+      .notebook-stamp {
+        position: absolute;
+        padding: 0.5rem;
+        background: linear-gradient(135deg, #fef3e2 0%, #fde8d0 100%);
+        border: 2px solid #d4a574;
+        border-radius: 0.25rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease;
+        cursor: pointer;
+        opacity: 0;
+        animation: fadeInStamp 0.5s ease forwards;
+        width: 60px;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+  
+      .notebook-stamp:hover {
+        transform: scale(1.08) rotate(3deg) !important;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+      }
+  
+      @keyframes fadeInStamp {
+        from {
+          opacity: 0;
+          transform: scale(0.8);
+        }
+  
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+  
+      .notebook-stamp-emoji {
+        font-size: 1.5rem;
+        text-align: center;
+      }
+  
+      .notebook-hover-hint {
+        position: absolute;
+        bottom: -3rem;
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
+        opacity: 0;
+        animation: fadeIn 1s ease 1s forwards;
+      }
+  
+      @keyframes fadeIn {
+        to {
+          opacity: 1;
+        }
+      }
+  
+      .notebook-hover-text {
+        color: #6b7280;
+        font-size: 0.875rem;
+      }
+  
+      .notebook-hover-arrow {
+        color: #6b7280;
+        font-size: 0.75rem;
+        margin-top: 0.25rem;
+        animation: bounce 2s ease-in-out infinite;
+      }
+  
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+  
+        50% {
+          transform: translateY(5px);
+        }
+      }
+  
+      .typing-text {
+        position: absolute;
+        top: -4rem;
+        left: 50%;
+        transform: translateX(-50%) scale(0.85);
+        z-index: 30;
+        background: linear-gradient(135deg, #fef9e7 0%, #fcf4d6 100%);
+        border: 2px solid #e6c584;
+        padding: 0.75rem 1.5rem;
+        border-radius: 1rem;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+        font-weight: 500;
+        color: #8b6f37;
+        white-space: nowrap;
+        overflow: hidden;
+        text-align: center;
+        min-width: 200px;
+        max-width: 350px;
+        font-size: 0.9rem;
+      }
+  
+      .typing-cursor {
+        display: inline-block;
+        width: 1px;
+        height: 1.2em;
+        background-color: #8b6f37;
+        margin-left: 2px;
+        animation: blink 1s step-start infinite;
+      }
+  
+      @keyframes blink {
+        50% {
+          opacity: 0;
+        }
+      }
+  
+      @keyframes fadeInChar {
+        to {
+          opacity: 1;
+        }
+      }
+  
+      @keyframes typing {
+        from {
+          width: 0;
+        }
+  
+        to {
+          width: 100%;
+        }
+      }
+  
+      @keyframes gradient {
+        0% {
+          background-position: 0% 50%;
+        }
+  
+        50% {
+          background-position: 100% 50%;
+        }
+  
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+    </style>
+  <style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.pointer-events-none{pointer-events:none}.fixed{position:fixed}.absolute{position:absolute}.relative{position:relative}.sticky{position:sticky}.inset-0{inset:0px}.top-0{top:0px}.top-24{top:6rem}.z-10{z-index:10}.z-50{z-index:50}.mx-auto{margin-left:auto;margin-right:auto}.mb-6{margin-bottom:1.5rem}.mt-32{margin-top:8rem}.mb-12{margin-bottom:3rem}.mb-2{margin-bottom:0.5rem}.mb-3{margin-bottom:0.75rem}.mb-4{margin-bottom:1rem}.ml-2{margin-left:0.5rem}.mt-6{margin-top:1.5rem}.mt-8{margin-top:2rem}.flex{display:flex}.inline-flex{display:inline-flex}.grid{display:grid}.hidden{display:none}.h-10{height:2.5rem}.h-16{height:4rem}.h-8{height:2rem}.h-48{height:12rem}.h-auto{height:auto}.max-h-24{max-height:6rem}.min-h-\[130vh\]{min-height:130vh}.min-h-screen{min-height:100vh}.w-10{width:2.5rem}.w-8{width:2rem}.w-full{width:100%}.max-w-2xl{max-width:42rem}.max-w-7xl{max-width:80rem}.transform{transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.animate-\[gradient_15s_ease_infinite\]{animation:gradient 15s ease infinite}.grid-cols-1{grid-template-columns:repeat(1, minmax(0, 1fr))}.flex-col{flex-direction:column}.flex-wrap{flex-wrap:wrap}.items-start{align-items:flex-start}.items-center{align-items:center}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.gap-2{gap:0.5rem}.gap-12{gap:3rem}.gap-3{gap:0.75rem}.gap-4{gap:1rem}.gap-8{gap:2rem}.space-x-8 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(2rem * var(--tw-space-x-reverse));margin-left:calc(2rem * calc(1 - var(--tw-space-x-reverse)))}.space-y-12 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(3rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(3rem * var(--tw-space-y-reverse))}.space-x-6 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(1.5rem * var(--tw-space-x-reverse));margin-left:calc(1.5rem * calc(1 - var(--tw-space-x-reverse)))}.overflow-hidden{overflow:hidden}.rounded-2xl{border-radius:24px}.rounded-full{border-radius:9999px}.rounded-lg{border-radius:16px}.rounded-xl{border-radius:20px}.border{border-width:1px}.border-b{border-bottom-width:1px}.border-gray-100{--tw-border-opacity:1;border-color:rgb(243 244 246 / var(--tw-border-opacity, 1))}.border-primary\/20{border-color:rgb(255 107 53 / 0.2)}.bg-\[\#F9F7F3\]{--tw-bg-opacity:1;background-color:rgb(249 247 243 / var(--tw-bg-opacity, 1))}.bg-white\/90{background-color:rgb(255 255 255 / 0.9)}.bg-primary{--tw-bg-opacity:1;background-color:rgb(255 107 53 / var(--tw-bg-opacity, 1))}.bg-primary\/10{background-color:rgb(255 107 53 / 0.1)}.bg-white{--tw-bg-opacity:1;background-color:rgb(255 255 255 / var(--tw-bg-opacity, 1))}.bg-gradient-to-br{background-image:linear-gradient(to bottom right, var(--tw-gradient-stops))}.bg-gradient-to-r{background-image:linear-gradient(to right, var(--tw-gradient-stops))}.from-\[\#FFE5D9\]{--tw-gradient-from:#FFE5D9 var(--tw-gradient-from-position);--tw-gradient-to:rgb(255 229 217 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.from-primary{--tw-gradient-from:#FF6B35 var(--tw-gradient-from-position);--tw-gradient-to:rgb(255 107 53 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.via-\[\#D4F0E2\]{--tw-gradient-to:rgb(212 240 226 / 0)  var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), #D4F0E2 var(--tw-gradient-via-position), var(--tw-gradient-to)}.via-secondary{--tw-gradient-to:rgb(4 167 119 / 0)  var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), #04A777 var(--tw-gradient-via-position), var(--tw-gradient-to)}.to-\[\#E9E2F5\]{--tw-gradient-to:#E9E2F5 var(--tw-gradient-to-position)}.to-purple-600{--tw-gradient-to:#9333ea var(--tw-gradient-to-position)}.bg-\[length\:400\%_400\%\]{background-size:400% 400%}.bg-clip-text{-webkit-background-clip:text;background-clip:text}.object-contain{object-fit:contain}.object-cover{object-fit:cover}.p-6{padding:1.5rem}.px-4{padding-left:1rem;padding-right:1rem}.px-3{padding-left:0.75rem;padding-right:0.75rem}.px-5{padding-left:1.25rem;padding-right:1.25rem}.py-1{padding-top:0.25rem;padding-bottom:0.25rem}.py-2{padding-top:0.5rem;padding-bottom:0.5rem}.py-20{padding-top:5rem;padding-bottom:5rem}.py-24{padding-top:6rem;padding-bottom:6rem}.py-3{padding-top:0.75rem;padding-bottom:0.75rem}.pb-24{padding-bottom:6rem}.pt-16{padding-top:4rem}.text-center{text-align:center}.font-\[\'Fustat\'\]{font-family:'Fustat'}.font-\[\'Poppins\'\]{font-family:'Poppins'}.text-4xl{font-size:2.25rem;line-height:2.5rem}.text-xl{font-size:1.25rem;line-height:1.75rem}.text-2xl{font-size:1.5rem;line-height:2rem}.text-sm{font-size:0.875rem;line-height:1.25rem}.text-lg{font-size:1.125rem;line-height:1.75rem}.font-bold{font-weight:700}.font-light{font-weight:300}.font-medium{font-weight:500}.uppercase{text-transform:uppercase}.italic{font-style:italic}.tracking-wide{letter-spacing:0.025em}.text-gray-700{--tw-text-opacity:1;color:rgb(55 65 81 / var(--tw-text-opacity, 1))}.text-gray-900{--tw-text-opacity:1;color:rgb(17 24 39 / var(--tw-text-opacity, 1))}.text-primary{--tw-text-opacity:1;color:rgb(255 107 53 / var(--tw-text-opacity, 1))}.text-transparent{color:transparent}.text-gray-600{--tw-text-opacity:1;color:rgb(75 85 99 / var(--tw-text-opacity, 1))}.text-white{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.shadow-lg{--tw-shadow:0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-xl{--tw-shadow:0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 20px 25px -5px var(--tw-shadow-color), 0 8px 10px -6px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.ring-1{--tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);--tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color);box-shadow:var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000)}.ring-black\/5{--tw-ring-color:rgb(0 0 0 / 0.05)}.backdrop-blur-sm{--tw-backdrop-blur:blur(4px);-webkit-backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia)}.transition-colors{transition-property:color, background-color, border-color, fill, stroke, -webkit-text-decoration-color;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, -webkit-text-decoration-color;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition{transition-property:color, background-color, border-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition-\[max-height\]{transition-property:max-height;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition-transform{transition-property:transform;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.duration-300{transition-duration:300ms}.duration-500{transition-duration:500ms}.hover\:scale-\[1\.02\]:hover{--tw-scale-x:1.02;--tw-scale-y:1.02;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.hover\:border-primary\/40:hover{border-color:rgb(255 107 53 / 0.4)}.hover\:text-primary:hover{--tw-text-opacity:1;color:rgb(255 107 53 / var(--tw-text-opacity, 1))}.hover\:text-primary\/80:hover{color:rgb(255 107 53 / 0.8)}.hover\:underline:hover{-webkit-text-decoration-line:underline;text-decoration-line:underline}.hover\:opacity-90:hover{opacity:0.9}.group:hover .group-hover\:translate-x-0\.5{--tw-translate-x:0.125rem;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.group:hover .group-hover\:scale-\[1\.02\]{--tw-scale-x:1.02;--tw-scale-y:1.02;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}@media (min-width: 640px){.sm\:w-auto{width:auto}.sm\:px-6{padding-left:1.5rem;padding-right:1.5rem}}@media (min-width: 768px){.md\:flex{display:flex}.md\:hidden{display:none}.md\:grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}.md\:text-2xl{font-size:1.5rem;line-height:2rem}.md\:text-7xl{font-size:4.5rem;line-height:1}}@media (min-width: 1024px){.lg\:grid-cols-3{grid-template-columns:repeat(3, minmax(0, 1fr))}.lg\:px-8{padding-left:2rem;padding-right:2rem}}</style><script>"use strict";
+  
+  function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread(); }
+  function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+  function _iterableToArray(r) { if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r); }
+  function _arrayWithoutHoles(r) { if (Array.isArray(r)) return _arrayLikeToArray(r); }
+  function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
+  function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+  function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+  function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+  function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+  function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
+  var _React = React,
+    useState = _React.useState,
+    useEffect = _React.useEffect;
+  
+  // Typing Text Component
+  function TypingText(_ref) {
+    var text = _ref.text;
+    var _useState = useState(''),
+      _useState2 = _slicedToArray(_useState, 2),
+      displayText = _useState2[0],
+      setDisplayText = _useState2[1];
+    var _useState3 = useState(0),
+      _useState4 = _slicedToArray(_useState3, 2),
+      currentIndex = _useState4[0],
+      setCurrentIndex = _useState4[1];
+    useEffect(function () {
+      setDisplayText('');
+      setCurrentIndex(0);
+    }, [text]);
+    useEffect(function () {
+      if (currentIndex < text.length) {
+        var timeout = setTimeout(function () {
+          setDisplayText(function (prev) {
+            return prev + text[currentIndex];
+          });
+          setCurrentIndex(function (prev) {
+            return prev + 1;
+          });
+        }, 50);
+        return function () {
+          return clearTimeout(timeout);
+        };
+      }
+    }, [currentIndex, text]);
+    return /*#__PURE__*/React.createElement("div", {
+      className: "typing-text"
+    }, displayText, /*#__PURE__*/React.createElement("span", {
+      className: "typing-cursor"
+    }));
+  }
+  function NotebookComponent() {
+    var _useState5 = useState(false),
+      _useState6 = _slicedToArray(_useState5, 2),
+      isOpen = _useState6[0],
+      setIsOpen = _useState6[1];
+    var _useState7 = useState(null),
+      _useState8 = _slicedToArray(_useState7, 2),
+      hoveredSkill = _useState8[0],
+      setHoveredSkill = _useState8[1];
+    var skills = [{
+      skill: 'Digital Marketing & Brand Strategy',
+      emoji: '🎯',
+      left: '20%',
+      top: '25%',
+      rotation: -5
+    }, {
+      skill: 'UX/UI & Product Design',
+      emoji: '🎨',
+      left: '45%',
+      top: '20%',
+      rotation: 3
+    }, {
+      skill: 'Project & Event Management',
+      emoji: '📋',
+      left: '70%',
+      top: '25%',
+      rotation: -4
+    }, {
+      skill: 'Sales & Go-to-Market Enablement',
+      emoji: '💼',
+      left: '20%',
+      top: '60%',
+      rotation: 4
+    }, {
+      skill: 'Leadership & Community Building',
+      emoji: '🤝',
+      left: '45%',
+      top: '65%',
+      rotation: -3
+    }, {
+      skill: 'Content Creation & Storytelling',
+      emoji: '📝',
+      left: '70%',
+      top: '60%',
+      rotation: 5
+    }];
+    return /*#__PURE__*/React.createElement("div", {
+      className: "relative",
+      style: {
+        transform: 'scale(1.35)',
+        transformOrigin: 'top center'
+      }
+    }, hoveredSkill && /*#__PURE__*/React.createElement(TypingText, {
+      text: hoveredSkill
+    }), /*#__PURE__*/React.createElement("div", {
+      className: "notebook-container",
+      onMouseEnter: function onMouseEnter() {
+        return setIsOpen(true);
+      },
+      onMouseLeave: function onMouseLeave() {
+        setIsOpen(false);
+        setHoveredSkill(null);
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "notebook-wrapper"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "notebook-cover",
+      style: {
+        transform: isOpen ? 'rotateY(-130deg)' : 'rotateY(0deg)'
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "notebook-cover-front",
+      style: {
+        backgroundColor: '#F97316'
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "notebook-cover-texture"
+    }), /*#__PURE__*/React.createElement("div", {
+      className: "notebook-cover-content"
+    }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+      className: "notebook-title"
+    }, "BEA'S PORTFOLIO"), /*#__PURE__*/React.createElement("div", {
+      className: "notebook-year"
+    }, "2025")), /*#__PURE__*/React.createElement("div", {
+      className: "notebook-decorative-line top-left"
+    }), /*#__PURE__*/React.createElement("div", {
+      className: "notebook-decorative-line top-right"
+    }), /*#__PURE__*/React.createElement("div", {
+      className: "notebook-decorative-line bottom-left"
+    }), /*#__PURE__*/React.createElement("div", {
+      className: "notebook-decorative-line bottom-right"
+    }), /*#__PURE__*/React.createElement("div", {
+      className: "notebook-center-element"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "notebook-center-circle"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "notebook-center-icon"
+    }, "\u2726"))), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+      className: "notebook-subtitle"
+    }, "Discover how I translate your brand's essence into meaningful customer connections."))), /*#__PURE__*/React.createElement("div", {
+      className: "notebook-binding",
+      style: {
+        backgroundColor: '#374456'
+      }
+    }, _toConsumableArray(Array(8)).map(function (_, i) {
+      return /*#__PURE__*/React.createElement("div", {
+        key: i,
+        className: "notebook-binding-ring",
+        style: {
+          top: "".concat(15 + i * 10, "%"),
+          backgroundColor: '#202B3D'
+        }
+      });
+    }))), /*#__PURE__*/React.createElement("div", {
+      className: "notebook-cover-back",
+      style: {
+        backgroundColor: '#EA580C'
+      }
+    })), /*#__PURE__*/React.createElement("div", {
+      className: "notebook-pages"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "notebook-pages-stack",
+      style: {
+        backgroundColor: '#FDBA74'
+      }
+    }), /*#__PURE__*/React.createElement("div", {
+      className: "notebook-pages-stack2",
+      style: {
+        backgroundColor: '#FED7AA'
+      }
+    }), /*#__PURE__*/React.createElement("div", {
+      className: "notebook-binding",
+      style: {
+        backgroundColor: '#202B3D'
+      }
+    }, _toConsumableArray(Array(8)).map(function (_, i) {
+      return /*#__PURE__*/React.createElement("div", {
+        key: i,
+        className: "notebook-binding-ring",
+        style: {
+          top: "".concat(15 + i * 10, "%"),
+          backgroundColor: '#9A3412'
+        }
+      });
+    })), /*#__PURE__*/React.createElement("div", {
+      className: "notebook-pages-content"
+    }, skills.map(function (stamp, index) {
+      return /*#__PURE__*/React.createElement("div", {
+        key: stamp.skill,
+        className: "notebook-stamp",
+        style: {
+          left: stamp.left,
+          top: stamp.top,
+          transform: "rotate(".concat(stamp.rotation, "deg)"),
+          animationDelay: "".concat(0.3 + index * 0.15, "s")
+        },
+        onMouseEnter: function onMouseEnter() {
+          return setHoveredSkill(stamp.skill);
+        },
+        onMouseLeave: function onMouseLeave() {
+          return setHoveredSkill(null);
+        }
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "notebook-stamp-emoji"
+      }, stamp.emoji));
+    }))), !isOpen && /*#__PURE__*/React.createElement("div", {
+      className: "notebook-hover-hint"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "notebook-hover-text"
+    }, "Hover to open \u2197"), /*#__PURE__*/React.createElement("div", {
+      className: "notebook-hover-arrow"
+    }, " ")))));
+  }
+  
+  // Render the React component
+  var root = ReactDOM.createRoot(document.getElementById('react-notebook-root'));
+  root.render(/*#__PURE__*/React.createElement(NotebookComponent, null));
+  //# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJfUmVhY3QiLCJSZWFjdCIsInVzZVN0YXRlIiwidXNlRWZmZWN0IiwiVHlwaW5nVGV4dCIsIl9yZWYiLCJ0ZXh0IiwiX3VzZVN0YXRlIiwiX3VzZVN0YXRlMiIsIl9zbGljZWRUb0FycmF5IiwiZGlzcGxheVRleHQiLCJzZXREaXNwbGF5VGV4dCIsIl91c2VTdGF0ZTMiLCJfdXNlU3RhdGU0IiwiY3VycmVudEluZGV4Iiwic2V0Q3VycmVudEluZGV4IiwibGVuZ3RoIiwidGltZW91dCIsInNldFRpbWVvdXQiLCJwcmV2IiwiY2xlYXJUaW1lb3V0IiwiY3JlYXRlRWxlbWVudCIsImNsYXNzTmFtZSIsIk5vdGVib29rQ29tcG9uZW50IiwiX3VzZVN0YXRlNSIsIl91c2VTdGF0ZTYiLCJpc09wZW4iLCJzZXRJc09wZW4iLCJfdXNlU3RhdGU3IiwiX3VzZVN0YXRlOCIsImhvdmVyZWRTa2lsbCIsInNldEhvdmVyZWRTa2lsbCIsInNraWxscyIsInNraWxsIiwiZW1vamkiLCJsZWZ0IiwidG9wIiwicm90YXRpb24iLCJzdHlsZSIsInRyYW5zZm9ybSIsInRyYW5zZm9ybU9yaWdpbiIsIm9uTW91c2VFbnRlciIsIm9uTW91c2VMZWF2ZSIsImJhY2tncm91bmRDb2xvciIsIl90b0NvbnN1bWFibGVBcnJheSIsIkFycmF5IiwibWFwIiwiXyIsImkiLCJrZXkiLCJjb25jYXQiLCJzdGFtcCIsImluZGV4IiwiYW5pbWF0aW9uRGVsYXkiLCJyb290IiwiUmVhY3RET00iLCJjcmVhdGVSb290IiwiZG9jdW1lbnQiLCJnZXRFbGVtZW50QnlJZCIsInJlbmRlciJdLCJzb3VyY2VzIjpbIklubGluZSBCYWJlbCBzY3JpcHQiXSwic291cmNlc0NvbnRlbnQiOlsiXG4gICAgY29uc3QgeyB1c2VTdGF0ZSwgdXNlRWZmZWN0IH0gPSBSZWFjdDtcblxuICAgIC8vIFR5cGluZyBUZXh0IENvbXBvbmVudFxuICAgIGZ1bmN0aW9uIFR5cGluZ1RleHQoeyB0ZXh0IH0pIHtcbiAgICAgIGNvbnN0IFtkaXNwbGF5VGV4dCwgc2V0RGlzcGxheVRleHRdID0gdXNlU3RhdGUoJycpO1xuICAgICAgY29uc3QgW2N1cnJlbnRJbmRleCwgc2V0Q3VycmVudEluZGV4XSA9IHVzZVN0YXRlKDApO1xuXG4gICAgICB1c2VFZmZlY3QoKCkgPT4ge1xuICAgICAgICBzZXREaXNwbGF5VGV4dCgnJyk7XG4gICAgICAgIHNldEN1cnJlbnRJbmRleCgwKTtcbiAgICAgIH0sIFt0ZXh0XSk7XG5cbiAgICAgIHVzZUVmZmVjdCgoKSA9PiB7XG4gICAgICAgIGlmIChjdXJyZW50SW5kZXggPCB0ZXh0Lmxlbmd0aCkge1xuICAgICAgICAgIGNvbnN0IHRpbWVvdXQgPSBzZXRUaW1lb3V0KCgpID0+IHtcbiAgICAgICAgICAgIHNldERpc3BsYXlUZXh0KHByZXYgPT4gcHJldiArIHRleHRbY3VycmVudEluZGV4XSk7XG4gICAgICAgICAgICBzZXRDdXJyZW50SW5kZXgocHJldiA9PiBwcmV2ICsgMSk7XG4gICAgICAgICAgfSwgNTApO1xuICAgICAgICAgIHJldHVybiAoKSA9PiBjbGVhclRpbWVvdXQodGltZW91dCk7XG4gICAgICAgIH1cbiAgICAgIH0sIFtjdXJyZW50SW5kZXgsIHRleHRdKTtcblxuICAgICAgcmV0dXJuIChcbiAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJ0eXBpbmctdGV4dFwiPlxuICAgICAgICAgIHtkaXNwbGF5VGV4dH1cbiAgICAgICAgICA8c3BhbiBjbGFzc05hbWU9XCJ0eXBpbmctY3Vyc29yXCI+PC9zcGFuPlxuICAgICAgICA8L2Rpdj5cbiAgICAgICk7XG4gICAgfVxuXG4gICAgZnVuY3Rpb24gTm90ZWJvb2tDb21wb25lbnQoKSB7XG4gICAgICBjb25zdCBbaXNPcGVuLCBzZXRJc09wZW5dID0gdXNlU3RhdGUoZmFsc2UpO1xuICAgICAgY29uc3QgW2hvdmVyZWRTa2lsbCwgc2V0SG92ZXJlZFNraWxsXSA9IHVzZVN0YXRlKG51bGwpO1xuXG4gICAgICBjb25zdCBza2lsbHMgPSBbXG4gICAgICAgIHsgc2tpbGw6ICdEaWdpdGFsIE1hcmtldGluZyAmIEJyYW5kIFN0cmF0ZWd5JywgZW1vamk6ICfwn46vJywgbGVmdDogJzIwJScsIHRvcDogJzI1JScsIHJvdGF0aW9uOiAtNSB9LFxuICAgICAgICB7IHNraWxsOiAnVVgvVUkgJiBQcm9kdWN0IERlc2lnbicsIGVtb2ppOiAn8J+OqCcsIGxlZnQ6ICc0NSUnLCB0b3A6ICcyMCUnLCByb3RhdGlvbjogMyB9LFxuICAgICAgICB7IHNraWxsOiAnUHJvamVjdCAmIEV2ZW50IE1hbmFnZW1lbnQnLCBlbW9qaTogJ/Cfk4snLCBsZWZ0OiAnNzAlJywgdG9wOiAnMjUlJywgcm90YXRpb246IC00IH0sXG4gICAgICAgIHsgc2tpbGw6ICdTYWxlcyAmIEdvLXRvLU1hcmtldCBFbmFibGVtZW50JywgZW1vamk6ICfwn5K8JywgbGVmdDogJzIwJScsIHRvcDogJzYwJScsIHJvdGF0aW9uOiA0IH0sXG4gICAgICAgIHsgc2tpbGw6ICdMZWFkZXJzaGlwICYgQ29tbXVuaXR5IEJ1aWxkaW5nJywgZW1vamk6ICfwn6SdJywgbGVmdDogJzQ1JScsIHRvcDogJzY1JScsIHJvdGF0aW9uOiAtMyB9LFxuICAgICAgICB7IHNraWxsOiAnQ29udGVudCBDcmVhdGlvbiAmIFN0b3J5dGVsbGluZycsIGVtb2ppOiAn8J+TnScsIGxlZnQ6ICc3MCUnLCB0b3A6ICc2MCUnLCByb3RhdGlvbjogNSB9LFxuICAgICAgXTtcblxuICAgICAgcmV0dXJuIChcbiAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJyZWxhdGl2ZVwiIHN0eWxlPXt7IHRyYW5zZm9ybTogJ3NjYWxlKDEuMzUpJywgdHJhbnNmb3JtT3JpZ2luOiAndG9wIGNlbnRlcicgfX0+XG4gICAgICAgICAgey8qIFR5cGluZyBUZXh0IERpc3BsYXkgKi99XG4gICAgICAgICAge2hvdmVyZWRTa2lsbCAmJiA8VHlwaW5nVGV4dCB0ZXh0PXtob3ZlcmVkU2tpbGx9IC8+fVxuXG4gICAgICAgICAgPGRpdlxuICAgICAgICAgICAgY2xhc3NOYW1lPVwibm90ZWJvb2stY29udGFpbmVyXCJcbiAgICAgICAgICAgIG9uTW91c2VFbnRlcj17KCkgPT4gc2V0SXNPcGVuKHRydWUpfVxuICAgICAgICAgICAgb25Nb3VzZUxlYXZlPXsoKSA9PiB7XG4gICAgICAgICAgICAgIHNldElzT3BlbihmYWxzZSk7XG4gICAgICAgICAgICAgIHNldEhvdmVyZWRTa2lsbChudWxsKTtcbiAgICAgICAgICAgIH19XG4gICAgICAgICAgPlxuICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJub3RlYm9vay13cmFwcGVyXCI+XG4gICAgICAgICAgICAgIHsvKiBOb3RlYm9vayBDb3ZlciAqL31cbiAgICAgICAgICAgICAgPGRpdlxuICAgICAgICAgICAgICAgIGNsYXNzTmFtZT1cIm5vdGVib29rLWNvdmVyXCJcbiAgICAgICAgICAgICAgICBzdHlsZT17e1xuICAgICAgICAgICAgICAgICAgdHJhbnNmb3JtOiBpc09wZW4gPyAncm90YXRlWSgtMTMwZGVnKScgOiAncm90YXRlWSgwZGVnKSdcbiAgICAgICAgICAgICAgICB9fVxuICAgICAgICAgICAgICA+XG4gICAgICAgICAgICAgICAgey8qIEZyb250IENvdmVyICovfVxuICAgICAgICAgICAgICAgIDxkaXYgXG4gICAgICAgICAgICAgICAgICBjbGFzc05hbWU9XCJub3RlYm9vay1jb3Zlci1mcm9udFwiIFxuICAgICAgICAgICAgICAgICAgc3R5bGU9e3sgYmFja2dyb3VuZENvbG9yOiAnI0Y5NzMxNicgfX1cbiAgICAgICAgICAgICAgICA+XG4gICAgICAgICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT1cIm5vdGVib29rLWNvdmVyLXRleHR1cmVcIj48L2Rpdj5cbiAgICAgICAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPVwibm90ZWJvb2stY292ZXItY29udGVudFwiPlxuICAgICAgICAgICAgICAgICAgICA8ZGl2PlxuICAgICAgICAgICAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPVwibm90ZWJvb2stdGl0bGVcIj5CRUEnUyBQT1JURk9MSU88L2Rpdj5cbiAgICAgICAgICAgICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT1cIm5vdGVib29rLXllYXJcIj4yMDI1PC9kaXY+XG4gICAgICAgICAgICAgICAgICAgIDwvZGl2PlxuXG4gICAgICAgICAgICAgICAgICAgIHsvKiBEZWNvcmF0aXZlIGVsZW1lbnRzICovfVxuICAgICAgICAgICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT1cIm5vdGVib29rLWRlY29yYXRpdmUtbGluZSB0b3AtbGVmdFwiPjwvZGl2PlxuICAgICAgICAgICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT1cIm5vdGVib29rLWRlY29yYXRpdmUtbGluZSB0b3AtcmlnaHRcIj48L2Rpdj5cbiAgICAgICAgICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJub3RlYm9vay1kZWNvcmF0aXZlLWxpbmUgYm90dG9tLWxlZnRcIj48L2Rpdj5cbiAgICAgICAgICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJub3RlYm9vay1kZWNvcmF0aXZlLWxpbmUgYm90dG9tLXJpZ2h0XCI+PC9kaXY+XG5cbiAgICAgICAgICAgICAgICAgICAgey8qIENlbnRlciBlbGVtZW50ICovfVxuICAgICAgICAgICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT1cIm5vdGVib29rLWNlbnRlci1lbGVtZW50XCI+XG4gICAgICAgICAgICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJub3RlYm9vay1jZW50ZXItY2lyY2xlXCI+XG4gICAgICAgICAgICAgICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT1cIm5vdGVib29rLWNlbnRlci1pY29uXCI+4pymPC9kaXY+XG4gICAgICAgICAgICAgICAgICAgICAgPC9kaXY+XG4gICAgICAgICAgICAgICAgICAgIDwvZGl2PlxuXG4gICAgICAgICAgICAgICAgICAgIDxkaXY+XG4gICAgICAgICAgICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJub3RlYm9vay1zdWJ0aXRsZVwiPlxuICAgICAgICAgICAgICAgICAgICAgICAgRGlzY292ZXIgaG93IEkgdHJhbnNsYXRlIHlvdXIgYnJhbmQncyBlc3NlbmNlIGludG8gbWVhbmluZ2Z1bCBjdXN0b21lciBjb25uZWN0aW9ucy5cbiAgICAgICAgICAgICAgICAgICAgICA8L2Rpdj5cbiAgICAgICAgICAgICAgICAgICAgPC9kaXY+XG4gICAgICAgICAgICAgICAgICA8L2Rpdj5cblxuICAgICAgICAgICAgICAgICAgey8qIEJpbmRpbmcgcmluZ3MgKi99XG4gICAgICAgICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT1cIm5vdGVib29rLWJpbmRpbmdcIiBzdHlsZT17eyBiYWNrZ3JvdW5kQ29sb3I6ICcjMzc0NDU2JyB9fT5cbiAgICAgICAgICAgICAgICAgICAge1suLi5BcnJheSg4KV0ubWFwKChfLCBpKSA9PiAoXG4gICAgICAgICAgICAgICAgICAgICAgPGRpdlxuICAgICAgICAgICAgICAgICAgICAgICAga2V5PXtpfVxuICAgICAgICAgICAgICAgICAgICAgICAgY2xhc3NOYW1lPVwibm90ZWJvb2stYmluZGluZy1yaW5nXCJcbiAgICAgICAgICAgICAgICAgICAgICAgIHN0eWxlPXt7IHRvcDogYCR7MTUgKyBpICogMTB9JWAsIGJhY2tncm91bmRDb2xvcjogJyMyMDJCM0QnIH19XG4gICAgICAgICAgICAgICAgICAgICAgLz5cbiAgICAgICAgICAgICAgICAgICAgKSl9XG4gICAgICAgICAgICAgICAgICA8L2Rpdj5cbiAgICAgICAgICAgICAgICA8L2Rpdj5cblxuICAgICAgICAgICAgICAgIHsvKiBCYWNrIG9mIGNvdmVyICovfVxuICAgICAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPVwibm90ZWJvb2stY292ZXItYmFja1wiIHN0eWxlPXt7IGJhY2tncm91bmRDb2xvcjogJyNFQTU4MEMnIH19PjwvZGl2PlxuICAgICAgICAgICAgICA8L2Rpdj5cblxuICAgICAgICAgICAgICB7LyogTm90ZWJvb2sgUGFnZXMgKi99XG4gICAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPVwibm90ZWJvb2stcGFnZXNcIj5cbiAgICAgICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT1cIm5vdGVib29rLXBhZ2VzLXN0YWNrXCIgc3R5bGU9e3sgYmFja2dyb3VuZENvbG9yOiAnI0ZEQkE3NCcgfX0+PC9kaXY+XG4gICAgICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJub3RlYm9vay1wYWdlcy1zdGFjazJcIiBzdHlsZT17eyBiYWNrZ3JvdW5kQ29sb3I6ICcjRkVEN0FBJyB9fT48L2Rpdj5cblxuICAgICAgICAgICAgICAgIHsvKiBCaW5kaW5nICovfVxuICAgICAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPVwibm90ZWJvb2stYmluZGluZ1wiIHN0eWxlPXt7IGJhY2tncm91bmRDb2xvcjogJyMyMDJCM0QnIH19PlxuICAgICAgICAgICAgICAgICAge1suLi5BcnJheSg4KV0ubWFwKChfLCBpKSA9PiAoXG4gICAgICAgICAgICAgICAgICAgIDxkaXZcbiAgICAgICAgICAgICAgICAgICAgICBrZXk9e2l9XG4gICAgICAgICAgICAgICAgICAgICAgY2xhc3NOYW1lPVwibm90ZWJvb2stYmluZGluZy1yaW5nXCJcbiAgICAgICAgICAgICAgICAgICAgICBzdHlsZT17e1xuICAgICAgICAgICAgICAgICAgICAgICAgdG9wOiBgJHsxNSArIGkgKiAxMH0lYCxcbiAgICAgICAgICAgICAgICAgICAgICAgIGJhY2tncm91bmRDb2xvcjogJyM5QTM0MTInXG4gICAgICAgICAgICAgICAgICAgICAgfX1cbiAgICAgICAgICAgICAgICAgICAgLz5cbiAgICAgICAgICAgICAgICAgICkpfVxuICAgICAgICAgICAgICAgIDwvZGl2PlxuXG4gICAgICAgICAgICAgICAgey8qIFBhZ2VzIENvbnRlbnQgd2l0aCBTdGFtcHMgKi99XG4gICAgICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJub3RlYm9vay1wYWdlcy1jb250ZW50XCI+XG4gICAgICAgICAgICAgICAgICB7c2tpbGxzLm1hcCgoc3RhbXAsIGluZGV4KSA9PiAoXG4gICAgICAgICAgICAgICAgICAgIDxkaXZcbiAgICAgICAgICAgICAgICAgICAgICBrZXk9e3N0YW1wLnNraWxsfVxuICAgICAgICAgICAgICAgICAgICAgIGNsYXNzTmFtZT1cIm5vdGVib29rLXN0YW1wXCJcbiAgICAgICAgICAgICAgICAgICAgICBzdHlsZT17e1xuICAgICAgICAgICAgICAgICAgICAgICAgbGVmdDogc3RhbXAubGVmdCxcbiAgICAgICAgICAgICAgICAgICAgICAgIHRvcDogc3RhbXAudG9wLFxuICAgICAgICAgICAgICAgICAgICAgICAgdHJhbnNmb3JtOiBgcm90YXRlKCR7c3RhbXAucm90YXRpb259ZGVnKWAsXG4gICAgICAgICAgICAgICAgICAgICAgICBhbmltYXRpb25EZWxheTogYCR7MC4zICsgaW5kZXggKiAwLjE1fXNgXG4gICAgICAgICAgICAgICAgICAgICAgfX1cbiAgICAgICAgICAgICAgICAgICAgICBvbk1vdXNlRW50ZXI9eygpID0+IHNldEhvdmVyZWRTa2lsbChzdGFtcC5za2lsbCl9XG4gICAgICAgICAgICAgICAgICAgICAgb25Nb3VzZUxlYXZlPXsoKSA9PiBzZXRIb3ZlcmVkU2tpbGwobnVsbCl9XG4gICAgICAgICAgICAgICAgICAgID5cbiAgICAgICAgICAgICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT1cIm5vdGVib29rLXN0YW1wLWVtb2ppXCI+e3N0YW1wLmVtb2ppfTwvZGl2PlxuICAgICAgICAgICAgICAgICAgICA8L2Rpdj5cbiAgICAgICAgICAgICAgICAgICkpfVxuICAgICAgICAgICAgICAgIDwvZGl2PlxuICAgICAgICAgICAgICA8L2Rpdj5cblxuICAgICAgICAgICAgICB7LyogSG92ZXIgaGludCAqL31cbiAgICAgICAgICAgICAgeyFpc09wZW4gJiYgKFxuICAgICAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPVwibm90ZWJvb2staG92ZXItaGludFwiPlxuICAgICAgICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJub3RlYm9vay1ob3Zlci10ZXh0XCI+SG92ZXIgdG8gb3BlbiDihpc8L2Rpdj5cbiAgICAgICAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPVwibm90ZWJvb2staG92ZXItYXJyb3dcIj4gPC9kaXY+XG4gICAgICAgICAgICAgICAgPC9kaXY+XG4gICAgICAgICAgICAgICl9XG4gICAgICAgICAgICA8L2Rpdj5cbiAgICAgICAgICA8L2Rpdj5cbiAgICAgICAgPC9kaXY+XG4gICAgICApO1xuICAgIH1cblxuICAgIC8vIFJlbmRlciB0aGUgUmVhY3QgY29tcG9uZW50XG4gICAgY29uc3Qgcm9vdCA9IFJlYWN0RE9NLmNyZWF0ZVJvb3QoZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ3JlYWN0LW5vdGVib29rLXJvb3QnKSk7XG4gICAgcm9vdC5yZW5kZXIoPE5vdGVib29rQ29tcG9uZW50IC8+KTtcbiAgIl0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7QUFDSSxJQUFBQSxNQUFBLEdBQWdDQyxLQUFLO0VBQTdCQyxRQUFRLEdBQUFGLE1BQUEsQ0FBUkUsUUFBUTtFQUFFQyxTQUFTLEdBQUFILE1BQUEsQ0FBVEcsU0FBUzs7QUFFM0I7QUFDQSxTQUFTQyxVQUFVQSxDQUFBQyxJQUFBLEVBQVc7RUFBQSxJQUFSQyxJQUFJLEdBQUFELElBQUEsQ0FBSkMsSUFBSTtFQUN4QixJQUFBQyxTQUFBLEdBQXNDTCxRQUFRLENBQUMsRUFBRSxDQUFDO0lBQUFNLFVBQUEsR0FBQUMsY0FBQSxDQUFBRixTQUFBO0lBQTNDRyxXQUFXLEdBQUFGLFVBQUE7SUFBRUcsY0FBYyxHQUFBSCxVQUFBO0VBQ2xDLElBQUFJLFVBQUEsR0FBd0NWLFFBQVEsQ0FBQyxDQUFDLENBQUM7SUFBQVcsVUFBQSxHQUFBSixjQUFBLENBQUFHLFVBQUE7SUFBNUNFLFlBQVksR0FBQUQsVUFBQTtJQUFFRSxlQUFlLEdBQUFGLFVB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</script><style>.village-iframe{width:100%;height:100%;border:none;display:block;position:fixed;top:0;left:0;z-index:2147483647;background:#0000003d;color-scheme:light}.village-iframe.village-loading{display:flex;justify-content:center;align-items:center}.village-iframe>.village-spinner{width:1.5rem;height:1.5rem;border:2px solid #000;border-left-color:transparent;border-bottom-color:transparent;border-radius:50%;animation:spin .45s linear infinite}.village-iframe.village-hidden{display:none}@keyframes spin{0%{transform:rotate(0)}to{transform:rotate(360deg)}}.village-hidden{display:none}[village-paths-data=facepiles]{display:flex;align-items:center;padding-right:.5rem}[village-paths-data=facepiles] img{width:1.5rem;height:1.5rem;border-radius:50%;margin-right:-.5rem}[village-paths-data=facepiles] img.village-facepiler-avatar-not-found{filter:blur(7px)}[village-paths-data=facepiles] img:last-child{margin-right:0}[village-paths-data=count]{padding-right:.25rem}[village-paths-availability=error],[village-paths-availability=found],[village-paths-availability=not-found],[village-paths-availability=not-activated]{display:none!important}[village-paths-availability=loading]{display:inline-flex!important}</style><style>.rdp {
+    --rdp-cell-size: 40px;
+    --rdp-accent-color: #0000ff;
+    --rdp-background-color: #e7edff;
+    --rdp-accent-color-dark: #3003e1;
+    --rdp-background-color-dark: #180270;
+    --rdp-outline: 2px solid var(--rdp-accent-color); /* Outline border for focused elements */
+    --rdp-outline-selected: 2px solid rgba(0, 0, 0, 0.75); /* Outline border for focused _and_ selected elements */
+  
+    margin: 1em;
+  }
+  
+  /* Hide elements for devices that are not screen readers */
+  .rdp-vhidden {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    background: transparent;
+    border: 0;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    position: absolute !important;
+    top: 0;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    clip: rect(1px, 1px, 1px, 1px) !important;
+    border: 0 !important;
+  }
+  
+  /* Buttons */
+  .rdp-button_reset {
+    appearance: none;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    cursor: default;
+    color: inherit;
+    outline: none;
+    background: none;
+    font: inherit;
+  
+    -moz-appearance: none;
+    -webkit-appearance: none;
+  }
+  
+  .rdp-button {
+    border: 2px solid transparent;
+  }
+  
+  .rdp-button[disabled] {
+    opacity: 0.25;
+  }
+  
+  .rdp-button:not([disabled]) {
+    cursor: pointer;
+  }
+  
+  .rdp-button:focus:not([disabled]),
+  .rdp-button:active:not([disabled]) {
+    color: inherit;
+    border: var(--rdp-outline);
+    background-color: var(--rdp-background-color);
+  }
+  
+  .rdp-button:hover:not([disabled]) {
+    background-color: var(--rdp-background-color);
+  }
+  
+  .rdp-months {
+    display: flex;
+  }
+  
+  .rdp-month {
+    margin: 0 1em;
+  }
+  
+  .rdp-month:first-child {
+    margin-left: 0;
+  }
+  
+  .rdp-month:last-child {
+    margin-right: 0;
+  }
+  
+  .rdp-table {
+    margin: 0;
+    max-width: calc(var(--rdp-cell-size) * 7);
+    border-collapse: collapse;
+  }
+  
+  .rdp-with_weeknumber .rdp-table {
+    max-width: calc(var(--rdp-cell-size) * 8);
+    border-collapse: collapse;
+  }
+  
+  .rdp-caption {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0;
+    text-align: left;
+  }
+  
+  .rdp-multiple_months .rdp-caption {
+    position: relative;
+    display: block;
+    text-align: center;
+  }
+  
+  .rdp-caption_dropdowns {
+    position: relative;
+    display: inline-flex;
+  }
+  
+  .rdp-caption_label {
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    margin: 0;
+    padding: 0 0.25em;
+    white-space: nowrap;
+    color: currentColor;
+    border: 0;
+    border: 2px solid transparent;
+    font-family: inherit;
+    font-size: 140%;
+    font-weight: bold;
+  }
+  
+  .rdp-nav {
+    white-space: nowrap;
+  }
+  
+  .rdp-multiple_months .rdp-caption_start .rdp-nav {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+  }
+  
+  .rdp-multiple_months .rdp-caption_end .rdp-nav {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+  }
+  
+  .rdp-nav_button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--rdp-cell-size);
+    height: var(--rdp-cell-size);
+    padding: 0.25em;
+    border-radius: 100%;
+  }
+  
+  /* ---------- */
+  /* Dropdowns  */
+  /* ---------- */
+  
+  .rdp-dropdown_year,
+  .rdp-dropdown_month {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+  }
+  
+  .rdp-dropdown {
+    appearance: none;
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    cursor: inherit;
+    opacity: 0;
+    border: none;
+    background-color: transparent;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+  }
+  
+  .rdp-dropdown[disabled] {
+    opacity: unset;
+    color: unset;
+  }
+  
+  .rdp-dropdown:focus:not([disabled]) + .rdp-caption_label,
+  .rdp-dropdown:active:not([disabled]) + .rdp-caption_label {
+    border: var(--rdp-outline);
+    border-radius: 6px;
+    background-color: var(--rdp-background-color);
+  }
+  
+  .rdp-dropdown_icon {
+    margin: 0 0 0 5px;
+  }
+  
+  .rdp-head {
+    border: 0;
+  }
+  
+  .rdp-head_row,
+  .rdp-row {
+    height: 100%;
+  }
+  
+  .rdp-head_cell {
+    vertical-align: middle;
+    text-transform: uppercase;
+    font-size: 0.75em;
+    font-weight: 700;
+    text-align: center;
+    height: 100%;
+    height: var(--rdp-cell-size);
+    padding: 0;
+  }
+  
+  .rdp-tbody {
+    border: 0;
+  }
+  
+  .rdp-tfoot {
+    margin: 0.5em;
+  }
+  
+  .rdp-cell {
+    width: var(--rdp-cell-size);
+    height: 100%;
+    height: var(--rdp-cell-size);
+    padding: 0;
+    text-align: center;
+  }
+  
+  .rdp-weeknumber {
+    font-size: 0.75em;
+  }
+  
+  .rdp-weeknumber,
+  .rdp-day {
+    display: flex;
+    overflow: hidden;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: var(--rdp-cell-size);
+    max-width: var(--rdp-cell-size);
+    height: var(--rdp-cell-size);
+    margin: 0;
+    border: 2px solid transparent;
+    border-radius: 100%;
+  }
+  
+  .rdp-day_today:not(.rdp-day_outside) {
+    font-weight: bold;
+  }
+  
+  .rdp-day_selected:not([disabled]),
+  .rdp-day_selected:focus:not([disabled]),
+  .rdp-day_selected:active:not([disabled]),
+  .rdp-day_selected:hover:not([disabled]) {
+    color: white;
+    background-color: var(--rdp-accent-color);
+  }
+  
+  .rdp-day_selected:focus:not([disabled]) {
+    border: var(--rdp-outline-selected);
+  }
+  
+  .rdp:not([dir='rtl']) .rdp-day_range_start:not(.rdp-day_range_end) {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  
+  .rdp:not([dir='rtl']) .rdp-day_range_end:not(.rdp-day_range_start) {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  
+  .rdp[dir='rtl'] .rdp-day_range_start:not(.rdp-day_range_end) {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  
+  .rdp[dir='rtl'] .rdp-day_range_end:not(.rdp-day_range_start) {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  
+  .rdp-day_range_end.rdp-day_range_start {
+    border-radius: 100%;
+  }
+  
+  .rdp-day_range_middle {
+    border-radius: 0;
+  }
+  </style><script id="simplify-jobs-page-script" src="chrome-extension://87b85c9c-0b34-4767-aade-213b6e21fca6/js/pageScript.bundle.js"></script></head>
+  
+  <body class="bg-[#F9F7F3] font-['Poppins']" data-new-gr-c-s-check-loaded="14.1274.0" data-gr-ext-installed="">
+    <nav class="fixed top-0 w-full bg-white/90 backdrop-blur-sm z-50 border-b border-gray-100">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16 items-center">
+          <a href="index.html" class="flex items-center gap-2">
+            <img src="images/Design sem nome (8).png" alt="Beatriz Logo" class="h-8 w-8 object-contain">
+            <span class="text-xl font-bold font-['Fustat'] text-primary tracking-wide uppercase">BEATRIZ AGUIAR
+              FONSECA</span>
+          </a>
+          <div class="hidden md:flex space-x-8">
+            <a href="about.html" class="text-gray-900 hover:text-primary transition-colors">About Me</a>
+            <a href="projects.html" class="text-gray-900 hover:text-primary transition-colors">Projects</a>
+          </div>
+          <button class="md:hidden w-10 h-10 flex items-center justify-center">
+            <i class="ri-menu-line text-xl"></i>
+          </button>
+        </div>
+      </div>
+    </nav>
+  
+    <main class="pt-16">
+      <section id="hero-section" class="relative min-h-[130vh] flex flex-col items-center justify-center overflow-hidden text-center">
+        <div class="absolute inset-0 bg-gradient-to-br from-[#FFE5D9] via-[#D4F0E2] to-[#E9E2F5] bg-[length:400%_400%] animate-[gradient_15s_ease_infinite] transition-colors duration-600">
+        </div>
+        <div class="relative z-10">
+          <h1 class="text-4xl md:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-primary via-secondary to-purple-600 font-['Fustat']">
+            <br> Designing with purpose.<br>Communicating with soul.
+          </h1>
+          <p class="text-xl md:text-2xl text-gray-700 max-w-2xl mx-auto font-light italic">
+            <br>From pixels to pitches, I turn ideas into impact. Here's how I do it.
+          </p>
+        </div>
+  
+        <!-- React Notebook Component Container -->
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center mt-32 pb-24">
+          <div id="react-notebook-root" class="relative"><div class="relative" style="transform: scale(1.35); transform-origin: center top;"><div class="notebook-container"><div class="notebook-wrapper"><div class="notebook-cover" style="transform: rotateY(0deg);"><div class="notebook-cover-front" style="background-color: rgb(249, 115, 22);"><div class="notebook-cover-texture"></div><div class="notebook-cover-content"><div><div class="notebook-title">BEA'S PORTFOLIO</div><div class="notebook-year">2025</div></div><div class="notebook-decorative-line top-left"></div><div class="notebook-decorative-line top-right"></div><div class="notebook-decorative-line bottom-left"></div><div class="notebook-decorative-line bottom-right"></div><div class="notebook-center-element"><div class="notebook-center-circle"><div class="notebook-center-icon">✦</div></div></div><div><div class="notebook-subtitle">Discover how I translate your brand's essence into meaningful customer connections.</div></div></div><div class="notebook-binding" style="background-color: rgb(55, 68, 86);"><div class="notebook-binding-ring" style="top: 15%; background-color: rgb(32, 43, 61);"></div><div class="notebook-binding-ring" style="top: 25%; background-color: rgb(32, 43, 61);"></div><div class="notebook-binding-ring" style="top: 35%; background-color: rgb(32, 43, 61);"></div><div class="notebook-binding-ring" style="top: 45%; background-color: rgb(32, 43, 61);"></div><div class="notebook-binding-ring" style="top: 55%; background-color: rgb(32, 43, 61);"></div><div class="notebook-binding-ring" style="top: 65%; background-color: rgb(32, 43, 61);"></div><div class="notebook-binding-ring" style="top: 75%; background-color: rgb(32, 43, 61);"></div><div class="notebook-binding-ring" style="top: 85%; background-color: rgb(32, 43, 61);"></div></div></div><div class="notebook-cover-back" style="background-color: rgb(234, 88, 12);"></div></div><div class="notebook-pages"><div class="notebook-pages-stack" style="background-color: rgb(253, 186, 116);"></div><div class="notebook-pages-stack2" style="background-color: rgb(254, 215, 170);"></div><div class="notebook-binding" style="background-color: rgb(32, 43, 61);"><div class="notebook-binding-ring" style="top: 15%; background-color: rgb(154, 52, 18);"></div><div class="notebook-binding-ring" style="top: 25%; background-color: rgb(154, 52, 18);"></div><div class="notebook-binding-ring" style="top: 35%; background-color: rgb(154, 52, 18);"></div><div class="notebook-binding-ring" style="top: 45%; background-color: rgb(154, 52, 18);"></div><div class="notebook-binding-ring" style="top: 55%; background-color: rgb(154, 52, 18);"></div><div class="notebook-binding-ring" style="top: 65%; background-color: rgb(154, 52, 18);"></div><div class="notebook-binding-ring" style="top: 75%; background-color: rgb(154, 52, 18);"></div><div class="notebook-binding-ring" style="top: 85%; background-color: rgb(154, 52, 18);"></div></div><div class="notebook-pages-content"><div class="notebook-stamp" style="left: 20%; top: 25%; transform: rotate(-5deg); animation-delay: 0.3s;"><div class="notebook-stamp-emoji">🎯</div></div><div class="notebook-stamp" style="left: 45%; top: 20%; transform: rotate(3deg); animation-delay: 0.45s;"><div class="notebook-stamp-emoji">🎨</div></div><div class="notebook-stamp" style="left: 70%; top: 25%; transform: rotate(-4deg); animation-delay: 0.6s;"><div class="notebook-stamp-emoji">📋</div></div><div class="notebook-stamp" style="left: 20%; top: 60%; transform: rotate(4deg); animation-delay: 0.75s;"><div class="notebook-stamp-emoji">💼</div></div><div class="notebook-stamp" style="left: 45%; top: 65%; transform: rotate(-3deg); animation-delay: 0.9s;"><div class="notebook-stamp-emoji">🤝</div></div><div class="notebook-stamp" style="left: 70%; top: 60%; transform: rotate(5deg); animation-delay: 1.05s;"><div class="notebook-stamp-emoji">📝</div></div></div></div><div class="notebook-hover-hint"><div class="notebook-hover-text">Hover to open ↗</div><div class="notebook-hover-arrow"> </div></div></div></div></div></div>
+        </div>
+      </section>
+    </main>
+  
+    <!-- Babel Standalone for JSX transformation -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  
+    <!-- React Component Implementation -->
+    <script type="text/babel">
+      const { useState, useEffect } = React;
+  
+      // Typing Text Component
+      function TypingText({ text }) {
+        const [displayText, setDisplayText] = useState('');
+        const [currentIndex, setCurrentIndex] = useState(0);
+  
+        useEffect(() => {
+          setDisplayText('');
+          setCurrentIndex(0);
+        }, [text]);
+  
+        useEffect(() => {
+          if (currentIndex < text.length) {
+            const timeout = setTimeout(() => {
+              setDisplayText(prev => prev + text[currentIndex]);
+              setCurrentIndex(prev => prev + 1);
+            }, 50);
+            return () => clearTimeout(timeout);
+          }
+        }, [currentIndex, text]);
+  
+        return (
+          <div className="typing-text">
+            {displayText}
+            <span className="typing-cursor"></span>
+          </div>
+        );
+      }
+  
+      function NotebookComponent() {
+        const [isOpen, setIsOpen] = useState(false);
+        const [hoveredSkill, setHoveredSkill] = useState(null);
+  
+        const skills = [
+          { skill: 'Digital Marketing & Brand Strategy', emoji: '🎯', left: '20%', top: '25%', rotation: -5 },
+          { skill: 'UX/UI & Product Design', emoji: '🎨', left: '45%', top: '20%', rotation: 3 },
+          { skill: 'Project & Event Management', emoji: '📋', left: '70%', top: '25%', rotation: -4 },
+          { skill: 'Sales & Go-to-Market Enablement', emoji: '💼', left: '20%', top: '60%', rotation: 4 },
+          { skill: 'Leadership & Community Building', emoji: '🤝', left: '45%', top: '65%', rotation: -3 },
+          { skill: 'Content Creation & Storytelling', emoji: '📝', left: '70%', top: '60%', rotation: 5 },
+        ];
+  
+        return (
+          <div className="relative" style={{ transform: 'scale(1.35)', transformOrigin: 'top center' }}>
+            {/* Typing Text Display */}
+            {hoveredSkill && <TypingText text={hoveredSkill} />}
+  
+            <div
+              className="notebook-container"
+              onMouseEnter={() => setIsOpen(true)}
+              onMouseLeave={() => {
+                setIsOpen(false);
+                setHoveredSkill(null);
+              }}
+            >
+              <div className="notebook-wrapper">
+                {/* Notebook Cover */}
+                <div
+                  className="notebook-cover"
+                  style={{
+                    transform: isOpen ? 'rotateY(-130deg)' : 'rotateY(0deg)'
+                  }}
+                >
+                  {/* Front Cover */}
+                  <div 
+                    className="notebook-cover-front" 
+                    style={{ backgroundColor: '#F97316' }}
+                  >
+                    <div className="notebook-cover-texture"></div>
+                    <div className="notebook-cover-content">
+                      <div>
+                        <div className="notebook-title">BEA'S PORTFOLIO</div>
+                        <div className="notebook-year">2025</div>
+                      </div>
+  
+                      {/* Decorative elements */}
+                      <div className="notebook-decorative-line top-left"></div>
+                      <div className="notebook-decorative-line top-right"></div>
+                      <div className="notebook-decorative-line bottom-left"></div>
+                      <div className="notebook-decorative-line bottom-right"></div>
+  
+                      {/* Center element */}
+                      <div className="notebook-center-element">
+                        <div className="notebook-center-circle">
+                          <div className="notebook-center-icon">✦</div>
+                        </div>
+                      </div>
+  
+                      <div>
+                        <div className="notebook-subtitle">
+                          Discover how I translate your brand's essence into meaningful customer connections.
+                        </div>
+                      </div>
+                    </div>
+  
+                    {/* Binding rings */}
+                    <div className="notebook-binding" style={{ backgroundColor: '#374456' }}>
+                      {[...Array(8)].map((_, i) => (
+                        <div
+                          key={i}
+                          className="notebook-binding-ring"
+                          style={{ top: `${15 + i * 10}%`, backgroundColor: '#202B3D' }}
+                        />
+                      ))}
+                    </div>
+                  </div>
+  
+                  {/* Back of cover */}
+                  <div className="notebook-cover-back" style={{ backgroundColor: '#EA580C' }}></div>
+                </div>
+  
+                {/* Notebook Pages */}
+                <div className="notebook-pages">
+                  <div className="notebook-pages-stack" style={{ backgroundColor: '#FDBA74' }}></div>
+                  <div className="notebook-pages-stack2" style={{ backgroundColor: '#FED7AA' }}></div>
+  
+                  {/* Binding */}
+                  <div className="notebook-binding" style={{ backgroundColor: '#202B3D' }}>
+                    {[...Array(8)].map((_, i) => (
+                      <div
+                        key={i}
+                        className="notebook-binding-ring"
+                        style={{
+                          top: `${15 + i * 10}%`,
+                          backgroundColor: '#9A3412'
+                        }}
+                      />
+                    ))}
+                  </div>
+  
+                  {/* Pages Content with Stamps */}
+                  <div className="notebook-pages-content">
+                    {skills.map((stamp, index) => (
+                      <div
+                        key={stamp.skill}
+                        className="notebook-stamp"
+                        style={{
+                          left: stamp.left,
+                          top: stamp.top,
+                          transform: `rotate(${stamp.rotation}deg)`,
+                          animationDelay: `${0.3 + index * 0.15}s`
+                        }}
+                        onMouseEnter={() => setHoveredSkill(stamp.skill)}
+                        onMouseLeave={() => setHoveredSkill(null)}
+                      >
+                        <div className="notebook-stamp-emoji">{stamp.emoji}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+  
+                {/* Hover hint */}
+                {!isOpen && (
+                  <div className="notebook-hover-hint">
+                    <div className="notebook-hover-text">Hover to open ↗</div>
+                    <div className="notebook-hover-arrow"> </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        );
+      }
+  
+      // Render the React component
+      const root = ReactDOM.createRoot(document.getElementById('react-notebook-root'));
+      root.render(<NotebookComponent />);
+    </script>
+  
+  
+  
+  <section id="projects" class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-4xl font-bold mb-12 text-center font-['Fustat']">Projects</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+  
+            <!-- Project Card Template -->
+  
+            <a href="projects/wingrep.html" class="tilt-card neon-glow bg-white rounded-lg overflow-hidden shadow-lg transition-transform hover:scale-[1.02]">
+              <img src="images/wingrep mockup.png" class="h-48 w-full object-cover">
+              <div class="p-6">
+                <h3 class="text-xl font-bold mb-2 font-['Fustat']">WingRep Startup Rebrand</h3>
+                <p class="text-gray-600 mb-4 text-sm"> End-to-End Rebrand: Project Management, Branding, and Web Design for San Francisco
+                  Startup</p>
+                <div class="flex flex-wrap gap-2 text-sm">
+                  <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Web Development/Design</span>
+                  <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Marketing</span>
+                </div>
+              </div>
+            </a>
+  
+  
+            <a href="projects/amazon-music.html" class="tilt-card neon-glow bg-white rounded-lg overflow-hidden shadow-lg transition-transform hover:scale-[1.02]">
+              <img src="images/WhatsApp Image 2025-03-26 at 04.46.12.jpeg" class="h-48 w-full object-cover">
+              <div class="p-6">
+                <h3 class="text-xl font-bold mb-2 font-['Fustat']">Amazon Music Marketplace Integration</h3>
+                <p class="text-gray-600 mb-4 text-sm">Branding and UI/UX externship exploring an e-commerce/music fusion.
+                </p>
+                <div class="flex flex-wrap gap-2 text-sm">
+                  <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">UX/UI</span>
+                  <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Branding</span>
+                </div>
+              </div>
+            </a>
+  
+  
+            <a href="projects/there4you.html" class="tilt-card neon-glow bg-white rounded-lg overflow-hidden shadow-lg">
+              <img src="images/t4y.jpeg" class="h-48 w-full object-cover">
+              <div class="p-6">
+  
+                <h3 class="text-xl font-bold mb-2 font-['Fustat']">THERE4YOU Smart Bracelet</h3>
+                <p class="text-gray-600 mb-4 text-sm">Interned at Upkey to develop wearable anti-harassment tech + brand.
+                </p>
+                <div class="flex flex-wrap gap-2 text-sm">
+                  <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Product Design</span>
+                  <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Internship</span>
+                </div>
+              </div>
+            </a>
+  
+            <a href="projects/dale-duro.html" class="tilt-card neon-glow bg-white rounded-lg overflow-hidden shadow-lg">
+              <img src="images/rfs2.png" class="h-48 w-full object-cover">
+              <div class="p-6">
+  
+                <h3 class="text-xl font-bold mb-2 font-['Fustat']">Dale Duro Latin Dance Co.</h3>
+                <p class="text-gray-600 mb-4 text-sm">Handled PR and marketing campaigns for Northwestern’s Latin dance group, breaking attendance records at the Spring Show 2025 with 1,000+ attendees.
+                </p>
+                <div class="flex flex-wrap gap-2 text-sm">
+                  <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Social Media</span>
+                  <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Public Relations</span>
+                </div>
+              </div>
+            </a>
+  
+  
+            <a href="projects/c4-energy.html" class="tilt-card neon-glow bg-white rounded-lg overflow-hidden shadow-lg">
+              <img src="images/WhatsApp Image 2025-03-26 at 06.03.02.jpeg" class="h-48 w-full object-cover">
+              <div class="p-6">
+  
+                <h3 class="text-xl font-bold mb-2 font-['Fustat']">C4 Smart Energy Strategy</h3>
+                <p class="text-gray-600 mb-4 text-sm">Audience research and brand identity for a performance drink brand.
+                </p>
+                <div class="flex flex-wrap gap-2 text-sm">
+                  <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Branding</span>
+                  <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Research</span>
+                </div>
+              </div>
+            </a>
+  
+            <a href="projects/brasa-summit.html" class="tilt-card neon-glow bg-white rounded-lg overflow-hidden shadow-lg">
+            <img src="images/summit 5.jpeg" class="h-48 w-full object-cover">
+            <div class="p-6">
+  
+              <h3 class="text-xl font-bold mb-2 font-['Fustat']">BRASA Summit 2024 Campaign</h3>
+              <p class="text-gray-600 mb-4 text-sm">Marketing visuals and strategy for the biggest Brazilian student
+                event.</p>
+              <div class="flex flex-wrap gap-2 text-sm">
+                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Social Media</span>
+                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Marketing</span>
+              </div>
+            </div>
+          </a>
+  
+            <a href="projects/leaving-lightly.html" class="tilt-card neon-glow bg-white rounded-lg overflow-hidden shadow-lg">
+              <img src="images/journey.png" class="h-48 w-full object-cover">
+              <div class="p-6">
+  
+                <h3 class="text-xl font-bold mb-2 font-['Fustat']">Leaving Lightly</h3>
+                <p class="text-gray-600 mb-4 text-sm">UX app that reduces campus waste by facilitating item exchanges.</p>
+                <div class="flex flex-wrap gap-2 text-sm">
+                  <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">UX/UI</span>
+                  <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Sustainability</span>
+                </div>
+              </div>
+            </a>
+  
+  
+  
+            <a href="projects/sf-bakeries.html" class="tilt-card neon-glow bg-white rounded-lg overflow-hidden shadow-lg">
+              <img src="images/bakery 3.png" class="h-48 w-full object-cover">
+              <div class="p-6">
+  
+                <h3 class="text-xl font-bold mb-2 font-['Fustat']">Bakeries in San Francisco</h3>
+                <p class="text-gray-600 mb-4 text-sm">Visual storytelling project combining photography and web design.
+                </p>
+                <div class="flex flex-wrap gap-2 text-sm">
+                  <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Photography</span>
+                  <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Website</span>
+                </div>
+              </div>
+            </a>
+  
+            <a href="projects/brasa-global.html" class="tilt-card neon-glow bg-white rounded-lg overflow-hidden shadow-lg">
+              <img src="images/brasa 2.png" class="h-48 w-full object-cover">
+              <div class="p-6">
+  
+                <h3 class="text-xl font-bold mb-2 font-['Fustat']">BRASA Global Board</h3>
+                <p class="text-gray-600 mb-4 text-sm">Strategy + content creation for Brazilian student network worldwide.
+                </p>
+                <div class="flex flex-wrap gap-2 text-sm">
+                  <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Social Media</span>
+                  <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Leadership</span>
+                </div>
+              </div>
+            </a>
+  
+            <a href="projects/tether.html" class="tilt-card neon-glow bg-white rounded-lg overflow-hidden shadow-lg">
+              <img src="images/prot 8.jpeg" class="h-48 w-full object-cover">
+              <div class="p-6">
+  
+                <h3 class="text-xl font-bold mb-2 font-['Fustat']">Tether: App + Product Design</h3>
+                <p class="text-gray-600 mb-4 text-sm">Built a connected app and physical product to support mental
+                  wellness.
+                </p>
+                <div class="flex flex-wrap gap-2 text-sm">
+                  <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">UX/UI</span>
+                  <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Product Design</span>
+                </div>
+              </div>
+            </a>
+  
+            <a href="projects/the-garage.html" class="tilt-card neon-glow bg-white rounded-lg overflow-hidden shadow-lg">
+              <img src="images/the garage.png" class="h-48 w-full object-cover">
+              <div class="p-6">
+  
+                <h3 class="text-xl font-bold mb-2 font-['Fustat']">Marketing Aide @ The Garage</h3>
+                <p class="text-gray-600 mb-4 text-sm">Creative strategy support for Northwestern's innovation incubator.
+                </p>
+                <div class="flex flex-wrap gap-2 text-sm">
+                  <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Marketing</span>
+                  <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Strategy</span>
+                </div>
+              </div>
+            </a>
+  
+  
+  
+            <a href="projects/brasa-nu.html" class="tilt-card neon-glow bg-white rounded-lg overflow-hidden shadow-lg">
+              <img src="images/1.png" class="h-48 w-full object-cover">
+              <div class="p-6">
+  
+                <h3 class="text-xl font-bold mb-2 font-['Fustat']">BRASA Northwestern Chapter</h3>
+                <p class="text-gray-600 mb-4 text-sm">Managed social campaigns and events for Brazilian community at NU.
+                </p>
+                <div class="flex flex-wrap gap-2 text-sm">
+                  <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Social Media</span>
+                  <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Community</span>
+                </div>
+              </div>
+            </a>
+  
+         
+  
+            <a href="projects/isa.html" class="tilt-card neon-glow bg-white rounded-lg overflow-hidden shadow-lg">
+              <img src="images/18.png" class="h-48 w-full object-cover">
+              <div class="p-6">
+  
+                <h3 class="text-xl font-bold mb-2 font-['Fustat']">International Study Ambassador Program</h3>
+                <p class="text-gray-600 mb-4 text-sm">Led social media and outreach for global student association.</p>
+                <div class="flex flex-wrap gap-2 text-sm">
+                  <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Social Media</span>
+                  <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Leadership</span>
+                </div>
+              </div>
+            </a>
+  
+            <a href="projects/brnd.html" class="tilt-card neon-glow bg-white rounded-lg overflow-hidden shadow-lg">
+              <img src="images/Beatriz's Portfolio.pdf.png" class="h-48 w-full object-cover">
+              <div class="p-6">
+  
+                <h3 class="text-xl font-bold mb-2 font-['Fustat']">Brazilian Debate Association</h3>
+                <p class="text-gray-600 mb-4 text-sm">Social media and communications lead for national debate league.</p>
+                <div class="flex flex-wrap gap-2 text-sm">
+                  <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Communications</span>
+                  <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Social Media</span>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </section>
+  
+   
+      <section id="about" class="min-h-screen py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="grid md:grid-cols-2 gap-12 items-start">
+            
+            <!-- Left: Profile card -->
+            <div class="sticky top-24">
+              <div class="relative group rounded-2xl overflow-hidden shadow-xl">
+                <img src="images/yosemite me.jpeg" alt="Beatriz Fonseca profile photo" class="w-full h-auto transform transition duration-500 group-hover:scale-[1.02]">
+                <div class="pointer-events-none absolute inset-0 ring-1 ring-black/5"></div>
+              </div>
+            
+              <div class="mt-6 flex items-center gap-4">
+                <a href="mailto:beatrizfonseca2027@u.northwestern.edu" class="text-primary hover:text-primary/80" aria-label="Email">
+                  <i class="ri-mail-line text-2xl"></i>
+                </a>
+                <a href="https://linkedin.com/in/beatrizaguiarfonseca" target="_blank" rel="noopener" class="text-primary hover:text-primary/80" aria-label="LinkedIn">
+                  <i class="ri-linkedin-line text-2xl"></i>
+                </a>
+                
+              </div>
+            </div>
+      
+            <!-- Right: Interactive chips -->
+            <div class="space-y-12">
+              
+              <!-- Experience Highlights -->
+              <section>
+                <div class="mt-8">
+                  <h2 class="text-4xl font-bold mb-3"> Hi! I'm Beatriz :)</h2>
+                  <p class="text-gray-600">
+                    Multidisciplinary creative and strategist from Brazil studying Communication and Psychology at Northwestern with Design and Integrated Marketing Communications certificates.
+                  </p>
+                  <br><br>
+              </div>
+  
+                <div class="flex items-center justify-between mb-4">
+                  <h3 class="text-2xl font-bold">Experience Highlights</h3>
+                  <a href="about.html#experience" class="text-sm text-primary hover:underline">See all</a>
+                </div>
+                <div class="flex flex-wrap gap-3">
+                  <!-- Use chips only, no descriptions -->
+                  <a href="about.html#experience" class="group px-4 py-2 rounded-full bg-primary/10 text-primary border border-primary/20 hover:border-primary/40 transition">
+                    The Garage
+                  </a>
+                  <a href="about.html#experience" class="group px-4 py-2 rounded-full bg-primary/10 text-primary border border-primary/20 hover:border-primary/40 transition">
+                    Amazon Music Externship
+                  </a>
+                  <a href="about.html#experience" class="group px-4 py-2 rounded-full bg-primary/10 text-primary border border-primary/20 hover:border-primary/40 transition">
+                    Upkey Internship
+                  </a>
+                  <a href="about.html#experience" class="group px-4 py-2 rounded-full bg-primary/10 text-primary border border-primary/20 hover:border-primary/40 transition">
+                    WingRep Internship
+                  </a>
+                  <a href="about.html#experience" class="group px-4 py-2 rounded-full bg-primary/10 text-primary border border-primary/20 hover:border-primary/40 transition">
+                    Figma Campus Leader
+                  </a>
+                </div>
+              </section>
+      
+              <!-- Skills (compact with expand) -->
+              <section>
+                <div class="flex items-center justify-between mb-4">
+                  <h3 class="text-2xl font-bold">Skills</h3>
+                  <button id="toggleSkills" type="button" class="text-sm text-primary hover:underline">Show all</button>
+                </div>
+      
+                <div id="skillsList" class="flex flex-wrap gap-2 max-h-24 overflow-hidden transition-[max-height] duration-300">
+                  <!-- Show a focused set by default -->
+                  <!-- Show a focused set by default -->
+  <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">Figma</span>
+  <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">Adobe Creative Cloud</span>
+  <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">UX/UI Design</span>
+  <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">Digital Marketing</span>
+  <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">Product Management</span>
+  <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">Project Management</span>
+  <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">Content Creation</span>
+  <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">Social Media Management</span>
+  <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">Branding</span>
+  <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">Public Relations</span>
+  <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">Google Analytics</span>
+  <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">Google Ads</span>
+  
+  <!-- Hidden until expanded -->
+  <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">Asana</span>
+  <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">Salesforce</span>
+  <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">HubSpot</span>
+  <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">Generative AI Tools</span>
+  <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">LLMs</span>
+  <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">Canva</span>
+  <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">Trello</span>
+  <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">Slack</span>
+  <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">Zoom</span>
+  <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">Adobe Apps</span>
+  <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">Microsoft Office</span>
+  <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">Google Suite</span>
+  <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">Sony Vegas</span>
+  <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">R</span>
+  <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">Python</span>
+  <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">HTML</span>
+  <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">CSS</span>
+  <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">JavaScript</span>
+  <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">Webflow</span>
+  <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">Framer</span>
+  <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">WordPress</span>
+  <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">Digital Content Production</span>
+  <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">Digital Media Insights</span>
+  <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">Market Analysis</span>
+  <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">Persona Analysis</span>
+  <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">Audience Analysis</span>
+  <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">Technical Writing</span>
+  <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">Creative Writing</span>
+  <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">Event Planning</span>
+  <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">Video Editing</span>
+  <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">Sound Editing</span>
+  
+                </div>
+      
+                <div class="mt-6">
+                  <a href="about.html" class="group inline-flex items-center justify-center w-full sm:w-auto px-5 py-3 rounded-xl bg-primary text-white font-medium hover:opacity-90 transition">
+                    Learn about me, my experience, my hobbies here
+                    <span class="ml-2 transition-transform group-hover:translate-x-0.5" aria-hidden="true">→</span>
+                  </a>
+                </div>
+              </section>
+            </div>
+          </div>
+        </div>
+      
+        <!-- Tiny JS for Skills expand -->
+        <script>
+          const skillsList = document.getElementById('skillsList');
+          const toggleBtn = document.getElementById('toggleSkills');
+          if (skillsList && toggleBtn) {
+            let expanded = false;
+            toggleBtn.addEventListener('click', () => {
+              expanded = !expanded;
+              skillsList.style.maxHeight = expanded ? skillsList.scrollHeight + 'px' : '6rem';
+              toggleBtn.textContent = expanded ? 'Show less' : 'Show all';
+            });
+          }
+        </script>
+      </section>
+      
+      <section id="contact" class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="max-w-2xl mx-auto text-center mb-12">
+            <h2 class="text-4xl font-bold mb-4">Let's Work Together</h2>
+            <p class="text-gray-600">Let’s talk and get connected!! I’d love to hear from you!</p>
+          </div>
+          <div class="mt-8 flex justify-center space-x-6">
+            <a href="mailto:beatrizfonseca2027@u.northwestern.edu" class="flex items-center gap-2 text-gray-600 hover:text-primary text-lg">
+              <i class="ri-mail-line text-2xl"></i>
+              <span>Email</span>
+            </a>
+            <a href="https://linkedin.com/in/beatrizaguiarfonseca" target="_blank" class="flex items-center gap-2 text-gray-600 hover:text-primary text-lg">
+              <i class="ri-linkedin-line text-2xl"></i>
+              <span>LinkedIn</span>
+            </a>
+          </div>
+        </div>
+      </section>
+  
+    
+  
+  
+  </body><grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration></html>
+  
+  

@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Phone Scrolly Section</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    #scrolly-phone-section {
+      position: relative;
+      height: 350vh;
+      background: #f9fafb;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    #scrolly-sticky {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    /* Scroll hint */
+    #scrollHint {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      color: #9ca3af;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: opacity 0.5s ease;
+      z-index: 10;
+      white-space: nowrap;
+    }
+    #scrollHint svg { animation: sBounce 2s ease-in-out infinite; }
+    @keyframes sBounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(5px)} }
+
+    /* Phone shell */
+    .phone-outer {
+      position: relative;
+      width: 300px;
+      height: 600px;
+      background: #1f2937;
+      border: 14px solid #1f2937;
+      border-radius: 2.5rem;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.25), 0 0 0 1px rgba(255,255,255,0.05);
+      flex-shrink: 0;
+    }
+    .phone-outer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 148px;
+      height: 18px;
+      background: #1f2937;
+      border-radius: 0 0 1rem 1rem;
+      z-index: 20;
+    }
+    .pb { position: absolute; background: #1f2937; }
+    .pb-v1 { left:-17px; top:72px;  width:3px; height:32px; border-radius:4px 0 0 4px; }
+    .pb-v2 { left:-17px; top:124px; width:3px; height:46px; border-radius:4px 0 0 4px; }
+    .pb-v3 { left:-17px; top:178px; width:3px; height:46px; border-radius:4px 0 0 4px; }
+    .pb-pw { right:-17px; top:142px; width:3px; height:64px; border-radius:0 4px 4px 0; }
+
+    /* Screen */
+    .phone-screen {
+      width: 272px;
+      height: 572px;
+      border-radius: 2rem;
+      overflow: hidden;
+      position: relative;
+      z-index: 10;
+      background: #ffffff;
+      transition: background-color 1.2s cubic-bezier(0.22,1,0.36,1);
+    }
+
+    /* Status bar */
+    .status-bar {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      z-index: 30;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px 6px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #000;
+      mix-blend-mode: darken;
+    }
+    .si { display:flex; align-items:center; gap:5px; }
+
+    /* All states are stacked */
+    .ps {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transform: scale(1.04);
+      filter: blur(10px);
+      pointer-events: none;
+      transition:
+        opacity   0.9s cubic-bezier(0.22,1,0.36,1),
+        transform 0.9s cubic-bezier(0.22,1,0.36,1),
+        filter    0.9s cubic-bezier(0.22,1,0.36,1);
+    }
+    .ps.is-active { opacity:1; transform:scale(1); filter:blur(0); pointer-events:auto; }
+    .ps.is-exit   { opacity:0; transform:scale(0.96); filter:blur(10px); }
+
+    /* State 1 */
+    #s1 { padding:2rem; text-align:center; gap:0; }
+    .a-logo { color:#000; margin-bottom:1.5rem; }
+    .s1-tag {
+      display:block; font-size:10px; font-weight:700;
+      letter-spacing:.14em; text-transform:uppercase;
+      color:#6b7280; margin-bottom:1rem;
+    }
+    .s1-title {
+      font-size:19px; font-weight:600; line-height:1.35;
+      color:#111; margin-bottom:1rem; letter-spacing:-.01em;
+    }
+    .s1-city { font-size:13px; color:#6b7280; font-weight:500; }
+    .s1-date { font-size:11px; color:#9ca3af; margin-top:4px; }
+    .s1-btn {
+      display:block; width:100%; margin-top:2.5rem;
+      padding:.85rem 1.5rem; background:#0071e3; color:#fff;
+      font-size:14px; font-weight:600; font-family:inherit;
+      border:none; border-radius:9999px; cursor:pointer;
+      transition:background .2s;
+    }
+    .s1-btn:hover { background:#0077ed; }
+
+    /* State 2 */
+    #s2 { justify-content:flex-start; align-items:stretch; padding:0; }
+
+    .g-header {
+      position: relative;
+      z-index: 2;
+      padding: 3.8rem 1.5rem 0;
+      text-align: center;
+    }
+    .g-eye {
+      display:flex; align-items:center; justify-content:center;
+      gap:7px; color:#0071e3; margin-bottom:10px;
+    }
+    .g-eye span { font-size:10px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; }
+    .g-title { font-size:17px; font-weight:600; color:#111; line-height:1.4; }
+    .g-cities {
+      display:flex; flex-wrap:wrap; justify-content:center;
+      gap:3px 6px; font-size:11px; color:#6b7280; margin-top:10px;
+    }
+    .g-sep { color:#d1d5db; }
+
+    .g-wrap {
+      position: absolute;
+      width: 408px;
+      height: 408px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -15%);
+      pointer-events: none;
+      z-index: 1;
+      opacity: 1;
+      overflow: visible;
+    }
+
+    #globeCanvas {
+      display: block;
+      width: 408px;
+      height: 408px;
+      border-radius: 50%;
+      /* Helps the globe look like it is integrated into the UI */
+      mix-blend-mode: multiply;
+    }
+
+    /* State 3 */
+    #s3 {
+      justify-content:flex-start;
+      align-items:flex-start;
+      padding:1.25rem;
+      padding-top:3.8rem;
+      overflow:hidden;
+    }
+    .sk-eye {
+      display:flex; align-items:center; justify-content:center;
+      gap:7px; color:#0071e3; margin-bottom:1rem; width:100%;
+    }
+    .sk-eye span { font-size:10px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; }
+    .sk-grid {
+      display:grid; grid-template-columns:1fr 1fr; gap:9px;
+      width:100%; flex:1; overflow-y:auto; padding-bottom:1rem; scrollbar-width:none;
+    }
+    .sk-grid::-webkit-scrollbar { display:none; }
+    .sk-card {
+      position:relative; aspect-ratio:1/1; border-radius:14px;
+      overflow:hidden; background:#e5e7eb; box-shadow:0 2px 8px rgba(0,0,0,.08);
+    }
+    .sk-card img { width:100%; height:100%; object-fit:cover; transition:transform .6s ease; display:block; }
+    .sk-card:hover img { transform:scale(1.06); }
+    .sk-lbl {
+      position:absolute; bottom:0; left:0; right:0;
+      padding:1.5rem .6rem .5rem;
+      background:linear-gradient(to top,rgba(0,0,0,.65) 0%,transparent 100%);
+      color:#fff; font-size:10px; font-weight:500; line-height:1.3;
+    }
+
+    /* Progress dots */
+    #pdots {
+      position:absolute;
+      right:2rem;
+      top:50%;
+      transform:translateY(-50%);
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+    }
+    @media(max-width:640px){#pdots{display:none}}
+    .pdot {
+      width:7px;
+      height:7px;
+      border-radius:50%;
+      background:#d1d5db;
+      transition:background .3s, transform .3s;
+    }
+    .pdot.is-active { background:#111827; transform:scale(1.6); }
+  </style>
+</head>
+
+<body>
+<section id="scrolly-phone-section">
+  <div id="scrolly-sticky">
+
+    <div id="scrollHint">
+      <span>Scroll to explore</span>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 9 12 15 18 9"></polyline>
+      </svg>
+    </div>
+
+    <div class="phone-outer">
+      <div class="pb pb-v1"></div>
+      <div class="pb pb-v2"></div>
+      <div class="pb pb-v3"></div>
+      <div class="pb pb-pw"></div>
+
+      <div class="phone-screen" id="phoneScreen">
+
+        <div class="status-bar">
+          <span>9:41</span>
+          <div class="si">
+            <svg width="15" height="11" viewBox="0 0 15 11" fill="currentColor">
+              <rect x="0"  y="7"   width="3" height="4"   rx=".5"></rect>
+              <rect x="4"  y="5"   width="3" height="6"   rx=".5"></rect>
+              <rect x="8"  y="2.5" width="3" height="8.5" rx=".5"></rect>
+              <rect x="12" y="0"   width="3" height="11"  rx=".5"></rect>
+            </svg>
+            <svg width="15" height="11" viewBox="0 0 24 17" fill="currentColor">
+              <path d="M12 14.5a1.5 1.5 0 110 3 1.5 1.5 0 010-3zm0-4.5c2.2 0 4.2.9 5.6 2.4l-1.8 1.8A5.5 5.5 0 0012 12a5.5 5.5 0 00-3.8 1.5l-1.8-1.8A7.5 7.5 0 0112 10zm0-4.5c3.4 0 6.5 1.4 8.7 3.7L19 10.9A9.5 9.5 0 0012 8a9.5 9.5 0 00-7 3L3.3 9.2A11.5 11.5 0 0112 5.5zm0-4.5c4.7 0 9 1.9 12.1 5L22.3 7.7A14.5 14.5 0 0012 3.5 14.5 14.5 0 001.7 7.7L0 6A16.5 16.5 0 0112 1z"></path>
+            </svg>
+            <svg width="22" height="12" viewBox="0 0 22 12" fill="currentColor">
+              <rect x="0" y="1" width="19" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="1.2"></rect>
+              <rect x="1.5" y="2.5" width="14" height="7" rx="1"></rect>
+              <path d="M20 4v4a2 2 0 000-4z"></path>
+            </svg>
+          </div>
+        </div>
+
+        <!-- State 1 -->
+        <div class="ps is-active" id="s1">
+          <svg class="a-logo" viewBox="0 0 24 24" fill="currentColor" width="34" height="34">
+            <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.55-1.48 3.34-1.28 3.34-1.28.27 1.71-1.69 3-3.34 2.83"></path>
+          </svg>
+          <div>
+            <span class="s1-tag">Internship</span>
+            <h2 class="s1-title">Marcom Social Media<br />Strategist Intern</h2>
+            <p class="s1-city">Sunnyvale, CA</p>
+            <p class="s1-date">Posted 2 days ago</p>
+          </div>
+          <button class="s1-btn">Apply Now</button>
+        </div>
+
+        <!-- State 2 -->
+        <div class="ps" id="s2">
+          <div class="g-header">
+            <div class="g-eye">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17.8 19.2L16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"></path>
+              </svg>
+              <span>Global Connection</span>
+            </div>
+            <p class="g-title">Connecting cultures<br />across continents.</p>
+            <div class="g-cities">
+              <span>São Paulo</span><span class="g-sep">•</span>
+              <span>Chicago</span><span class="g-sep">•</span>
+              <span>Florence</span><span class="g-sep">•</span>
+              <span>San Francisco</span><span class="g-sep">•</span>
+              <span>Madrid</span><span class="g-sep">•</span>
+              <span>Sunnyvale</span>
+            </div>
+          </div>
+
+          <div class="g-wrap">
+            <canvas id="globeCanvas"></canvas>
+          </div>
+        </div>
+
+        <!-- State 3 -->
+        <div class="ps" id="s3">
+          <div class="sk-eye">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 3l1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5z"></path>
+              <path d="M19 1l.75 2.25L22 4l-2.25.75L19 7l-.75-2.25L16 4l2.25-.75z"></path>
+              <path d="M5 17l.5 1.5L7 19l-1.5.5L5 21l-.5-1.5L3 19l1.5-.5z"></path>
+            </svg>
+            <span>Marketing Expertise</span>
+          </div>
+          <div class="sk-grid">
+            <div class="sk-card">
+              <img src="https://images.unsplash.com/photo-1680986070892-1b64bfe03338?w=400&q=80" alt="Brand Strategy" loading="lazy" />
+              <div class="sk-lbl">Brand Strategy</div>
+            </div>
+            <div class="sk-card">
+              <img src="https://images.unsplash.com/photo-1760008486577-21baa8b560a5?w=400&q=80" alt="UX/UI Design" loading="lazy" />
+              <div class="sk-lbl">UX/UI Design</div>
+            </div>
+            <div class="sk-card">
+              <img src="https://images.unsplash.com/photo-1663153205426-2b93a5a8dca9?w=400&q=80" alt="Social Media & Content" loading="lazy" />
+              <div class="sk-lbl">Social Media & Content</div>
+            </div>
+            <div class="sk-card">
+              <img src="https://images.unsplash.com/photo-1758876202468-5ffe0ee61f07?w=400&q=80" alt="Project Management" loading="lazy" />
+              <div class="sk-lbl">Project Management</div>
+            </div>
+            <div class="sk-card">
+              <img src="https://images.unsplash.com/photo-1758691736097-7f735ac5f118?w=400&q=80" alt="Sales & GTM" loading="lazy" />
+              <div class="sk-lbl">Sales & GTM</div>
+            </div>
+            <div class="sk-card">
+              <img src="https://images.unsplash.com/photo-1630068846062-3ffe78aa5049?w=400&q=80" alt="Leadership & Community" loading="lazy" />
+              <div class="sk-lbl">Leadership & Community</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div id="pdots">
+      <div class="pdot is-active"></div>
+      <div class="pdot"></div>
+      <div class="pdot"></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Load COBe first, then run your script -->
+<script src="https://cdn.jsdelivr.net/npm/cobe@0.6.3/dist/cobe.min.js" defer></script>
+
+<script>
+(function () {
+  'use strict';
+
+  const section = document.getElementById('scrolly-phone-section');
+  const screen  = document.getElementById('phoneScreen');
+  const hint    = document.getElementById('scrollHint');
+  const states  = ['s1','s2','s3'].map(id => document.getElementById(id));
+  const dots    = document.querySelectorAll('#pdots .pdot');
+  const BG      = ['#ffffff', '#F5F5F7', '#F5F5F7'];
+
+  let cur = 0;
+  let globeStarted = false;
+
+  function activate(idx) {
+    if (idx === cur) return;
+    cur = idx;
+
+    screen.style.backgroundColor = BG[idx];
+    hint.style.opacity = idx === 0 ? '1' : '0';
+    hint.style.pointerEvents = idx === 0 ? 'auto' : 'none';
+
+    states.forEach((el, i) => {
+      el.classList.toggle('is-active', i === idx);
+      el.classList.toggle('is-exit',   i !== idx);
+    });
+    dots.forEach((d, i) => d.classList.toggle('is-active', i === idx));
+
+    // Lazy start globe the first time state 2 becomes active
+    if (idx === 1 && !globeStarted) initGlobe();
+  }
+
+  function getCreateGlobe() {
+    return window.createGlobe
+      || (window.cobe && (window.cobe.createGlobe || window.cobe.default));
+  }
+
+  function initGlobe() {
+    const canvas = document.getElementById('globeCanvas');
+    const create = getCreateGlobe();
+
+    if (!canvas) {
+      console.error('[globe] canvas not found (#globeCanvas)');
+      return;
+    }
+    if (!create) {
+      console.error('[globe] COBe not loaded. Check Network tab for cobe.min.js and any console errors.');
+      return;
+    }
+
+    globeStarted = true;
+
+    let phi = 0;
+
+    // If you ever re-enter state 2, you do not want multiple globes stacked.
+    // COBe returns a cleanup in newer builds, but not always.
+    // Safest is: only init once (globeStarted guard above).
+
+    create(canvas, {
+      devicePixelRatio: Math.min(window.devicePixelRatio || 1, 2),
+      width: 408,
+      height: 408,
+      phi: 0,
+      theta: 0.2,
+      dark: 0,
+      diffuse: 1.2,
+      mapSamples: 16000,
+      mapBrightness: 6,
+      baseColor: [1.0, 0.78, 0.62],
+      markerColor: [0.1, 0.4, 0.9],
+      glowColor: [1.0, 0.78, 0.62],
+      markers: [
+        { location: [-23.5505, -46.6333], size: 0.10 }, // Sao Paulo
+        { location: [ 41.8781, -87.6298], size: 0.10 }, // Chicago
+        { location: [ 43.7696,  11.2558], size: 0.10 }, // Florence
+        { location: [ 37.7749,-122.4194], size: 0.10 }, // San Francisco
+        { location: [ 40.4168,  -3.7038], size: 0.10 }, // Madrid
+        { location: [ 37.3688,-122.0363], size: 0.10 }, // Sunnyvale
+      ],
+      onRender(state) {
+        state.phi = phi;
+        phi += 0.005;
+      },
+    });
+
+    console.log('[globe] initialized');
+  }
+
+  function onScroll() {
+    const p = Math.max(
+      0,
+      Math.min(
+        1,
+        -section.getBoundingClientRect().top / (section.offsetHeight - window.innerHeight)
+      )
+    );
+
+    if (p < 0.35) activate(0);
+    else if (p < 0.70) activate(1);
+    else activate(2);
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  // Wait until scripts (including cobe) are actually available
+  window.addEventListener('load', () => {
+    onScroll();
+
+    // Optional: prewarm globe even before you reach state 2
+    // If you want that, uncomment next line:
+    // initGlobe();
+  });
+})();
+</script>
+</body>
+</html>

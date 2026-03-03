@@ -3,259 +3,483 @@
 <head>
   <link rel="icon" type="image/png" href="images/Design sem nome (8).png">
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Projects — Beatriz Fonseca</title>
 
-  <!-- Tailwind -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            primary: '#FF6B35',
-            secondary: '#04A777'
-          },
-          borderRadius: {
-            'none': '0px',
-            'sm': '4px',
-            DEFAULT: '8px',
-            'md': '12px',
-            'lg': '16px',
-            'xl': '20px',
-            '2xl': '24px',
-            '3xl': '32px',
-            'full': '9999px',
-            'button': '8px'
-          }
-        }
-      }
-    }
-  </script>
-
-  <!-- Fonts + Icons -->
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Fustat:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
-  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
 
   <style>
-    .tilt-card {
-      transform-style: preserve-3d;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    :root {
+      --orange: #FF6B35;
+      --orange-soft: #FFF2EC;
+      --orange-mid: #FFD9C7;
+      --black: #0C0C0C;
+      --gray: #717171;
+      --gray-light: #F7F7F7;
+      --white: #FFFFFF;
+      --serif: 'Instrument Serif', Georgia, serif;
+      --sans: 'Plus Jakarta Sans', sans-serif;
     }
-    .tilt-card:hover {
-      transform: perspective(1000px) rotateX(2deg) rotateY(2deg) translateY(-6px);
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); background: var(--white); color: var(--black); overflow-x: hidden; }
+    :where([class^="ri-"])::before { content: "\f3c2"; }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; width: 100%; z-index: 200;
+      background: rgba(255,255,255,0.92); backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(0,0,0,0.05);
     }
-    .neon-glow { transition: box-shadow 0.2s ease; }
-    .neon-glow:hover {
-      box-shadow: 0 0 18px rgba(255, 107, 53, 0.25);
+    .nav-inner {
+      max-width: 1280px; margin: 0 auto; padding: 0 2.5rem;
+      height: 58px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo {
+      font-family: var(--sans); font-weight: 800; font-size: 0.78rem;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--black); text-decoration: none;
+      display: flex; align-items: center; gap: 9px;
+    }
+    .nav-logo img { height: 26px; width: 26px; object-fit: contain; border-radius: 4px; }
+    .nav-logo .ndot { width: 6px; height: 6px; border-radius: 50%; background: var(--orange); flex-shrink: 0; }
+    .nav-links { display: flex; gap: 2.5rem; align-items: center; }
+    .nav-links a { font-size: 0.82rem; font-weight: 600; letter-spacing: 0.04em; color: var(--gray); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--black); }
+    .nav-links a.active { color: var(--black); }
+    .nav-cta { background: var(--black); color: var(--white) !important; padding: 7px 18px; border-radius: 999px; font-size: 0.78rem !important; transition: background 0.2s !important; }
+    .nav-cta:hover { background: var(--orange) !important; }
+
+    /* ─── BUTTONS ─── */
+    .btn-fill { background: var(--black); color: var(--white); padding: 0.8rem 2rem; border-radius: 999px; font-size: 0.85rem; font-weight: 800; letter-spacing: 0.02em; text-decoration: none; display: inline-flex; align-items: center; gap: 7px; transition: all 0.22s; font-family: var(--sans); }
+    .btn-fill:hover { background: var(--orange); transform: translateY(-2px); }
+    .btn-outline { background: transparent; color: var(--black); border: 1.5px solid rgba(0,0,0,0.18); padding: 0.8rem 2rem; border-radius: 999px; font-size: 0.85rem; font-weight: 800; text-decoration: none; display: inline-flex; align-items: center; gap: 7px; transition: all 0.22s; font-family: var(--sans); }
+    .btn-outline:hover { border-color: var(--orange); color: var(--orange); transform: translateY(-2px); }
+
+    @keyframes fUp { to { opacity: 1; transform: translateY(0); } }
+
+    /* ─── PAGE HERO ─── */
+    .page-hero {
+      padding-top: 58px;
+      background: linear-gradient(180deg, #fff 0%, #fff 50%, var(--gray-light) 50%, var(--gray-light) 100%);
+    }
+    .page-hero-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 5.5rem 2.5rem 3rem;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 3.5rem;
+      align-items: end;
+    }
+    @media(max-width: 860px){
+      .page-hero-inner { grid-template-columns: 1fr; padding: 4.5rem 2rem 2.5rem; gap: 2rem; }
+    }
+    .kicker {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 0.68rem; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--orange); background: var(--orange-soft); border: 1px solid var(--orange-mid);
+      padding: 5px 14px; border-radius: 999px; margin-bottom: 1.5rem;
+      opacity: 0; transform: translateY(12px); animation: fUp 0.55s ease 0.05s forwards;
+    }
+    .kicker .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--orange); }
+    .page-title {
+      font-family: var(--serif);
+      font-size: clamp(2.8rem, 4.7vw, 4.2rem);
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      margin-bottom: 1rem;
+      opacity: 0; transform: translateY(14px); animation: fUp 0.7s ease 0.15s forwards;
+    }
+    .page-title em { font-style: italic; color: var(--orange); }
+    .page-sub {
+      font-size: 0.98rem;
+      line-height: 1.75;
+      color: var(--gray);
+      max-width: 620px;
+      opacity: 0; transform: translateY(12px); animation: fUp 0.55s ease 0.3s forwards;
+    }
+    .page-actions {
+      display: flex; gap: 0.85rem; flex-wrap: wrap;
+      justify-content: flex-end;
+      opacity: 0; transform: translateY(12px); animation: fUp 0.55s ease 0.35s forwards;
+    }
+    @media(max-width: 860px){ .page-actions { justify-content: flex-start; } }
+
+    /* ─── SECTION HEADERS ─── */
+    .sec-inner { max-width: 1100px; margin: 0 auto; }
+    .sec-hdr { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 1rem; gap: 1rem; flex-wrap: wrap; }
+    .sec-title { font-family: var(--serif); font-size: 2.2rem; font-weight: 400; color: var(--black); letter-spacing: -0.01em; }
+    .sec-title span { font-style: italic; color: var(--orange); }
+    .sec-sub { font-size: 0.87rem; color: var(--gray); line-height: 1.6; margin-bottom: 2.5rem; max-width: 680px; }
+    .sec-link { font-size: 0.82rem; font-weight: 800; letter-spacing: 0.04em; color: var(--orange); text-decoration: none; display: flex; align-items: center; gap: 5px; transition: gap 0.2s; flex-shrink: 0; align-self: center; }
+    .sec-link:hover { gap: 10px; }
+    .odivider { width: 36px; height: 2.5px; background: var(--orange); border-radius: 2px; margin-bottom: 1.5rem; }
+
+    /* ─── SELECTED PROJECTS GRID ─── */
+    #selected-projects { padding: 5rem 2.5rem 6rem; background: var(--gray-light); }
+    .p2x2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    @media(max-width:640px){ .p2x2 { grid-template-columns: 1fr; } }
+    .pcard { display: block; text-decoration: none; color: inherit; background: #fff; border-radius: 18px; border: 1px solid rgba(0,0,0,0.05); overflow: hidden; transition: transform 0.25s ease, box-shadow 0.25s ease; }
+    .pcard:hover { transform: translateY(-5px); box-shadow: 0 20px 50px rgba(0,0,0,0.1); }
+    .pcard-iw { overflow: hidden; }
+    .pcard-img { width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; transition: transform 0.5s ease; }
+    .pcard:hover .pcard-img { transform: scale(1.04); }
+    .pcard-body { padding: 1.2rem 1.5rem 1.6rem; }
+    .pcard-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 0.6rem; }
+    .tag { font-size: 0.63rem; font-weight: 900; letter-spacing: 0.1em; text-transform: uppercase; background: var(--orange-soft); color: var(--orange); padding: 3px 10px; border-radius: 999px; }
+    .pcard h3 { font-family: var(--sans); font-size: 1rem; font-weight: 900; margin: 0 0 0.45rem; color: var(--black); }
+    .pcard p { font-size: 0.82rem; color: var(--gray); line-height: 1.6; }
+
+    /* ─── ARCHIVE CAROUSEL ─── */
+    #archive { padding: 6rem 2.5rem; background: #fff; }
+    .carousel-outer { position: relative; }
+    .carousel-track-wrap { overflow: hidden; }
+    .carousel-track { display: flex; gap: 1.25rem; transition: transform 0.45s cubic-bezier(0.22,1,0.36,1); will-change: transform; }
+    .acard { background: #fff; border-radius: 14px; overflow: hidden; text-decoration: none; color: inherit; border: 1px solid rgba(0,0,0,0.07); flex: 0 0 calc(33.333% - 0.84rem); min-width: 0; transition: transform 0.25s ease, box-shadow 0.25s ease; display: block; }
+    @media(max-width:900px){ .acard { flex: 0 0 calc(50% - 0.63rem); } }
+    @media(max-width:560px){ .acard { flex: 0 0 100%; } }
+    .acard:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(0,0,0,0.09); }
+    .acard-iw { overflow: hidden; }
+    .acard-img { width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; transition: transform 0.5s ease; }
+    .acard:hover .acard-img { transform: scale(1.04); }
+    .acard-body { padding: 0.9rem 1.2rem 1.2rem; }
+    .acard h3 { font-family: var(--sans); font-size: 0.88rem; font-weight: 900; margin: 0 0 0.35rem; color: var(--black); }
+    .acard p { font-size: 0.77rem; color: var(--gray); line-height: 1.5; margin: 0; }
+    .acard-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 0.5rem; }
+
+    .carousel-controls { display: flex; align-items: center; justify-content: center; gap: 1.25rem; margin-top: 2rem; }
+    .carousel-btn { width: 33px; height: 33px; border-radius: 50%; border: 1.5px solid rgba(0,0,0,0.14); background: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; color: var(--black); }
+    .carousel-btn:hover { border-color: var(--orange); color: var(--orange); }
+    .carousel-btn:disabled { opacity: 0.3; cursor: default; }
+    .carousel-dots { display: flex; gap: 7px; }
+    .cdot { width: 6px; height: 6px; border-radius: 50%; background: #d1d5db; cursor: pointer; transition: background 0.2s, transform 0.2s; }
+    .cdot.active { background: var(--orange); transform: scale(1.5); }
+
+    /* ─── FOOTER ─── */
+    footer { background: var(--black); color: #555; text-align: center; padding: 1.75rem; font-size: 0.78rem; letter-spacing: 0.04em; }
+    footer a { color: var(--orange); text-decoration: none; }
+    footer strong { color: #888; font-weight: 600; }
+
+    /* ─── RESPONSIVE NAV ─── */
+    @media(max-width: 860px){
+      .nav-inner { padding: 0 1.5rem; }
+      .nav-links { gap: 1.25rem; }
+      .nav-links a:not(.nav-cta) { display: none; }
     }
   </style>
 </head>
 
-<body class="bg-[#F9F7F3] font-['Poppins']">
-  <!-- Navbar -->
-  <nav class="fixed top-0 w-full bg-white/90 backdrop-blur-sm z-50 border-b border-gray-100">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-between h-16 items-center">
-        <a href="index.html" class="flex items-center gap-2">
-          <img src="images/Design sem nome (8).png" alt="Beatriz Logo" class="h-8 w-8 object-contain">
-          <span class="text-xl font-bold font-['Fustat'] text-primary tracking-wide uppercase">BEATRIZ AGUIAR FONSECA</span>
-        </a>
-        <div class="hidden md:flex space-x-8">
-          <a href="index.html" class="text-gray-900 hover:text-primary transition-colors">Home</a>
-          <a href="about.html" class="text-gray-900 hover:text-primary transition-colors">About</a>
-          <a href="projects.html" class="text-gray-900 hover:text-primary transition-colors">Projects</a>
+<body>
+
+<!-- ═══ NAV ═══ -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="images/Design sem nome (8).png" alt="Logo">
+      <span class="ndot"></span>
+      Beatriz Aguiar Fonseca
+    </a>
+    <div class="nav-links">
+      <a href="about.html">About</a>
+      <a href="projects.html" class="active">Projects</a>
+      <a href="mailto:beatrizfonseca2027@u.northwestern.edu" class="nav-cta">Say hello</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══ PAGE HERO ═══ -->
+<header class="page-hero">
+  <div class="page-hero-inner">
+    <div>
+      <div class="kicker"><span class="dot"></span> Selected work + archive</div>
+      <h1 class="page-title">Projects with <em>strategy</em> and soul.</h1>
+      <p class="page-sub">
+        A mix of brand building, social strategy, UX, and storytelling.
+        Big launches, scrappy startups, campus communities, and everything in between.
+      </p>
+    </div>
+
+    <div class="page-actions">
+      <a class="btn-fill" href="#selected-projects">Selected works <i class="ri-arrow-down-line"></i></a>
+      <a class="btn-outline" href="#archive">Archive</a>
+    </div>
+  </div>
+</header>
+
+<!-- ═══ SELECTED PROJECTS ═══ -->
+<section id="selected-projects">
+  <div class="sec-inner">
+    <div class="odivider"></div>
+
+    <div class="sec-hdr">
+      <h2 class="sec-title">Selected <span>Projects</span></h2>
+      <a href="#archive" class="sec-link">Jump to archive <i class="ri-arrow-right-line"></i></a>
+    </div>
+    <p class="sec-sub">
+      A handful of my favourite pieces of work, from startup rebrands to global campaign strategy.
+      Each one taught me something new.
+    </p>
+
+    <div class="p2x2">
+      <a href="projects/wingrep.html" class="pcard">
+        <div class="pcard-iw">
+          <img class="pcard-img" src="images/wingrep mockup.png" alt="WingRep">
         </div>
-        <button class="md:hidden w-10 h-10 flex items-center justify-center" aria-label="Open menu">
-          <i class="ri-menu-line text-xl"></i>
+        <div class="pcard-body">
+          <div class="pcard-tags">
+            <span class="tag">Web Dev</span>
+            <span class="tag">Marketing</span>
+          </div>
+          <h3>WingRep Startup Rebrand</h3>
+          <p>End-to-end rebrand: PM, branding, and web design for a SF B2B SaaS startup supporting $600K+ raised.</p>
+        </div>
+      </a>
+
+      <a href="projects/amazon-music.html" class="pcard">
+        <div class="pcard-iw">
+          <img class="pcard-img" src="images/WhatsApp Image 2025-03-26 at 04.46.12.jpeg" alt="Amazon Music">
+        </div>
+        <div class="pcard-body">
+          <div class="pcard-tags">
+            <span class="tag">UX/UI</span>
+            <span class="tag">Branding</span>
+          </div>
+          <h3>Amazon Music Marketplace Integration</h3>
+          <p>Branding and UI/UX externship exploring an e-commerce/music fusion for Amazon Music’s 80M+ user base.</p>
+        </div>
+      </a>
+
+      <a href="projects/brasa-summit.html" class="pcard">
+        <div class="pcard-iw">
+          <img class="pcard-img" src="images/summit 5.jpeg" alt="BRASA Summit">
+        </div>
+        <div class="pcard-body">
+          <div class="pcard-tags">
+            <span class="tag">Social</span>
+            <span class="tag">Marketing</span>
+          </div>
+          <h3>BRASA Summit 2024 Campaign</h3>
+          <p>Led the marketing campaign achieving a 520% surge in registrations, the most successful BRASA event in 10 years.</p>
+        </div>
+      </a>
+
+      <a href="projects/there4you.html" class="pcard">
+        <div class="pcard-iw">
+          <img class="pcard-img" src="images/t4y.jpeg" alt="THERE4YOU">
+        </div>
+        <div class="pcard-body">
+          <div class="pcard-tags">
+            <span class="tag">Product</span>
+            <span class="tag">Internship</span>
+          </div>
+          <h3>THERE4YOU Smart Bracelet</h3>
+          <p>Interned at Upkey to develop wearable anti-harassment tech, from product concept to brand identity.</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ARCHIVE ═══ -->
+<section id="archive">
+  <div class="sec-inner">
+    <div class="sec-hdr">
+      <h2 class="sec-title">The <span>Archive</span></h2>
+      <a href="index.html" class="sec-link">Back home <i class="ri-arrow-right-line"></i></a>
+    </div>
+    <p class="sec-sub">
+      Every project tells a story. These are other projects that are just as close to my heart, involving digital marketing,
+      community work, graphic design, web development, passion projects, and everything in between.
+    </p>
+
+    <div class="carousel-outer">
+      <div class="carousel-track-wrap">
+        <div class="carousel-track" id="carouselTrack">
+
+          <a href="projects/dale-duro.html" class="acard">
+            <div class="acard-iw"><img class="acard-img" src="images/rfs2.png" alt="Dale Duro" loading="lazy"></div>
+            <div class="acard-body">
+              <div class="acard-tags"><span class="tag">Social</span><span class="tag">PR</span></div>
+              <h3>Dale Duro Latin Dance Co.</h3>
+              <p>PR campaigns breaking attendance records at Spring Show 2025 with 1,000+ attendees.</p>
+            </div>
+          </a>
+
+          <a href="projects/c4-energy.html" class="acard">
+            <div class="acard-iw"><img class="acard-img" src="images/WhatsApp Image 2025-03-26 at 06.03.02.jpeg" alt="C4" loading="lazy"></div>
+            <div class="acard-body">
+              <div class="acard-tags"><span class="tag">Brand</span><span class="tag">Research</span></div>
+              <h3>C4 Smart Energy Strategy</h3>
+              <p>Audience research and brand identity for a performance drink brand.</p>
+            </div>
+          </a>
+
+          <a href="projects/leaving-lightly.html" class="acard">
+            <div class="acard-iw"><img class="acard-img" src="images/journey.png" alt="Leaving Lightly" loading="lazy"></div>
+            <div class="acard-body">
+              <div class="acard-tags"><span class="tag">UX/UI</span><span class="tag">Sustainability</span></div>
+              <h3>Leaving Lightly</h3>
+              <p>UX app reducing campus waste through item exchanges.</p>
+            </div>
+          </a>
+
+          <a href="projects/sf-bakeries.html" class="acard">
+            <div class="acard-iw"><img class="acard-img" src="images/bakery 3.png" alt="SF Bakeries" loading="lazy"></div>
+            <div class="acard-body">
+              <div class="acard-tags"><span class="tag">Photo</span><span class="tag">Web</span></div>
+              <h3>Bakeries in San Francisco</h3>
+              <p>Visual storytelling combining photography and web design.</p>
+            </div>
+          </a>
+
+          <a href="projects/brasa-global.html" class="acard">
+            <div class="acard-iw"><img class="acard-img" src="images/brasa 2.png" alt="BRASA Global" loading="lazy"></div>
+            <div class="acard-body">
+              <div class="acard-tags"><span class="tag">Social</span><span class="tag">Leadership</span></div>
+              <h3>BRASA Global Board</h3>
+              <p>Strategy + content for Brazilian student network worldwide.</p>
+            </div>
+          </a>
+
+          <a href="projects/tether.html" class="acard">
+            <div class="acard-iw"><img class="acard-img" src="images/prot 8.jpeg" alt="Tether" loading="lazy"></div>
+            <div class="acard-body">
+              <div class="acard-tags"><span class="tag">UX/UI</span><span class="tag">Product</span></div>
+              <h3>Tether: App + Product Design</h3>
+              <p>Connected app and physical product for mental wellness.</p>
+            </div>
+          </a>
+
+          <a href="projects/the-garage.html" class="acard">
+            <div class="acard-iw"><img class="acard-img" src="images/the garage.png" alt="The Garage" loading="lazy"></div>
+            <div class="acard-body">
+              <div class="acard-tags"><span class="tag">Marketing</span><span class="tag">Strategy</span></div>
+              <h3>Marketing Aide @ The Garage</h3>
+              <p>Creative strategy for Northwestern’s innovation incubator.</p>
+            </div>
+          </a>
+
+          <a href="projects/brasa-nu.html" class="acard">
+            <div class="acard-iw"><img class="acard-img" src="images/1.png" alt="BRASA NU" loading="lazy"></div>
+            <div class="acard-body">
+              <div class="acard-tags"><span class="tag">Social</span><span class="tag">Community</span></div>
+              <h3>BRASA Northwestern Chapter</h3>
+              <p>Social campaigns and events for the Brazilian community at NU.</p>
+            </div>
+          </a>
+
+          <a href="projects/isa.html" class="acard">
+            <div class="acard-iw"><img class="acard-img" src="images/18.png" alt="ISA" loading="lazy"></div>
+            <div class="acard-body">
+              <div class="acard-tags"><span class="tag">Social</span><span class="tag">Leadership</span></div>
+              <h3>International Study Ambassador Program</h3>
+              <p>Social media and outreach for global student association.</p>
+            </div>
+          </a>
+
+          <a href="projects/brnd.html" class="acard">
+            <div class="acard-iw"><img class="acard-img" src="images/Beatriz's Portfolio.pdf.png" alt="BRND" loading="lazy"></div>
+            <div class="acard-body">
+              <div class="acard-tags"><span class="tag">Comms</span><span class="tag">Social</span></div>
+              <h3>Brazilian Debate Association</h3>
+              <p>Social media and communications lead for national debate league.</p>
+            </div>
+          </a>
+
+        </div>
+      </div>
+
+      <div class="carousel-controls">
+        <button class="carousel-btn" id="carouselPrev" aria-label="Previous">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+        </button>
+
+        <div class="carousel-dots" id="carouselDots"></div>
+
+        <button class="carousel-btn" id="carouselNext" aria-label="Next">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
         </button>
       </div>
+
     </div>
-  </nav>
+  </div>
+</section>
 
-  <main class="pt-16">
-    <!-- Projects -->
-    <section id="projects" class="py-20 bg-white">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-4xl font-bold mb-12 text-center font-['Fustat']">Projects</h2>
+<footer>
+  <p>
+    <strong>Beatriz Aguiar Fonseca</strong> · Built with ♥ in Evanston &amp; SF ·
+    <a href="mailto:beatrizfonseca2027@u.northwestern.edu">beatrizfonseca2027@u.northwestern.edu</a>
+  </p>
+</footer>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <!-- Project Card Template -->
+<!-- ═══════════ SCRIPTS ═══════════ -->
+<script>
+/* ─── ARCHIVE CAROUSEL ─── */
+(function(){
+  const track = document.getElementById('carouselTrack');
+  const dotsWrap = document.getElementById('carouselDots');
+  const prevBtn = document.getElementById('carouselPrev');
+  const nextBtn = document.getElementById('carouselNext');
+  if(!track || !dotsWrap || !prevBtn || !nextBtn) return;
 
-          <a href="projects/wingrep.html"
-            class="tilt-card neon-glow bg-white rounded-lg overflow-hidden shadow-lg transition-transform hover:scale-[1.02]">
-            <img src="images/wingrep mockup.png" class="h-48 w-full object-cover" alt="WingRep mockup"/>
-            <div class="p-6">
-              <h3 class="text-xl font-bold mb-2 font-['Fustat']">WingRep Startup Rebrand</h3>
-              <p class="text-gray-600 mb-4 text-sm">End-to-End Rebrand: Project Management, Branding, and Web Design for San Francisco Startup</p>
-              <div class="flex flex-wrap gap-2 text-sm">
-                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Web Development/Design</span>
-                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Marketing</span>
-              </div>
-            </div>
-          </a>
+  const cards = track.querySelectorAll('.acard');
+  let perPage = 3;
+  let page = 0;
 
-          <a href="projects/amazon-music.html"
-            class="tilt-card neon-glow bg-white rounded-lg overflow-hidden shadow-lg transition-transform hover:scale-[1.02]">
-            <img src="images/WhatsApp Image 2025-03-26 at 04.46.12.jpeg" class="h-48 w-full object-cover" alt="Amazon Music prototype"/>
-            <div class="p-6">
-              <h3 class="text-xl font-bold mb-2 font-['Fustat']">Amazon Music Marketplace Integration</h3>
-              <p class="text-gray-600 mb-4 text-sm">Branding and UI/UX externship exploring an e-commerce/music fusion.</p>
-              <div class="flex flex-wrap gap-2 text-sm">
-                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">UX/UI</span>
-                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Branding</span>
-              </div>
-            </div>
-          </a>
+  function calcPer(){
+    const w = window.innerWidth;
+    if (w < 560) return 1;
+    if (w < 900) return 2;
+    return 3;
+  }
+  function totalPages(){
+    return Math.ceil(cards.length / perPage);
+  }
+  function buildDots(){
+    dotsWrap.innerHTML = '';
+    for (let i = 0; i < totalPages(); i++){
+      const d = document.createElement('div');
+      d.className = 'cdot' + (i === page ? ' active' : '');
+      d.addEventListener('click', () => goTo(i));
+      dotsWrap.appendChild(d);
+    }
+  }
+  function goTo(p){
+    perPage = calcPer();
+    page = Math.max(0, Math.min(p, totalPages() - 1));
 
-          <a href="projects/there4you.html" class="tilt-card neon-glow bg-white rounded-lg overflow-hidden shadow-lg">
-            <img src="images/t4y.jpeg" class="h-48 w-full object-cover" alt="THERE4YOU bracelet"/>
-            <div class="p-6">
-              <h3 class="text-xl font-bold mb-2 font-['Fustat']">THERE4YOU Smart Bracelet</h3>
-              <p class="text-gray-600 mb-4 text-sm">Interned at Upkey to develop wearable anti-harassment tech + brand.</p>
-              <div class="flex flex-wrap gap-2 text-sm">
-                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Product Design</span>
-                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Internship</span>
-              </div>
-            </div>
-          </a>
+    const gap = 20; // matches CSS-ish spacing
+    const cardW = cards[0]?.offsetWidth || 0;
+    const step = (cardW + gap) * perPage;
+    track.style.transform = `translateX(-${page * step}px)`;
 
-          <a href="projects/dale-duro.html" class="tilt-card neon-glow bg-white rounded-lg overflow-hidden shadow-lg">
-            <img src="images/rfs2.png" class="h-48 w-full object-cover" alt="Dale Duro graphic"/>
-            <div class="p-6">
-              <h3 class="text-xl font-bold mb-2 font-['Fustat']">Dale Duro Latin Dance Co.</h3>
-              <p class="text-gray-600 mb-4 text-sm">Handled PR and marketing campaigns for Northwestern’s Latin dance group, breaking attendance records at the Spring Show 2025 with 1,000+ attendees.</p>
-              <div class="flex flex-wrap gap-2 text-sm">
-                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Social Media</span>
-                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Public Relations</span>
-              </div>
-            </div>
-          </a>
+    buildDots();
+    prevBtn.disabled = page === 0;
+    nextBtn.disabled = page >= totalPages() - 1;
+  }
+  function init(){
+    perPage = calcPer();
+    page = 0;
+    track.style.transform = 'translateX(0px)';
+    buildDots();
+    goTo(0);
+  }
 
-          <a href="projects/c4-energy.html" class="tilt-card neon-glow bg-white rounded-lg overflow-hidden shadow-lg">
-            <img src="images/WhatsApp Image 2025-03-26 at 06.03.02.jpeg" class="h-48 w-full object-cover" alt="C4 Energy deck"/>
-            <div class="p-6">
-              <h3 class="text-xl font-bold mb-2 font-['Fustat']">C4 Smart Energy Strategy</h3>
-              <p class="text-gray-600 mb-4 text-sm">Audience research and brand identity for a performance drink brand.</p>
-              <div class="flex flex-wrap gap-2 text-sm">
-                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Branding</span>
-                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Research</span>
-              </div>
-            </div>
-          </a>
+  prevBtn.addEventListener('click', () => goTo(page - 1));
+  nextBtn.addEventListener('click', () => goTo(page + 1));
+  window.addEventListener('resize', init, { passive: true });
 
-          <a href="projects/brasa-summit.html" class="tilt-card neon-glow bg-white rounded-lg overflow-hidden shadow-lg">
-            <img src="images/summit 5.jpeg" class="h-48 w-full object-cover" alt="BRASA Summit 2024"/>
-            <div class="p-6">
-              <h3 class="text-xl font-bold mb-2 font-['Fustat']">BRASA Summit 2024 Campaign</h3>
-              <p class="text-gray-600 mb-4 text-sm">Marketing visuals and strategy for the biggest Brazilian student event.</p>
-              <div class="flex flex-wrap gap-2 text-sm">
-                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Social Media</span>
-                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Marketing</span>
-              </div>
-            </div>
-          </a>
+  init();
+})();
+</script>
 
-          <a href="projects/leaving-lightly.html" class="tilt-card neon-glow bg-white rounded-lg overflow-hidden shadow-lg">
-            <img src="images/journey.png" class="h-48 w-full object-cover" alt="Leaving Lightly UX"/>
-            <div class="p-6">
-              <h3 class="text-xl font-bold mb-2 font-['Fustat']">Leaving Lightly</h3>
-              <p class="text-gray-600 mb-4 text-sm">UX app that reduces campus waste by facilitating item exchanges.</p>
-              <div class="flex flex-wrap gap-2 text-sm">
-                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">UX/UI</span>
-                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Sustainability</span>
-              </div>
-            </div>
-          </a>
-
-          <a href="projects/sf-bakeries.html" class="tilt-card neon-glow bg-white rounded-lg overflow-hidden shadow-lg">
-            <img src="images/bakery 3.png" class="h-48 w-full object-cover" alt="SF bakeries project"/>
-            <div class="p-6">
-              <h3 class="text-xl font-bold mb-2 font-['Fustat']">Bakeries in San Francisco</h3>
-              <p class="text-gray-600 mb-4 text-sm">Visual storytelling project combining photography and web design.</p>
-              <div class="flex flex-wrap gap-2 text-sm">
-                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Photography</span>
-                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Website</span>
-              </div>
-            </div>
-          </a>
-
-          <a href="projects/brasa-global.html" class="tilt-card neon-glow bg-white rounded-lg overflow-hidden shadow-lg">
-            <img src="images/brasa 2.png" class="h-48 w-full object-cover" alt="BRASA Global board"/>
-            <div class="p-6">
-              <h3 class="text-xl font-bold mb-2 font-['Fustat']">BRASA Global Board</h3>
-              <p class="text-gray-600 mb-4 text-sm">Strategy + content creation for Brazilian student network worldwide.</p>
-              <div class="flex flex-wrap gap-2 text-sm">
-                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Social Media</span>
-                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Leadership</span>
-              </div>
-            </div>
-          </a>
-
-          <a href="projects/tether.html" class="tilt-card neon-glow bg-white rounded-lg overflow-hidden shadow-lg">
-            <img src="images/prot 8.jpeg" class="h-48 w-full object-cover" alt="Tether app and product"/>
-            <div class="p-6">
-              <h3 class="text-xl font-bold mb-2 font-['Fustat']">Tether: App + Product Design</h3>
-              <p class="text-gray-600 mb-4 text-sm">Built a connected app and physical product to support mental wellness.</p>
-              <div class="flex flex-wrap gap-2 text-sm">
-                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">UX/UI</span>
-                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Product Design</span>
-              </div>
-            </div>
-          </a>
-
-          <a href="projects/the-garage.html" class="tilt-card neon-glow bg-white rounded-lg overflow-hidden shadow-lg">
-            <img src="images/the garage.png" class="h-48 w-full object-cover" alt="The Garage project"/>
-            <div class="p-6">
-              <h3 class="text-xl font-bold mb-2 font-['Fustat']">Marketing Aide @ The Garage</h3>
-              <p class="text-gray-600 mb-4 text-sm">Creative strategy support for Northwestern's innovation incubator.</p>
-              <div class="flex flex-wrap gap-2 text-sm">
-                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Marketing</span>
-                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Strategy</span>
-              </div>
-            </div>
-          </a>
-
-          <a href="projects/brasa-nu.html" class="tilt-card neon-glow bg-white rounded-lg overflow-hidden shadow-lg">
-            <img src="images/1.png" class="h-48 w-full object-cover" alt="BRASA NU chapter"/>
-            <div class="p-6">
-              <h3 class="text-xl font-bold mb-2 font-['Fustat']">BRASA Northwestern Chapter</h3>
-              <p class="text-gray-600 mb-4 text-sm">Managed social campaigns and events for Brazilian community at NU.</p>
-              <div class="flex flex-wrap gap-2 text-sm">
-                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Social Media</span>
-                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Community</span>
-              </div>
-            </div>
-          </a>
-
-          <a href="projects/isa.html" class="tilt-card neon-glow bg-white rounded-lg overflow-hidden shadow-lg">
-            <img src="images/18.png" class="h-48 w-full object-cover" alt="ISA program"/>
-            <div class="p-6">
-              <h3 class="text-xl font-bold mb-2 font-['Fustat']">International Study Ambassador Program</h3>
-              <p class="text-gray-600 mb-4 text-sm">Led social media and outreach for global student association.</p>
-              <div class="flex flex-wrap gap-2 text-sm">
-                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Social Media</span>
-                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Leadership</span>
-              </div>
-            </div>
-          </a>
-
-          <a href="projects/brnd.html" class="tilt-card neon-glow bg-white rounded-lg overflow-hidden shadow-lg">
-            <img src="images/Beatriz's Portfolio.pdf.png" class="h-48 w-full object-cover" alt="Brazilian Debate Association"/>
-            <div class="p-6">
-              <h3 class="text-xl font-bold mb-2 font-['Fustat']">Brazilian Debate Association</h3>
-              <p class="text-gray-600 mb-4 text-sm">Social media and communications lead for national debate league.</p>
-              <div class="flex flex-wrap gap-2 text-sm">
-                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Communications</span>
-                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Social Media</span>
-              </div>
-            </div>
-          </a>
-        </div>
-      </div>
-    </section>
-  </main>
 </body>
 </html>
