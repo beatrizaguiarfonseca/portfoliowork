@@ -1,157 +1,317 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BRASA Summit 2024 | Beatriz Fonseca</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="../images/Design sem nome (8).png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BRASA Summit 2024 — Beatriz Fonseca</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+  <style>
+    :root{--orange:#FF6B35;--orange-soft:#FFF2EC;--orange-mid:#FFD9C7;--black:#0C0C0C;--gray:#717171;--gray-light:#F7F7F7;--white:#FFFFFF;--serif:'Instrument Serif',Georgia,serif;--sans:'Plus Jakarta Sans',sans-serif;}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{font-family:var(--sans);background:var(--white);color:var(--black);overflow-x:hidden;}
+    nav{position:fixed;top:0;left:0;width:100%;z-index:300;background:rgba(255,255,255,0.92);backdrop-filter:blur(14px);border-bottom:1px solid rgba(0,0,0,0.05);}
+    .nav-inner{max-width:1280px;margin:0 auto;padding:0 2.5rem;height:58px;display:flex;align-items:center;justify-content:space-between;}
+    .nav-logo{font-family:var(--sans);font-weight:800;font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--black);text-decoration:none;display:flex;align-items:center;gap:9px;}
+    .nav-logo img{height:26px;width:26px;object-fit:contain;border-radius:4px;}
+    .nav-logo .ndot{width:6px;height:6px;border-radius:50%;background:var(--orange);flex-shrink:0;}
+    .nav-links{display:flex;gap:2.5rem;align-items:center;}
+    .nav-links a{font-size:0.82rem;font-weight:600;letter-spacing:0.04em;color:var(--gray);text-decoration:none;transition:color 0.2s;display:flex;align-items:center;gap:6px;}
+    .nav-links a:hover{color:var(--black);}
+    .nav-cta{background:var(--black);color:var(--white)!important;padding:7px 18px;border-radius:999px;font-size:0.78rem!important;transition:background 0.2s!important;}
+    .nav-cta:hover{background:var(--orange)!important;}
+    .nav-hamburger{display:none;background:none;border:none;cursor:pointer;padding:6px;color:var(--black);}
+    .nav-mobile{display:none;position:fixed;top:58px;left:0;right:0;background:rgba(255,255,255,0.97);backdrop-filter:blur(14px);border-bottom:1px solid rgba(0,0,0,0.08);padding:1.25rem 2rem 1.5rem;z-index:299;flex-direction:column;gap:1rem;}
+    .nav-mobile.open{display:flex;}
+    .nav-mobile a{font-size:0.9rem;font-weight:700;color:var(--gray);text-decoration:none;padding:0.5rem 0;border-bottom:1px solid rgba(0,0,0,0.05);}
+    .nav-mobile a:last-child{border-bottom:none;}
+    @media(max-width:640px){.nav-links{display:none;}.nav-hamburger{display:flex;align-items:center;justify-content:center;}}
+    .btn-fill{background:var(--black);color:var(--white);padding:0.8rem 2rem;border-radius:999px;font-size:0.85rem;font-weight:700;letter-spacing:0.02em;text-decoration:none;display:inline-flex;align-items:center;gap:7px;transition:all 0.22s;font-family:var(--sans);}
+    .btn-fill:hover{background:var(--orange);transform:translateY(-2px);}
+    .btn-outline{background:transparent;color:var(--black);border:1.5px solid rgba(0,0,0,0.18);padding:0.8rem 2rem;border-radius:999px;font-size:0.85rem;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:7px;transition:all 0.22s;font-family:var(--sans);}
+    .btn-outline:hover{border-color:var(--orange);color:var(--orange);transform:translateY(-2px);}
+    @keyframes fUp{to{opacity:1;transform:translateY(0);}}
+    .proj-hero{position:relative;height:72vh;min-height:480px;margin-top:58px;overflow:hidden;}
+    .proj-hero-img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;}
+    .proj-hero-overlay{position:absolute;inset:0;background:linear-gradient(to right,rgba(12,12,12,0.82) 0%,rgba(12,12,12,0.55) 55%,rgba(12,12,12,0.1) 100%);display:flex;align-items:flex-end;padding:4rem 5rem;}
+    .proj-hero-content{max-width:680px;opacity:0;transform:translateY(20px);animation:fUp 0.7s ease 0.15s forwards;}
+    .proj-hero-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1.25rem;}
+    .proj-hero-tag{font-size:0.65rem;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.9);background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);padding:4px 12px;border-radius:999px;backdrop-filter:blur(6px);}
+    .proj-hero h1{font-family:var(--serif);font-size:clamp(2.2rem,4vw,3.8rem);line-height:1.08;color:#fff;margin-bottom:1rem;letter-spacing:-0.01em;}
+    .proj-hero h1 em{font-style:italic;color:var(--orange);}
+    .proj-hero-sub{font-size:1rem;font-weight:400;line-height:1.7;color:rgba(255,255,255,0.72);max-width:540px;}
+    .proj-info-section{padding:3.5rem 2.5rem 0;}
+    .proj-info-wrapper{max-width:860px;margin:0 auto;border:1px solid rgba(0,0,0,0.08);border-radius:20px;overflow:hidden;}
+    .proj-meta-row{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid rgba(0,0,0,0.07);}
+    .proj-meta-item{padding:1.5rem 1.75rem;border-right:1px solid rgba(0,0,0,0.07);}
+    .proj-meta-item:last-child{border-right:none;}
+    .proj-meta-label{font-size:0.58rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:var(--orange);margin-bottom:0.5rem;display:block;}
+    .proj-meta-value{font-size:0.85rem;font-weight:700;color:var(--black);line-height:1.45;}
+    .proj-meta-sub{font-size:0.78rem;font-weight:400;color:var(--gray);margin-top:2px;}
+    .proj-tools-row{padding:1.25rem 1.75rem;display:flex;align-items:center;gap:1.25rem;flex-wrap:wrap;}
+    .proj-tools-label{font-size:0.58rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:var(--gray);flex-shrink:0;}
+    .proj-tools-pills{display:flex;flex-wrap:wrap;gap:6px;}
+    .proj-tool{font-size:0.68rem;font-weight:700;background:var(--gray-light);color:var(--black);border:1px solid rgba(0,0,0,0.08);padding:4px 11px;border-radius:999px;transition:all 0.18s;}
+    .proj-tool:hover{background:var(--orange-soft);color:var(--orange);border-color:var(--orange-mid);}
+    .stats-section{padding:3.5rem 2.5rem;}
+    .stats-wrapper{max-width:860px;margin:0 auto;}
+    .stats-label{font-size:0.6rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:var(--gray);margin-bottom:1.5rem;display:flex;align-items:center;gap:10px;}
+    .stats-label::after{content:'';flex:1;height:1px;background:rgba(0,0,0,0.08);}
+    .stats-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:0;}
+    .stat-item{padding:1.75rem 1.25rem;border-right:1px solid rgba(0,0,0,0.07);}
+    .stat-item:last-child{border-right:none;}
+    .stat-num{font-family:var(--serif);font-size:clamp(1.6rem,2.5vw,2.2rem);font-style:italic;color:var(--black);line-height:1;margin-bottom:0.5rem;display:block;}
+    .stat-num em{color:var(--orange);font-style:italic;}
+    .stat-lbl{font-size:0.68rem;font-weight:600;color:var(--gray);line-height:1.45;}
+    .stat-note{font-size:0.6rem;color:rgba(0,0,0,0.3);margin-top:3px;font-weight:500;}
+    .proj-body{max-width:860px;margin:0 auto;padding:1rem 2.5rem 5rem;}
+    .section-label{font-size:0.65rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:var(--orange);margin-bottom:0.6rem;display:flex;align-items:center;gap:10px;}
+    .section-label::before{content:'';display:block;width:20px;height:2px;background:var(--orange);border-radius:1px;}
+    .section-h{font-family:var(--serif);font-size:clamp(1.8rem,3vw,2.4rem);line-height:1.15;color:var(--black);margin-bottom:1.5rem;}
+    .section-h em{font-style:italic;color:var(--orange);}
+    .body-text{font-size:0.97rem;color:var(--gray);line-height:1.85;margin-bottom:1.25rem;}
+    .body-text strong{color:var(--black);font-weight:700;}
+    .pull-quote{border-left:3px solid var(--orange);padding:0.875rem 1.5rem;margin:2.5rem 0;background:var(--orange-soft);border-radius:0 12px 12px 0;}
+    .pull-quote p{font-family:var(--serif);font-size:1.1rem;font-style:italic;color:var(--black);line-height:1.6;}
+    .sec-divider{border:none;border-top:1px solid rgba(0,0,0,0.07);margin:4rem 0;}
+    .process-steps{display:flex;flex-direction:column;gap:3.5rem;margin-top:2rem;}
+    .step{display:grid;grid-template-columns:auto 1fr;gap:1.75rem;align-items:start;}
+    .step-num{width:42px;height:42px;border-radius:50%;background:var(--black);color:#fff;font-size:0.78rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+    .step-title{font-family:var(--sans);font-size:1.05rem;font-weight:800;color:var(--black);margin-bottom:0.75rem;}
+    .step-body{font-size:0.93rem;color:var(--gray);line-height:1.8;}
+    .step-body strong{color:var(--black);font-weight:700;}
+    .step-body p{margin-bottom:0.75rem;}
+    .step-body p:last-child{margin-bottom:0;}
+    .img-full{width:100%;border-radius:16px;overflow:hidden;box-shadow:0 12px 36px rgba(0,0,0,0.1);margin:2rem 0;}
+    .img-full img{width:100%;display:block;object-fit:cover;}
+    .img-2col{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:2rem 0;}
+    .img-3col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin:2rem 0;}
+    .img-masonry{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:2rem 0;}
+    .img-frame{border-radius:12px;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,0.09);}
+    .img-frame img{width:100%;display:block;object-fit:cover;}
+    .img-frame.sq img{aspect-ratio:1;object-fit:cover;}
+    .img-caption{font-size:0.73rem;color:var(--gray);margin-top:0.5rem;text-align:center;font-style:italic;}
+    .outro{background:var(--gray-light);padding:5rem 2.5rem;}
+    .outro-inner{max-width:860px;margin:0 auto;}
+    .proj-nav-footer{padding:3rem 2.5rem;background:#fff;border-top:1px solid rgba(0,0,0,0.06);}
+    .proj-nav-inner{max-width:860px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
+    footer{background:var(--black);color:#555;text-align:center;padding:1.75rem;font-size:0.78rem;letter-spacing:0.04em;}
+    footer a{color:var(--orange);text-decoration:none;}
+    footer strong{color:#888;font-weight:500;}
+    :where([class^="ri-"])::before{content:"\f3c2";}
+    @media(max-width:768px){
+      .nav-inner{padding:0 1.25rem;}.proj-hero-overlay{padding:2rem 1.5rem;}.proj-hero h1{font-size:clamp(1.8rem,7vw,2.5rem);}
+      .proj-info-section{padding:2rem 1.25rem 0;}.proj-meta-row{grid-template-columns:1fr 1fr;}
+      .proj-meta-item{border-right:none;border-bottom:1px solid rgba(0,0,0,0.07);padding:1.25rem;}.proj-meta-item:last-child{border-bottom:none;}
+      .stats-section{padding:2rem 1.25rem;}.stats-grid{grid-template-columns:1fr 1fr;}.stat-item{border-bottom:1px solid rgba(0,0,0,0.07);}
+      .proj-body{padding:2rem 1.25rem 4rem;}.step{grid-template-columns:1fr;gap:1rem;}
+      .img-2col,.img-3col,.img-masonry{grid-template-columns:1fr 1fr;}.outro{padding:3rem 1.25rem;}
+      .proj-nav-inner{flex-direction:column;align-items:flex-start;}}
+    @media(max-width:480px){.proj-meta-row{grid-template-columns:1fr;}.stats-grid{grid-template-columns:1fr 1fr;}.img-2col,.img-3col,.img-masonry{grid-template-columns:1fr;}}
+  </style>
 </head>
-<body class="bg-[#F9F7F3] font-['Poppins']">
+<body>
+<nav>
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo"><img src="../images/Design sem nome (8).png" alt="Logo"><span class="ndot"></span>Beatriz Aguiar Fonseca</a>
+    <div class="nav-links">
+      <a href="../index.html"><i class="ri-arrow-left-line"></i> Back</a>
+      <a href="../about.html">About</a>
+      <a href="../index.html#projects">Projects</a>
+      <a href="mailto:beatrizfonseca2027@u.northwestern.edu" class="nav-cta">Say hello</a>
+    </div>
+    <button class="nav-hamburger" id="navHamburger" aria-label="Menu">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+  <div class="nav-mobile" id="navMobile">
+    <a href="../index.html"><i class="ri-arrow-left-line"></i> Back to Home</a>
+    <a href="../about.html">About</a>
+    <a href="../index.html#projects">Projects</a>
+    <a href="mailto:beatrizfonseca2027@u.northwestern.edu" style="color:var(--orange);font-weight:800;">Say hello ↗</a>
+  </div>
+</nav>
 
-<main class="pt-16">
+<div class="proj-hero">
+  <img class="proj-hero-img" src="../images/summit 5.jpeg" alt="BRASA Summit 2024">
+  <div class="proj-hero-overlay">
+    <div class="proj-hero-content">
+      <div class="proj-hero-tags">
+        <span class="proj-hero-tag">Marketing Strategy</span>
+        <span class="proj-hero-tag">Social Media</span>
+        <span class="proj-hero-tag">Campaign Management</span>
+        <span class="proj-hero-tag">BRASA Global Board</span>
+      </div>
+      <h1>BRASA Summit 2024:<br><em>520% Surge</em> in Registrations</h1>
+      <p class="proj-hero-sub">The most successful BRASA event in 10 years — a full-stack campaign that turned organic social into the largest Brazilian student summit in the US.</p>
+    </div>
+  </div>
+</div>
 
+<div class="proj-info-section">
+  <div class="proj-info-wrapper">
+    <div class="proj-meta-row">
+      <div class="proj-meta-item">
+        <span class="proj-meta-label">Time Frame</span>
+        <div class="proj-meta-value">May 2024 – Jan 2025</div>
+        <div class="proj-meta-sub">Event: October 2024</div>
+      </div>
+      <div class="proj-meta-item">
+        <span class="proj-meta-label">Role</span>
+        <div class="proj-meta-value">Marketing Campaigns Analyst</div>
+        <div class="proj-meta-sub">Strategy + Content + Ops</div>
+      </div>
+      <div class="proj-meta-item">
+        <span class="proj-meta-label">Organization</span>
+        <div class="proj-meta-value">BRASA Global Board</div>
+        <div class="proj-meta-sub">Brazilian Student Association</div>
+      </div>
+      <div class="proj-meta-item">
+        <span class="proj-meta-label">Location</span>
+        <div class="proj-meta-value">Columbia University, NYC</div>
+        <div class="proj-meta-sub">Teachers College</div>
+      </div>
+    </div>
+    <div class="proj-tools-row">
+      <span class="proj-tools-label">Tools</span>
+      <div class="proj-tools-pills">
+        <span class="proj-tool">Instagram</span>
+        <span class="proj-tool">TikTok</span>
+        <span class="proj-tool">LinkedIn</span>
+        <span class="proj-tool">Facebook</span>
+        <span class="proj-tool">Meta Business</span>
+        <span class="proj-tool">Canva</span>
+      </div>
+    </div>
+  </div>
+</div>
 
-<!-- Nav -->
-<nav class="fixed top-0 w-full bg-white/90 backdrop-blur-sm z-50 border-b border-gray-100">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-between h-16 items-center">
-        <a href="../index.html" class="flex items-center gap-2">
-          <img src="../images/Design sem nome (8).png" alt="Logo" class="h-8 w-8" />
-          <span class="text-xl font-bold text-primary">BEATRIZ AGUIAR FONSECA</span>
-        </a>
-        <div class="hidden md:flex space-x-8">
-          <a href="../index.html#projects" class="flex items-center gap-2 text-gray-900 hover:text-primary transition-colors">
-            <i class="ri-arrow-left-line"></i>
-            <span>Back to Projects</span>
-          </a>
+<div class="stats-section">
+  <div class="stats-wrapper">
+    <div class="stats-label">Key results</div>
+    <div class="stats-grid">
+      <div class="stat-item"><span class="stat-num"><em>520%</em></span><div class="stat-lbl">Increase in ticket link clicks</div></div>
+      <div class="stat-item"><span class="stat-num"><em>646%</em></span><div class="stat-lbl">Increase in reach</div></div>
+      <div class="stat-item"><span class="stat-num">40K+</span><div class="stat-lbl">Total views generated</div><div class="stat-note">568% increase in impressions</div></div>
+      <div class="stat-item"><span class="stat-num">50K+</span><div class="stat-lbl">Contacts reached via telemarketing</div></div>
+      <div class="stat-item"><span class="stat-num"><em>#1</em></span><div class="stat-lbl">Most successful BRASA event in 10 years</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="proj-body">
+  <div class="section-label">Overview</div>
+  <h2 class="section-h">The biggest Brazilian student<br>event in the US — <em>ever.</em></h2>
+  <p class="body-text"><strong>BRASA (Brazilian Student Association)</strong> is the largest network of Brazilian students in the world, with chapters at over 200 universities. Every year, BRASA hosts its flagship Summit — bringing together students, professionals, and leaders from across the Brazilian diaspora for networking, panels, and cultural celebration.</p>
+  <p class="body-text">As a <strong>Global Board Member and Marketing Campaigns Analyst</strong>, I led the entire communications strategy for the BRASA Summit Américas 2024 — our largest conference yet. From campaign kickoff in May to on-site content during the event in October, I managed both creative direction and technical execution across every channel.</p>
+  <div class="pull-quote"><p>How do you turn a student-led conference into an international brand with real influence — and sell it out for the first time in the organization's history?</p></div>
+  <p class="body-text">The answer was making Brazilian students at US universities feel like this event was built <em>for them</em> — not just marketed <em>at</em> them. Every piece of content, every push, every telemarketing script was designed to close the gap between "that sounds cool" and "I already bought my ticket."</p>
+
+  <hr class="sec-divider">
+
+  <div class="section-label">Process</div>
+  <h2 class="section-h">How we built the <em>campaign.</em></h2>
+
+  <div class="process-steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-content">
+        <div class="step-title">Strategy & Content Calendar</div>
+        <div class="step-body">
+          <p><strong>Multi-channel calendar:</strong> Built a content calendar across Instagram, TikTok, LinkedIn, and Facebook — with distinct messaging and formats for each platform. Instagram focused on visual storytelling and Reels; LinkedIn targeted sponsors and young professionals; email and telemarketing drove registration conversions.</p>
+          <p><strong>Speaker spotlight series:</strong> Created a recurring content format featuring confirmed speakers and alumni — giving people a reason to follow along week by week and building anticipation. Each post was designed to generate saves and shares, not just likes.</p>
+          <p><strong>Social media management:</strong> Produced content daily, monitored analytics in real time, and iterated rapidly based on what was driving clicks vs. what was just driving passive engagement.</p>
+        </div>
+        <div class="img-3col" style="margin-top:1.5rem;">
+          <div class="img-frame sq"><img src="../images/summit 0.png" alt="Campaign graphic"></div>
+          <div class="img-frame sq"><img src="../images/summit 1.png" alt="Campaign graphic"></div>
+          <div class="img-frame sq"><img src="../images/summit 2.png" alt="Campaign analytics"></div>
+        </div>
+        <p class="img-caption">Campaign visuals and analytics — designed for reach, optimized for conversion</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-content">
+        <div class="step-title">Paid Amplification & Telemarketing</div>
+        <div class="step-body">
+          <p><strong>Meta Ads targeting:</strong> Ran targeted Meta campaigns reaching Brazilian students at top US universities — using custom audiences built from chapter follower lists and lookalike audiences based on past registrants.</p>
+          <p><strong>Telemarketing outreach:</strong> Managed a telemarketing effort that reached <strong>50,000+ contacts</strong> across the BRASA chapter network — personally scripting outreach to maximize conversion without feeling impersonal.</p>
+          <p><strong>Early bird & deadline urgency:</strong> Structured the registration window with tiered pricing, each communicated with dedicated social pushes. The early-bird deadline drove a significant single-weekend spike in registrations.</p>
         </div>
       </div>
     </div>
-  </nav>
-  <!-- Banner -->
-  <section class="relative h-[60vh]">
-    <img src="../images/summit 5.jpeg" alt="Summit Banner" class="w-full h-full object-cover" />
-    <div class="absolute inset-0 bg-gradient-to-r from-white/90 via-white/70 to-transparent flex items-end p-10">
-      <div>
-        <span class="inline-block bg-primary/10 text-primary px-3 py-1 rounded-full text-sm mb-2">Strategy · Campaigns · Event Coverage</span>
-        <h1 class="text-5xl font-bold mb-4">BRASA Summit 2024</h1>
-        <p class="text-lg text-gray-700 max-w-3xl">Led end-to-end marketing for BRASA’s largest student conference to date.</p>
+
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-content">
+        <div class="step-title">On-Site Coverage & Speaker Logistics</div>
+        <div class="step-body">
+          <p><strong>Live social coverage:</strong> Managed real-time content throughout the Summit — capturing keynotes, panel moments, and candid community connections to keep the online community engaged in the experience in real time.</p>
+          <p><strong>Speaker relations:</strong> Coordinated all on-site speaker logistics and team management, ensuring the event day ran smoothly behind the scenes while the front-of-house experience felt effortless.</p>
+          <p><strong>Photo & video production:</strong> Directed photo and video coverage throughout the event, collecting the assets that would fuel the post-summit campaign cycle.</p>
+        </div>
+        <div class="img-masonry" style="margin-top:1.5rem;">
+          <div class="img-frame sq"><img src="../images/summit 4.jpg" alt="Summit"></div>
+          <div class="img-frame sq"><img src="../images/summit 6.jpeg" alt="Summit"></div>
+          <div class="img-frame sq"><img src="../images/summit 7.jpeg" alt="Summit"></div>
+          <div class="img-frame sq"><img src="../images/summit 9.jpg" alt="Summit"></div>
+          <div class="img-frame sq"><img src="../images/summit 10.jpg" alt="Summit"></div>
+          <div class="img-frame sq"><img src="../images/summit 11.jpg" alt="Summit"></div>
+          <div class="img-frame sq"><img src="../images/summit 12.jpeg" alt="Summit"></div>
+          <div class="img-frame sq"><img src="../images/summit 13.jpg" alt="Summit"></div>
+          <div class="img-frame sq"><img src="../images/summit 14.jpeg" alt="Summit"></div>
+        </div>
+        <p class="img-caption">BRASA Summit Américas 2024 — Columbia University, New York City</p>
       </div>
     </div>
-  </section>
 
-  <!-- Info Sidebar -->
-  <div class="fixed right-0 top-1/2 transform -translate-y-1/2 w-72 bg-white shadow-lg rounded-l-lg p-6 border-l border-t border-b border-gray-100 z-40">
-    <div class="space-y-6 text-sm">
-      <div>
-        <h3 class="font-semibold text-gray-400 uppercase">Time Frame</h3>
-        <p class="text-gray-900">May 2024 – Jan 2025</p>
-      </div>
-      <div>
-        <h3 class="font-semibold text-gray-400 uppercase">Event Date</h3>
-        <p class="text-gray-900">October 2024</p>
-      </div>
-      <div>
-        <h3 class="font-semibold text-gray-400 uppercase">Location</h3>
-        <p class="text-gray-900">Teachers College, Columbia University – NYC</p>
-      </div>
-      <div>
-        <h3 class="font-semibold text-gray-400 uppercase">Role</h3>
-        <p class="text-gray-900">Marketing Campaigns Analyst</p>
-      </div>
-      <div>
-        <h3 class="font-semibold text-gray-400 uppercase">Team</h3>
-        <p class="text-gray-900">BRASA Global Board</p>
-      </div>
-      <div>
-        <h3 class="font-semibold text-gray-400 uppercase">Tools</h3>
-        <div class="flex flex-wrap gap-2 mt-2">
-          <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Instagram</span>
-          <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">TikTok</span>
-          <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">LinkedIn</span>
-          <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Meta Business</span>
-          <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">Canva</span>
+    <div class="step">
+      <div class="step-num">04</div>
+      <div class="step-content">
+        <div class="step-title">Post-Summit Campaign & Wrap</div>
+        <div class="step-body">
+          <p><strong>Recap content series:</strong> Produced a full post-summit content series — highlight reels, quote graphics, and a LinkedIn wrap-up post that drove the highest single-post engagement of the entire campaign cycle.</p>
+          <p><strong>Instagram community:</strong> The post-event campaign extended the Summit's energy for weeks after — with attendee reposts, speaker quotes, and community celebration content maintaining momentum well past October.</p>
+        </div>
+        <div class="img-2col" style="margin-top:1.5rem;">
+          <div class="img-frame"><img src="../images/summit 15.png" alt="Post-summit content"></div>
+          <div class="img-frame"><img src="../images/summit 5.jpeg" alt="Summit highlights"></div>
         </div>
       </div>
     </div>
   </div>
+</div>
 
-  <!-- Overview -->
-  <section class="py-20 bg-white">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-3xl font-bold mb-8">Overview</h2>
-      <p class="text-gray-600 mb-6">
-        As a Global Board Member and <strong>Marketing Campaigns Analyst</strong>, I led the entire communications strategy for the BRASA Summit Américas 2024—our largest conference yet. From campaign kickoff in May to on-site content during the event in October, I managed both creative direction and technical execution.
-      </p>
-      <p class="text-gray-600 mb-6 italic border-l-4 border-primary pl-4">
-        How do you turn a student-led conference into an international brand with real influence?
-      </p>
-      <p class="text-gray-600 mb-6">
-        I oversaw social media management, daily post scheduling, real-time analytics, and speaker marketing. During the event, I produced and published live updates, coordinated video/photo coverage, and led speaker logistics and team management on-site.
-      </p>
-
-      <ul class="list-disc pl-6 text-gray-600 space-y-4 mb-10">
-        <li>Led strategy and execution of the campaign from May to October 2024</li>
-        <li>Drove a <strong>520%</strong> increase in ticket link clicks and <strong>646%</strong> increase in reach</li>
-        <li>Produced content daily across Instagram, TikTok, LinkedIn, and Facebook</li>
-        <li>Generated over <strong>40,000 views</strong> and 568% increase in impressions</li>
-        <li>Managed telemarketing efforts that reached 50,000+ contacts</li>
-        <li>Handled on-site speaker relations, team logistics, and content publishing</li>
-      </ul>
+<div class="outro">
+  <div class="outro-inner">
+    <div class="section-label">Reflections</div>
+    <h2 class="section-h" style="font-size:1.8rem;">What I <em>learned.</em></h2>
+    <p class="body-text">This campaign taught me that the most powerful marketing isn't about shouting louder — it's about making people feel genuinely seen. The 520% surge didn't happen because we ran more ads. It happened because we made Brazilian students at US universities feel like the Summit was built for them.</p>
+    <p class="body-text">Leading an end-to-end campaign — from strategy through creative production to paid execution, telemarketing, live coverage, and post-event wrap — gave me a complete picture of what it actually takes to move people to action at scale. And doing it for a community I'm part of made every piece of content feel personal, not transactional.</p>
+    <div style="margin-top:2rem;display:flex;gap:1rem;flex-wrap:wrap;">
+      <a href="https://www.instagram.com/brasasummitamericas/" target="_blank" class="btn-fill"><i class="ri-instagram-line"></i> @brasasummitamericas</a>
+      <a href="../index.html#projects" class="btn-outline"><i class="ri-arrow-left-line"></i> All projects</a>
     </div>
-  </section>
+  </div>
+</div>
 
-  <!-- Campaign Images -->
-  <section class="bg-[#F9F7F3] py-20">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-3xl font-bold text-center mb-12">Campaign Highlights</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-        <img src="../images/summit 0.png" class="rounded-lg shadow-md" alt="Campaign Graphic" />
-        <img src="../images/summit 1.png" class="rounded-lg shadow-md" alt="Campaign Graphic" />
-        <img src="../images/summit 2.png" class="rounded-lg shadow-md" alt="Campaign Insights" />
-      </div>
-    </div>
-  </section>
-
-  <!-- Event Photos -->
-  <section class="bg-white py-20">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-3xl font-bold text-center mb-12">Summit in Action</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-        <img src="../images/summit 4.jpg" class="rounded-lg shadow-md" alt="Summit Photo" />
-        <img src="../images/summit 5.jpeg" class="rounded-lg shadow-md" alt="Summit Photo" />
-        <img src="../images/summit 6.jpeg" class="rounded-lg shadow-md" alt="Summit Photo" />
-        <img src="../images/summit 7.jpeg" class="rounded-lg shadow-md" alt="Summit Photo" />
-        <img src="../images/summit 9.jpg" class="rounded-lg shadow-md" alt="Summit Photo" />
-        <img src="../images/summit 10.jpg" class="rounded-lg shadow-md" alt="Summit Photo" />
-        <img src="../images/summit 11.jpg" class="rounded-lg shadow-md" alt="Summit Photo" />
-        <img src="../images/summit 12.jpeg" class="rounded-lg shadow-md" alt="Summit Photo" />
-        <img src="../images/summit 13.jpg" class="rounded-lg shadow-md" alt="Summit Photo" />
-        <img src="../images/summit 14.jpeg" class="rounded-lg shadow-md" alt="Summit Photo" />
-        <img src="../images/summit 15.png" class="rounded-lg shadow-md" alt="Summit Photo" />
-    </div>
-    </div>
-  </section>
-
-  <!-- Reflections -->
-  <section class="py-20 bg-[#F9F7F3]">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-3xl font-bold mb-6">Reflections</h2>
-      <p class="text-gray-700">
-        This project was the culmination of months of creativity, grit, and collaboration. Helping lead BRASA Summit to become the most successful event in its decade-long history was a career-defining experience. The content we created didn’t just promote an event—it built a movement.
-      </p>
-
-      <div class="mt-8">
-        <a href="https://www.instagram.com/brasasummitamericas/" target="_blank" class="inline-flex items-center gap-2 bg-primary text-black px-5 py-3 rounded-full text-sm font-medium shadow hover:bg-primary/90 transition">
-          <i class="ri-instagram-line text-lg"></i>
-          Explore more @brasasummitamericas
-        </a>
-      </div>
-    </div>
-  </section>
-
-</main>
+<div class="proj-nav-footer">
+  <div class="proj-nav-inner">
+    <a href="amazon-music.html" class="btn-outline" style="padding:0.6rem 1.5rem;font-size:0.8rem;"><i class="ri-arrow-left-line"></i> Amazon Music</a>
+    <div style="font-size:0.78rem;color:var(--gray);text-align:center;"><span style="font-weight:700;color:var(--black);">BRASA Summit 2024</span> · May – Oct 2024</div>
+    <a href="there4you.html" class="btn-outline" style="padding:0.6rem 1.5rem;font-size:0.8rem;">Next project <i class="ri-arrow-right-line"></i></a>
+  </div>
+</div>
+<footer><p><strong>Beatriz Aguiar Fonseca</strong> · Built with ♥ in Evanston &amp; SF · <a href="mailto:beatrizfonseca2027@u.northwestern.edu">beatrizfonseca2027@u.northwestern.edu</a></p></footer>
+<script>
+document.getElementById('navHamburger').addEventListener('click',function(){document.getElementById('navMobile').classList.toggle('open');});
+document.addEventListener('click',function(e){const n=document.getElementById('navMobile');if(!n.contains(e.target)&&!document.getElementById('navHamburger').contains(e.target)){n.classList.remove('open');}});
+</script>
 </body>
 </html>

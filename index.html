@@ -670,7 +670,7 @@ document.addEventListener('click',function(e){
   const ctx=canvas.getContext('2d');
   const W=360,H=360,R=160;
   canvas.width=W;canvas.height=H;
-  const cities=[{lat:-23.5,lon:-46.6,label:'São Paulo'},{lat:41.8,lon:-87.6,label:'Chicago'},{lat:43.7,lon:11.2,label:'Florence'},{lat:37.7,lon:-122.4,label:'San Francisco'},{lat:40.4,lon:-3.7,label:'Madrid'},{lat:37.4,lon:-122.0,label:'Sunnyvale'}];
+  const cities=[{lat:-23.5,lon:-46.6,label:'São Paulo'},{lat:41.8,lon:-87.6,label:'Chicago'},{lat:43.7,lon:11.2,label:'Florence'},{lat:37.7,lon:-122.4,label:'San Francisco'},{lat:40.4,lon:-3.7,label:'Madrid'}];
   function project(lat,lon,rot){const phi=(90-lat)*Math.PI/180,theta=(lon+rot)*Math.PI/180;const x=R*Math.sin(phi)*Math.cos(theta),y=R*Math.cos(phi),z=R*Math.sin(phi)*Math.sin(theta);return{x:W/2+x,y:H/2-y,z};}
   let rot=0;
   function draw(){
